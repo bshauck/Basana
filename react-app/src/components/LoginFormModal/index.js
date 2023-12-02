@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { login } from "../../store/session";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
-import "./LoginForm.css";
 
 function LoginFormModal() {
   const dispatch = useDispatch();
@@ -11,15 +10,20 @@ function LoginFormModal() {
   const [errors, setErrors] = useState([]);
   const { closeModal } = useModal();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     e.preventDefault();
     const data = await dispatch(login(email, password));
-    if (data) {
-      setErrors(data);
-    } else {
-        closeModal()
-    }
-  };
+    if (data.errors) setErrors(Object.values(data.errors));
+    else closeModal()
+  }
+
+  const handleDemoLogin = async () => {
+    setEmail('demo@aa.io')
+    setPassword('password')
+    const data = await dispatch(login('demo@aa.io', 'password'));
+    if (data.errors) setErrors(Object.values(data.errors));
+    else closeModal()
+  }
 
   return (
     <>
@@ -27,14 +31,15 @@ function LoginFormModal() {
       <form onSubmit={handleSubmit}>
         <ul>
           {errors.map((error, idx) => (
-            <li key={idx}>{error}</li>
+            <li className="error" key={idx}>{error}</li>
           ))}
         </ul>
         <label>
           Email
           <input
-            type="text"
+            type="email"
             value={email}
+            autoComplete="email"
             onChange={(e) => setEmail(e.target.value)}
             required
           />
@@ -43,15 +48,17 @@ function LoginFormModal() {
           Password
           <input
             type="password"
+            autoComplete="current-password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
         </label>
         <button type="submit">Log In</button>
+        <button type="button" onClick={handleDemoLogin}>Log in as Demo User</button>
       </form>
     </>
-  );
+  )
 }
 
-export default LoginFormModal;
+export default LoginFormModal

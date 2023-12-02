@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { login } from "../../store/session";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
-import './LoginForm.css';
 
 function LoginFormPage() {
   const dispatch = useDispatch();
@@ -16,8 +15,8 @@ function LoginFormPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = await dispatch(login(email, password));
-    if (data) {
-      setErrors(data);
+    if (data.errors) {
+      setErrors(data.errors);
     }
   };
 
@@ -35,6 +34,7 @@ function LoginFormPage() {
           <input
             type="text"
             value={email}
+            autoComplete="email"
             onChange={(e) => setEmail(e.target.value)}
             required
           />
@@ -44,6 +44,7 @@ function LoginFormPage() {
           <input
             type="password"
             value={password}
+            autoComplete="current-password"
             onChange={(e) => setPassword(e.target.value)}
             required
           />

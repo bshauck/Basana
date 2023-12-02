@@ -1,1 +1,612 @@
 /* TODO Add site wide styles */
+:root { /* Yantramanav?.  cf public/index.html */
+    --fontFamily: "Roboto", sans-serif ;
+    --fontSize: 14px ;
+    --headingSize: 24pt ;
+    --subheadingSize: 16pt ;
+    --subheadingWeight: 550 ;
+    --buttonBorderRadius: 10px ;
+    --imgBorderRadius: 14px ;
+    --modalBorderRadius: 15px ;
+    --inputBorderRadius: 5px ;
+    --cardBorderRadius: 15px ;
+    --headerHeight: 65px ;
+    --mainPaddingY: 20px ;
+    --mainPaddingX: 25px ;
+    --dropdownBorderRadius: 5px ;
+
+    --inputBackground: rgb(247,247,247) ;
+    --boxShadow: 5px -5px 20px rgba(0,0,0,1);
+    --dropdownBoxShadow: 5px 0px 15px rgba(0,0,0,1);
+    --boxShadowHover: 4px 4px darkgray ;
+    --accentGreen: rgb(0,255,100);
+    --borderColor: rgb(0,0,0);
+
+    --backgroundColor: rgb(37,38,40);
+    --backgroundAccent: rgb(50,50,50);
+
+    --sectionBackground: #1E1F21;
+    --detailsTopSectionColor: rgb(70,70,70);
+    --textColor: rgb(255,255,255);
+    --backgroundTextColor: rgb(210,210,210);
+    --buttonBackgroundColor: rgb(245,244,243);
+    --buttonTextColor: rgb(0,0,0);
+    --buttonBorder: 1px rgb(0,0,0) solid;
+    --buttonBackgroundAccent: rgb(230,230,230);
+    --lightBorder: 1px solid rgb(230,230,230);
+    --errorTextColor: rgb(255,100,100);
+
+    --spotifyDarkGrey: rgb(179, 179, 179);
+    --spotifyIconBackground: transparent;
+    --spotifyGreen: rgb(29,185,84);
+}
+
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0 ;
+	padding: 0 ;
+	border: 0 ;
+	font-size: 100% ;
+	font: inherit ;
+	vertical-align: baseline ;
+    /* background-color: var(--backgroundColor); */
+    /* color: var(--textColor); */
+}
+
+html, form {
+    background-color: var(--backgroundColor);
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+	display: block ;
+}
+body {
+	line-height: 1 ;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none ;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '' ;
+	content: none ;
+}
+table {
+	border-collapse: collapse ;
+	border-spacing: 0 ;
+}
+/* end of Eric Meyer's reset */
+html {
+    height: 100vh;/* Overrides 100% height in modern HTML5 browsers and uses the viewport's height. Only works in modern HTML5 browsers */
+}
+body {
+    height: auto; /* Allows content to grow beyond the page without overflow */
+    min-height: 100vh;/* Starts web page with 100% height. Uses the viewport's height. Only works in modern HTML5 browsers */
+    overflow-y: scroll;/* Optional: Adds an empty scrollbar to the right margin in case content grows vertically, creating a scrollbar.  Allows for better width calculations, as the browser pre-calculates width before scrollbar appears, avoiding page content shifting.*/
+}
+/* add progress cursor during db access */
+body.waiting * {
+    cursor: progress !important ;
+}
+i,button {
+    cursor: pointer ;
+}
+
+body {
+    box-sizing: border-box ;
+    font-family: var(--fontFamily) ;
+    font-size: var(--fontSize) ;
+}
+button { /* buttons sneakily ignore inheriting */
+    font-family: var(--fontFamily) ;
+    font-size: var(--fontSize) ;
+    border: var(--buttonBorder);
+    border-radius: var(--buttonBorderRadius);
+    width: 100%;
+    padding: 5px;
+    text-align: center;
+}
+
+button:hover {
+    background-color: var(--buttonBackgroundAccent);
+    font-weight: bold;
+}
+
+button,input,textarea {
+    background: var(--inputBackground) ;
+    box-sizing: border-box;
+}
+
+input,textarea {
+    padding: 5px;
+    width: 100% ;
+    border: none;
+    border-radius: var(--inputBorderRadius);
+}
+
+label:not(.normal-label) {
+    font-weight: bold ;
+}
+
+a {
+    text-decoration: none;
+}
+
+h1 {
+    font-size: var(--headingSize) ;
+}
+
+h2 {
+    font-size: var(--subheadingSize) ;
+    font-weight: var(--subheadingWeight) ;
+}
+
+.hidden {
+    display: none ;
+}
+
+.error,.errors {
+    color: var(--errorTextColor);
+}
+
+.PageGridContainer{
+    display: grid;
+    grid-template-areas:
+                        "header header header"
+                         "sidebar main main" ;
+    grid-template-columns: 1fr 5fr ;
+    grid-template-rows: 1fr 15fr ;
+    height: 100vh;
+    height: 100vh;
+    min-height: 100%;
+}
+
+.HeaderContainer{
+    grid-area: header;
+    width: 100%;
+    background-color: var(--sectionBackground);
+}
+
+.SiderBarContainer{
+    grid-area: sidebar;
+}
+
+.MainContainer{
+    grid-area: main;
+    background: linear-gradient(var(--backgroundAccent), var(--backgroundColor));
+}
+
+.background-text {
+    color: var(--backgroundTextColor)
+}
+
+/********************** NAVIGATION ************************* */
+.profile-button {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    border: var(--borderColor) 1px solid;
+    border-radius: var(--buttonBorderRadius);
+    padding: 0;
+    background-color: var(--buttonBackgroundColor);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.dividerProfileButtons {
+    min-height: 10px;
+}
+
+.userProfileImage{
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.fa-user-circle {
+    color: var(--backgroundColor);
+    background-color: var(--buttonBackgroundColor);
+    font-size: xx-large;
+}
+
+.profile-dropdown {
+  position: absolute;
+  right: 10px;
+  top: 53px;
+  border: var(--borderColor) 1px solid;
+  padding: 10px;
+  border-radius: var(--buttonBorderRadius);
+  background-color: var(--buttonBackgroundColor);
+  color: var(--buttonTextColor);
+  width: 100px;
+}
+
+.profile-dropdown>* {
+    background-color: var(--buttonBackgroundColor);
+    color: var(--buttonTextColor);
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.profile-dropdown>li {
+    pointer-events: none;
+}
+
+.logout-button {
+    margin-top: 10px;
+}
+
+.profile-button:hover {
+    background-color: var(--buttonBackgroundAccent);
+    .fa-user-circle {
+        background-color: var(--buttonBackgroundAccent);
+    }
+}
+
+.small-top-line {
+    border-top: 1px var(--detailsTopSectionColor) solid;
+}
+
+/*********** LOGIN / SIGNUP MODALs **********************/
+#modal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#modal-background {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+#modal-content {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    padding-top: 15px;
+    position: absolute;
+    background-color: var(--backgroundColor);
+    border-radius: var(--modalBorderRadius);
+    border: var(--lightBorder);
+    color: var(--textColor);
+    width: 300px;
+}
+#modal-content>form>button {
+    margin: 10px 0;
+}
+/************ end modal ****************/
+
+input {
+    margin: 10px 0;
+}
+
+input[type=file] {
+    background-color: var(--backgroundColor);
+}
+.custom-modal-button{
+    width: 150px;
+}
+
+/************************* HEADER ********************************/
+.HeaderStyle {
+    height: var(--headerHeight);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.LogoContainer{
+    cursor: pointer;
+    padding: 20px 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/****************** MAIN CONTAINER ***********************/
+
+.PlayListContainerMain{
+  width: 900px;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+  gap: 10px ;
+  flex-wrap: wrap;
+}
+
+.ContainerMainStyle{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.landingMainContainer{
+    display: grid;
+    grid-template-columns: repeat(4, 220px);
+    column-gap: 2.5%;
+    height: 100%;
+    margin-bottom: 25px;
+}
+
+.landing-container {
+    margin: var(--mainPaddingY) var(--mainPaddingX);
+}
+
+.landing-main-header {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.landing-main-header>a {
+    color: var(--backgroundTextColor)
+}
+
+.landing-main-header>a:hover {
+    font-weight: bold;
+    color: var(--textColor)
+}
+
+.landing-main-header>h2 {
+    font-weight: bold;
+}
+
+.AlbumCardContainermain, .PlaylistCardContainermain{
+    cursor: pointer;
+    border-radius: var(--cardBorderRadius);
+    background-color: var(--sectionBackground);
+    height: 240px;
+    display: flex;
+    width: 240px;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 15px;
+}
+
+.AlbumCardContainermain:hover, .PlaylistCardContainermain:hover {
+    background-color: var(--backgroundAccent);
+}
+
+/*************** ABOUT ************************/
+.aboutContainer>* {
+    padding: 5px;
+}
+
+.aboutContainer {
+    margin: 50px;
+    width: 900px;
+}
+
+/***************** DELETE MODAL ******************/
+.modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.7);
+  flex-direction: column;
+}
+
+.modal-content {
+  position: absolute;
+  background-color: var(--backgroundAccent);
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 20px;
+  text-align: center;
+}
+
+.modal-content > h1 {
+ color: var(--textColor);
+}
+
+.modal-content > p {
+    color: var(--textColor);
+    margin-bottom: 5px;
+   }
+
+.modalButtons {
+  display: flex;
+  flex-direction: column;
+}
+
+.deleteButton {
+  background: var(--accentGreen);
+  color: var(--buttonTextColor);
+  margin-right: 10px;
+  border-radius: 5px;
+  width: 300px;
+  height: 50px;
+  cursor: pointer;
+  box-shadow: 5px 2px 2px black;
+  margin-bottom: 10px;
+}
+
+.keepButton {
+  background: var(--spotifyDarkGrey);
+  color: var(--buttonTextColor);
+  border-radius: 5px;
+  width: 300px;
+  height: 50px;
+  cursor: pointer;
+  box-shadow: 5px 2px 2px black;
+}
+
+/* ******* DETAILS PAGES *************** */
+.no-bottom-radius {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.dropdown {
+    background-color: var(--backgroundAccent);
+    border-radius: var(--dropdownBorderRadius);
+    border: none;
+    z-index: 1;
+}
+
+.dropdown>li {
+    padding: 5px 0;
+}
+
+.user-options-dropdown {
+    margin-left: 20px;
+    padding: 5px;
+    width: 125px;
+}
+
+.user-options-dropdown>li {
+    height: 30px;
+}
+
+.dropdown .inactive {
+    pointer-events: none;
+    padding-left: 5px;
+}
+
+/********************** SIDEBAR ********************/
+.sidebar-container {
+    display: grid;
+    padding: 0 var(--mainPaddingX);
+}
+
+.fa-solid.fa-house, .fa-solid.fa-eye {
+    color: var(--backgroundTextColor);
+    text-align: left;
+    font-size: var(--fontSize);
+}
+
+.fa-solid.fa-house, .fa-solid.fa-eye {
+    margin-right: 15px;
+}
+
+.sidebar-library {
+    padding: 7px;
+}
+
+.fa-solid.fa-book, .library-text {
+    color: var(--backgroundTextColor);
+    margin-right: 15px;
+    margin-bottom: 7px;
+}
+
+.custom-modal-button, .sidebar-card-container>button {
+    background-color: var(--backgroundAccent);
+    width: 100%;
+    color: var(--backgroundTextColor);
+    padding: 10px;
+}
+
+.custom-modal-button:hover, .sidebar-card-container>button:hover {
+    background-color: var(--backgroundAccent);
+    color: var(--textColor);
+}
+
+.Active{
+    background-color: var(--backgroundAccent);
+    font-weight: bold;
+}
+
+.sideBarContainer {
+    margin-top: 7px;
+}
+
+.sidebar-card-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.sidebar-card-container>button {
+    margin: 3px;
+}
+
+
+/********************** FORMS ********************/
+
+.formsContainer{
+    padding: var(--mainPaddingY) var(--mainPaddingX);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.formsStyle{
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 400px;
+    height: 500px;
+    background-color: var(--spotifyIconBackground);
+}
+
+.formsSubmit{
+    background-color: var(--spotifyGreen);
+}
+
+.formsSubmit:hover {
+    background-color: var(--spotifyGreen);
+}
+
+.inputFileForm{
+    background-color: var(--spotifyIconBackground);
+}
+
+.formsStyle>div>h3 {
+    font-weight: bold;
+}
+
+.normal-label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.normal-label>span {
+    width: 100%;
+}

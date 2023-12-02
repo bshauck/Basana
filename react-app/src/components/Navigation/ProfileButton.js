@@ -47,9 +47,7 @@ function ProfileButton({ user }) {
           <>
             <li>{user.username}</li>
             <li>{user.email}</li>
-            <li>
-              <button onClick={handleLogout}>Log Out</button>
-            </li>
+            <button className="logout-button" onClick={handleLogout}>Log Out</button>
           </>
         ) : (
           <>
@@ -58,7 +56,7 @@ function ProfileButton({ user }) {
               onItemClick={closeMenu}
               modalComponent={<LoginFormModal />}
             />
-
+            <div className="dividerProfileButtons"></div>
             <OpenModalButton
               buttonText="Sign Up"
               onItemClick={closeMenu}
