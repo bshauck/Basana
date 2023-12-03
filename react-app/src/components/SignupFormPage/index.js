@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { signUp } from "../../store/session";
-import './SignupForm.css';
 
 function SignupFormPage() {
   const dispatch = useDispatch();
@@ -15,30 +14,29 @@ function SignupFormPage() {
 
   if (sessionUser) return <Redirect to="/" />;
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     e.preventDefault();
     if (password === confirmPassword) {
-        const data = await dispatch(signUp(username, email, password));
-        if (data) {
-          setErrors(data)
-        }
-    } else {
-        setErrors(['Confirm Password field must be the same as the Password field']);
-    }
+        const data = await dispatch(signUp({username, email, password}));
+        if (data.errors) setErrors(data.errors)
+    } else setErrors(['Confirm Password field must be the same as the Password field']);
   };
 
   return (
     <>
       <h1>Sign Up</h1>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit}
+        encType="multipart/form-data"
+      >
         <ul>
           {errors.map((error, idx) => <li key={idx}>{error}</li>)}
         </ul>
         <label>
           Email
           <input
-            type="text"
+            type="email"
             value={email}
+            autoComplete="email"
             onChange={(e) => setEmail(e.target.value)}
             required
           />
@@ -48,8 +46,15 @@ function SignupFormPage() {
           <input
             type="text"
             value={username}
+            autoComplete="username"
             onChange={(e) => setUsername(e.target.value)}
             required
+          />
+        </label>
+        <label>
+          Profile Picture (Optional)
+          <input
+            type="text"
           />
         </label>
         <label>
@@ -57,6 +62,7 @@ function SignupFormPage() {
           <input
             type="password"
             value={password}
+            autoComplete="new-password"
             onChange={(e) => setPassword(e.target.value)}
             required
           />
@@ -66,6 +72,7 @@ function SignupFormPage() {
           <input
             type="password"
             value={confirmPassword}
+            autoComplete="new-password"
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
           />
