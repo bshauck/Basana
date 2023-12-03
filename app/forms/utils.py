@@ -4,12 +4,10 @@ import botocore
 import os
 import uuid
 from io import BytesIO
-from mutagen.mp3 import MP3
 
 def error_message(key, string):
     errorMessages= {"errors":{key:[string]}}
     return errorMessages
-
 
 def error_messages(dictionary):
     return {"errors": dictionary}

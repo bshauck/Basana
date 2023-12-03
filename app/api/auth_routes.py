@@ -59,9 +59,11 @@ def sign_up():
     """
     Creates a new user and logs them in
     """
+    print('in signup route')
     form = SignUpForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
+        print('form validated')
         user = User(
             username=form.data['username'],
             email=form.data['email'],
@@ -71,7 +73,11 @@ def sign_up():
         db.session.commit()
         login_user(user)
         return user.to_dict()
-    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+    print('apparently errors in signup form')
+    print(form.errors)
+    print(form.data)
+    return {
+        'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
 @auth_routes.route('/unauthorized')
@@ -79,4 +85,4 @@ def unauthorized():
     """
     Returns unauthorized JSON when flask-login authentication fails
     """
-    return {'errors': ['Unauthorized']}, 401
+    return {'errors': {"login": ['Unauthorized']}}, 401

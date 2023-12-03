@@ -34,11 +34,8 @@ export const deletedUser = id => ({
 // THUNKS
 export const thunkGetAllUsers = () => async dispatch => {
     const url = `/api/users`
-    let answer = await fetchData(url)
-    if (!answer.errors) {
-        answer = answer.users
-        dispatch(gotAllUsers(answer))
-    }
+    const answer = await fetchData(url)
+    if (!answer.errors) dispatch(gotAllUsers(answer.users))
     return answer
 }
 
@@ -82,7 +79,7 @@ const userReducer = (state = initialState, action) => {
   switch (action.type) {
     case GOT_ALL_USERS: {
       const normalized = {}
-      action.users.forEach(a => normalized[a.id] = a)
+      action.users.forEach(user => normalized[user.id] = user)
       return normalized
     }
     case GOT_USER: // eslint-disable-next-line no-fallthrough

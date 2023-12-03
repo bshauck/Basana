@@ -3,7 +3,6 @@ from flask_login import login_required, current_user
 from app.models import Workspace, db
 from app.forms import WorkspaceForm, error_message, error_messages
 
-
 workspace_routes = Blueprint('workspaces', __name__)
 
 @workspace_routes.route('')
@@ -12,7 +11,9 @@ def get_all_workspaces():
     """
     Query for all Workspaces and returns them in a list of dictionaries
     """
+    print("DB: about to get all workspaces")
     workspaces = Workspace.query.all()
+    print("DB: workspaces", workspaces)
     return {"workspaces": [workspace.to_dict() for workspace in workspaces]}
 
 

@@ -12,7 +12,7 @@ function App() {
       <div className="PageGridContainer">
         <header className="HeaderContainer"><Header /></header>
         <div className="SideBarContainer"><SideBar /></div>
-        {/* <main className="MainContainer"><Main /></main> */}
+        <main className="MainContainer"><Main /></main>
       </div>
     </ContentLoadedProvider>
   );

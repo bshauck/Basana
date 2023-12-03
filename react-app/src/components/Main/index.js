@@ -1,14 +1,14 @@
 import { Route, Switch } from "react-router-dom";
 
-// import Landing from "./Landing";
+import Landing from "./Landing";
 
 
 export default function Main() {
     return (
         <Switch>
-            {/* <Route exact path="/">
+            <Route exact path="/">
                 <Landing/>
-            </Route> */}
+            </Route>
 
             <Route>
                 404 Page Not Found
