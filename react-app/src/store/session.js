@@ -35,13 +35,21 @@ export const logout = () => async dispatch => {
 }
 
 export const signUp = body => async dispatch => {
-	const headers = {}
-	if (body.profilePicture) headers["Content-Type"] = "multipart/form-data"
-	else body = JSON.stringify(body)
+	// body is FormData; pass along with no headers
+	console.log("signup", body)
+	if (!body.get("profilePicture")) {
+		console.log("no pic: JSON the body")
+		body = Object.fromEntries(body.entries())
+		console.log("signup body out of form", body)
+		body = JSON.stringify(body)
+		console.log("signup body json", body)
+		console.log("signup TYPEOF body", typeof body)
+	} else console.log("profile picture type", typeof body.get("profilePicture"), body.get("profilePicture"))
 	const answer = await fetchData("/api/auth/signup", {
 		method: "POST",
-		headers,
 		body })
+	console.log("signup answer", answer)
+	console.log("signup answer.errors", answer.errors)
 	if (!answer.errors) dispatch(setUser(answer))
 	return answer
 }

@@ -365,23 +365,23 @@ input[type=file] {
     margin: var(--mainPaddingY) var(--mainPaddingX);
 }
 
-.landing-main-header {
+.landing-header {
     margin-bottom: 15px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
 
-.landing-main-header>a {
+.landing-header>a {
     color: var(--backgroundTextColor)
 }
 
-.landing-main-header>a:hover {
+.landing-header>a:hover {
     font-weight: bold;
     color: var(--textColor)
 }
 
-.landing-main-header>h2 {
+.landing-header>h2 {
     font-weight: bold;
 }
 
