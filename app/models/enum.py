@@ -22,7 +22,6 @@ class Color(db.Model):
 #'list' 'board' 'calendar' 'timeline'
 class ViewType (db.Model):
     """Data model for ways to display task lists. Really should be an enum, but SQLAlchemy doesn't support that."""
-
     __tablename__ = 'view_type'
 
     if environment == "production":
@@ -40,10 +39,8 @@ class ViewType (db.Model):
 
 #('Pending', 'Approved', 'Rejected', 'Changes requested')
 #('On track', 'At risk', 'Off track', 'On hold', 'cCmpleted')
-
 class Status (db.Model):
     """Data model for project or task status. Really should be an enum, but SQLAlchemy doesn't support that."""
-
     __tablename__ = 'status'
 
     if environment == "production":
@@ -61,7 +58,6 @@ class Status (db.Model):
 
 class ProjectIcon (db.Model):
     """Data model for project icons. Really should be an enum, but SQLAlchemy doesn't support that."""
-
     __tablename__ = 'project_icon'
 
     if environment == "production":
