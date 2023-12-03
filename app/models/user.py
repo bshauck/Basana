@@ -6,31 +6,31 @@ from datetime import datetime
 
 
 
-# class Section(db.Model):
-#     __tablename__ = 'section'
+class Section(db.Model):
+    __tablename__ = 'section'
 
-#     if environment == "production":
-#         __table_args__ = {'schema': SCHEMA}
+    if environment == "production":
+        __table_args__ = {'schema': SCHEMA}
 
-#     id = db.Column(db.Integer, primary_key=True)
-#     projectId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('project.id')), nullable=False)
-#     name = db.Column(db.String(50), nullable=False)
-#     index = db.Column(db.Integer, nullable=False)
-#     createdAt = db.Column(db.String(24), nullable=False)
+    id = db.Column(db.Integer, primary_key=True)
+    projectId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('project.id')), nullable=False)
+    name = db.Column(db.String(50), nullable=False)
+    index = db.Column(db.Integer, nullable=False)
+    createdAt = db.Column(db.String(24), nullable=False)
 
-#     project = db.relationship(
-#         'Project',
-#         back_populates='sections'
-#     )
+    project = db.relationship(
+        'Project',
+        back_populates='sections'
+    )
 
-#     def to_dict(self):
-#         return {
-#             'id': self.id,
-#             'projectId': self.projectId,
-#             'name': self.name,
-#             'index': self.index,
-#             'createdAt': self.createdAt
-#         }
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'projectId': self.projectId,
+            'name': self.name,
+            'index': self.index,
+            'createdAt': self.createdAt
+        }
 
 
 user_member_project = db.Table(
@@ -51,10 +51,11 @@ class Project(db.Model):
     __tablename__ = 'project'
     myTaskProjectName = "My tasks"
 
-    # def __init__(self, **kwargs):
-    #     super().__init__(**kwargs)
-    #     db.session.commit()
-        # self.createSectionsForMyTask()
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        db.session.add(self)
+        db.session.commit() # because I need to create sections with the right projectId
+        self.createSectionsForMyTask()
 
 
     if environment == "production":
@@ -74,10 +75,10 @@ class Project(db.Model):
     due = db.Column(db.String(24))
     completed = db.Column(db.Boolean, default=False)
 
-    # sections = db.relationship(
-    #     'Section',
-    #     back_populates='project'
-    # )
+    sections = db.relationship(
+        'Section',
+        back_populates='project'
+    )
 
     members = db.relationship(
         "User",
@@ -95,13 +96,13 @@ class Project(db.Model):
         back_populates='projects'
     )
 
-    # def createSectionsForMyTask(self):
-    #     if self.name == self.myTaskProjectName:
-    #         timeNow = datetime.now()
-    #         self.sections.append(Section(projectId=self.id, name="Recently assigned", index=0, createdAt=timeNow))
-    #         self.sections.append(Section(projectId=self.id, name="Do today", index=1, createdAt=timeNow))
-    #         self.sections.append(Section(projectId=self.id, name="Do next week", index=2, createdAt=timeNow))
-    #         self.sections.append(Section(projectId=self.id, name="Do later", index=3, createdAt=timeNow))
+    def createSectionsForMyTask(self):
+        if self.name == self.myTaskProjectName:
+            timeNow = datetime.now()
+            self.sections.append(Section(projectId=self.id, name="Recently assigned", index=0, createdAt=timeNow))
+            self.sections.append(Section(projectId=self.id, name="Do today", index=1, createdAt=timeNow))
+            self.sections.append(Section(projectId=self.id, name="Do next week", index=2, createdAt=timeNow))
+            self.sections.append(Section(projectId=self.id, name="Do later", index=3, createdAt=timeNow))
 
     def to_dict(self):
         return {
@@ -133,7 +134,8 @@ class Workspace(db.Model):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        # db.session.flush()
+        db.session.add(self)
+        db.session.commit() # because I need to create a project with the right ownerId
         self.projects.append(self.createMyTaskProject(self.ownerId))
 
     def createMyTaskProject(self, userId):
@@ -208,6 +210,8 @@ class User(db.Model, UserMixin):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+        db.session.add(self)
+        db.session.commit() # because I need to create a workspace with the right ownerId
         if len(self.workspaces) == 0 and Workspace.query.filter_by(name=self.username + "'s team").first() is None :
             self.workspaces.append(Workspace(ownerId=self.id, name=self.username + "'s team"))
 
