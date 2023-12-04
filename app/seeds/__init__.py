@@ -2,6 +2,8 @@ from flask.cli import AppGroup
 from app.models.db import db, environment, SCHEMA
 from .enums import seed_enums, undo_enums
 from .users import seed_users, undo_users
+from .workspace import seed_workspaces, undo_workspaces
+from .project import seed_projects, undo_projects
 
 
 # Creates a seed group to hold our commands
@@ -11,6 +13,8 @@ seed_commands = AppGroup('seed')
 # Creates the `flask seed undo` command
 @seed_commands.command('undo')
 def undo():
+    undo_projects()
+    undo_workspaces()
     undo_users()
     undo_enums()
     # Add other undo functions here
@@ -25,4 +29,6 @@ def seed():
         undo()
     seed_enums()
     seed_users()
+    seed_workspaces()
+    seed_projects()
     # Add other seed functions here

@@ -1,6 +1,6 @@
-import React, { useState, useContext } from 'react';
+import { createContext, useContext, useState } from 'react';
 
-const ContentLoadedContext = React.createContext();
+const ContentLoadedContext = createContext();
 
 export function ContentLoadedProvider({ children }) {
   const [sidebarLoaded, setSidebarLoaded] = useState(false);

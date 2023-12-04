@@ -8,7 +8,7 @@ export default function Logo() {
     }
     return (
         <div className='LogoContainer' onClick={home}>
-            {/* <img className="spotifrog-logo" src="https://spotifrogmp3.s3.us-west-1.amazonaws.com/IMG_0034-1.png" alt="Spotifrog Logo"/> */}
+            {/* <img className="spotifrog-logo" src="https://spotifrogmp3.s3.us-west-1.amazonaws.com/IMG_0034-1.png" alt="Basana Logo"/> */}
             <h1>Basana</h1>
         </div>
     )
