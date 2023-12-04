@@ -104,13 +104,13 @@ const projectReducer = (state = initialState, action) => {
     }
     case GOT_USER_PROJECTS: {
       const normalized = {};
-      action.projects.forEach(a => normalized[a.id] = a);
+      action.projects.forEach(a => normalized[a.id] = {...a});
       return { ...state, ...normalized };
     }
     case GOT_PROJECT: // eslint-disable-next-line no-fallthrough
     case CREATED_PROJECT: // eslint-disable-next-line no-fallthrough
     case UPDATED_PROJECT:
-      return { ...state, [action.project.id]: action.project };
+      return { ...state, [action.project.id]: {...action.project} };
     case DELETED_PROJECT:
       const newState = { ...state };
       delete newState[action.id];

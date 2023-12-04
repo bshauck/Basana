@@ -1,6 +1,8 @@
 // src/components/SideBar/ProjectList.js
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { NavLink } from 'react-router-dom';
+
 import { thunkGetUserProjects } from '../../store/project';
 
 export default function ProjectList() {
@@ -27,7 +29,7 @@ export default function ProjectList() {
     <div className="project-list">
       <h3>Projects</h3>
       <ul>
-        {userProjects.map(project => <li key={project.id}>{`-----   ${project.name}`}</li>)}
+        {userProjects.map(p => (<NavLink key={p.id} to={`/projects/${p.id}`}> <li >{`-----   ${p.name}`}</li></NavLink>))}
       </ul>
     </div>
   )

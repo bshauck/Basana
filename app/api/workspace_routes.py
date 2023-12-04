@@ -35,7 +35,6 @@ def create_workspace():
     """
 
     form = WorkspaceForm()
-
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
@@ -48,10 +47,9 @@ def create_workspace():
         db.session.add(workspace)
         db.session.commit()
         return workspace.to_dict(), 201
-    elif form.errors:
-        return error_messages(form.errors), 401
-    else:
-        return error_message("unknown", "An unknown Error has occurred"), 500
+    else: # form.errors
+        return error_messages(form.errors), 400
+
 
 @workspace_routes.route('/<int:id>', methods=['PUT'])
 @login_required
@@ -61,20 +59,20 @@ def update_workspace(id):
     """
 
     workspace = Workspace.query.get(id)
+    if current_user.id != workspace.ownerId:
+        return {errors: {"user": ["Authorization Error"]}}, 403
 
     form = WorkspaceForm()
-
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
         workspace.name = form.name.data
         db.session.add(workspace)
         db.session.commit()
-        return workspace.to_dit(), 201
-    elif form.errors:
+        return workspace.to_dict(), 201
+    else: # form.errors
         return error_messages(form.errors), 401
-    else:
-        return error_message("unknown", "An unknown Error has occurred"), 500
+
 
 @workspace_routes.route('/<int:id>', methods=["DELETE"])
 @login_required
@@ -83,9 +81,8 @@ def delete_workspace(id):
     Deletes an workspace and returns a message if successfully deleted
     """
     workspace = Workspace.query.get(id)
-
-    if workspace.owner != current_user.id:
-        return error_message("user", "Authorization Error"), 403
+    if workspace.ownerId != current_user.id:
+        return {errors: {"user": ["Authorization Error"]}}, 403
 
     db.session.delete(workspace)
     db.session.commit()

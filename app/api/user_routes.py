@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify
-from flask_login import login_required
+from flask_login import login_required, current_user
 from app.models import User
 
 user_routes = Blueprint('users', __name__)
@@ -44,6 +44,6 @@ def user_workspaces(id):
     print ("DB: about to get user's workspaces")
     if current_user.id != id:
         return error_message("user","Unauthorized"), 403
-    workspaces = [workspace.to_dict() for workspace in current_user.workespaces]
+    workspaces = [workspace.to_dict() for workspace in current_user.workspaces]
     print("DB: workspaces", workspaces)
     return { "workspaces": workspaces }
