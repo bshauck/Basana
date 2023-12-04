@@ -8,6 +8,9 @@ user_member_workspace = db.Table(
     db.Column('workspaceId', db.Integer, db.ForeignKey(add_prefix_for_prod('workspace.id')), primary_key=True)
 )
 
+if environment == "production":
+    user_member_workspace.schema = SCHEMA
+
 
 class Workspace(db.Model):
     __tablename__ = 'workspace'
