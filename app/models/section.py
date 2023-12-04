@@ -10,7 +10,7 @@ class Section(db.Model):
     projectId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('project.id')), nullable=False)
     name = db.Column(db.String(50), nullable=False)
     index = db.Column(db.Integer, nullable=False)
-    createdAt = db.Column(db.String(24), nullable=False)
+    createdAt = db.Column(db.String(30), nullable=False)
 
     project = db.relationship(
         'Project',

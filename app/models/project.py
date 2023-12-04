@@ -38,8 +38,8 @@ class Project(db.Model):
     view = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('view_type.id')))
     description = db.Column(db.Text)
     public = db.Column(db.Boolean)
-    start = db.Column(db.String(24))
-    due = db.Column(db.String(24))
+    start = db.Column(db.String(30))
+    due = db.Column(db.String(30))
     completed = db.Column(db.Boolean, default=False)
 
     sections = db.relationship(
