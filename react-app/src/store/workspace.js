@@ -41,7 +41,7 @@ export const deletedWorkspace = id => ({
 
 // THUNKS
 export const thunkGetAllWorkspaces = () => async dispatch => {
-    const url = `/api/workspaces/`
+    const url = `/api/workspaces`
     let answer = await fetchData(url)
     if (!answer.errors) {
         answer = answer.workspaces

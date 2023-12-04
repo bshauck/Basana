@@ -41,7 +41,7 @@ export const deletedProject = id => ({
 
 // THUNKS
 export const thunkGetAllProjects = () => async dispatch => {
-    const url = `/api/projects/`
+    const url = `/api/projects`
     let answer = await fetchData(url)
     if (!answer.errors) {
         answer = answer.projects

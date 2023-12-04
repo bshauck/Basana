@@ -118,7 +118,9 @@ class Project(db.Model):
             'public': self.public,
             'start': self.start,
             'due': self.due,
-            'completed': self.completed
+            'completed': self.completed,
+            'members': [member.id for member in self.members],
+            'sections': [section.id for section in self.sections]
         }
 
 
@@ -191,7 +193,9 @@ class Workspace(db.Model):
         return {
             'id': self.id,
             'name': self.name,
-            'ownerId': self.ownerId
+            'ownerId': self.ownerId,
+            'teammates': [teammate.id for teammate in self.teammates],
+            'projects': [project.id for project in self.projects]
         }
 
 
@@ -254,5 +258,9 @@ class User(db.Model, UserMixin):
         return {
             'id': self.id,
             'username': self.username,
-            'email': self.email
+            'email': self.email,
+            'teams': [team.id for team in self.teams],
+            'projects': [project.id for project in self.projects],
+            'ownedProjects': [project.id for project in self.ownedProjects],
+            'workspaces': [workspace.id for workspace in self.workspaces]
         }

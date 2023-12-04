@@ -14,6 +14,7 @@
     --mainPaddingY: 20px ;
     --mainPaddingX: 25px ;
     --dropdownBorderRadius: 5px ;
+    --sidebarFontSize: 20px ;
 
     --inputBackground: rgb(247,247,247) ;
     --boxShadow: 5px -5px 20px rgba(0,0,0,1);
@@ -25,9 +26,11 @@
     --backgroundColor: rgb(37,38,40);
     --backgroundAccent: rgb(50,50,50);
 
+    --logoColor: white;
     --sectionBackground: #1E1F21;
     --detailsTopSectionColor: rgb(70,70,70);
-    --textColor: rgb(255,255,255);
+    --textColor: white;
+    --textOtherColor: rgb(255,255,255);
     --backgroundTextColor: rgb(210,210,210);
     --buttonBackgroundColor: rgb(245,244,243);
     --buttonTextColor: rgb(0,0,0);
@@ -35,10 +38,9 @@
     --buttonBackgroundAccent: rgb(230,230,230);
     --lightBorder: 1px solid rgb(230,230,230);
     --errorTextColor: rgb(255,100,100);
-
-    --spotifyDarkGrey: rgb(179, 179, 179);
-    --spotifyIconBackground: transparent;
-    --spotifyGreen: rgb(29,185,84);
+    --keepButtonColoor: rgb(179, 179, 179);
+    --modalBackgroundColor: rgba(0,0,0,0.7);
+    --iconBackground: transparent;
 }
 
 /* http://meyerweb.com/eric/tools/css/reset/
@@ -187,13 +189,16 @@ h2 {
     background-color: var(--sectionBackground);
 }
 
-.SiderBarContainer{
-    grid-area: sidebar;
+.SideBarContainer{
+    grid-area: sidebar ;
+    color: var(--textColor) ;
+    font-size: var(--sidebarFontSize) ;
 }
 
 .MainContainer{
     grid-area: main;
     background: linear-gradient(var(--backgroundAccent), var(--backgroundColor));
+    color: var(--textColor);
 }
 
 .background-text {
@@ -201,6 +206,7 @@ h2 {
 }
 
 /********************** NAVIGATION ************************* */
+
 .profile-button {
     position: absolute;
     right: 10px;
@@ -287,7 +293,7 @@ h2 {
     right: 0;
     left: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: var(--modalBackgroundColor);
 }
 #modal-content {
     display: flex;
@@ -326,6 +332,7 @@ input[type=file] {
 }
 
 .LogoContainer{
+    color: var(--logoColor);
     cursor: pointer;
     padding: 20px 25px;
     display: flex;
@@ -333,8 +340,7 @@ input[type=file] {
     justify-content: center;
 }
 
-
-/****************** MAIN CONTAINER ***********************/
+/****************** MAIN CONTAINERS ***********************/
 
 .PlayListContainerMain{
   width: 900px;
@@ -465,7 +471,7 @@ input[type=file] {
 }
 
 .keepButton {
-  background: var(--spotifyDarkGrey);
+  background: var(--keepButtonColoor);
   color: var(--buttonTextColor);
   border-radius: 5px;
   width: 300px;
@@ -582,19 +588,19 @@ input[type=file] {
     gap: 10px;
     width: 400px;
     height: 500px;
-    background-color: var(--spotifyIconBackground);
+    background-color: var(--iconBackground);
 }
 
 .formsSubmit{
-    background-color: var(--spotifyGreen);
+    background-color: var(--accentGreen);
 }
 
 .formsSubmit:hover {
-    background-color: var(--spotifyGreen);
+    background-color: var(--accentGreen);
 }
 
 .inputFileForm{
-    background-color: var(--spotifyIconBackground);
+    background-color: var(--iconBackground);
 }
 
 .formsStyle>div>h3 {
