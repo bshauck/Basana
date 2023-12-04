@@ -3,7 +3,7 @@ from datetime import datetime
 
 
 class Task(db.Model):
-    __tablename__ = 'tasks'
+    __tablename__ = 'task'
 
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}

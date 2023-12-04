@@ -2,12 +2,17 @@ from .db import db, environment, SCHEMA, add_prefix_for_prod
 from datetime import datetime
 from .section import Section
 
+
 user_member_project = db.Table(
     'user_member_project',
     db.Model.metadata,
     db.Column('userId', db.Integer, db.ForeignKey(add_prefix_for_prod('user.id')), primary_key=True),
     db.Column('projectId', db.Integer, db.ForeignKey(add_prefix_for_prod('project.id')), primary_key=True)
 )
+
+if environment == "production":
+    user_member_project.schema = SCHEMA
+
 
 class Project(db.Model):
     __tablename__ = 'project'
