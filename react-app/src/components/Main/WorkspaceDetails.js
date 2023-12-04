@@ -9,12 +9,11 @@ export default function WorkspaceDetails({ workspace }) {
   const dispatch = useDispatch();
   const currentUser = useSelector(state => state.session.user);
   // const workspaces = Object.values(useSelector(state => state.workspaces));
-  const { workspaceId } = useState(useParams());
+  const { workspaceId } = useParams();
   const allNormalizedWorkspaces = useSelector(state => state.workspaces);
   const allWorkspaces = Object.values(allNormalizedWorkspaces)
   const displayWorkspace = useSelector(state => state.workspaces[workspaceId]);
   const workspaceIds = useSelector(state => state.session.user?.workspaces);
-  const [silly, setSilly] = useState(0);
 
   const [ref] = useState({});
   const rKey = 'workspaces';
@@ -23,15 +22,15 @@ export default function WorkspaceDetails({ workspace }) {
 
 
 
-  useEffect(() => {
-    if (!currentUser) return null;
-    dispatch(thunkGetUserWorkspaces(currentUser.id));
-  } , [dispatch, currentUser, displayWorkspace]);
+  // useEffect(() => {
+  //   if (!currentUser) return null;
+  //   dispatch(thunkGetUserWorkspaces(currentUser.id));
+  // } , [dispatch, currentUser, displayWorkspace]);
 
   console.log('WDetails workspaceIds', workspaceIds, 'displayWorkspace', displayWorkspace)
 
 
-  if (currentUser !== workspaceIds) return <h1>SURPRISE W  <WorkspaceMenu /></h1>
+  if (currentUser !== workspaceIds) return (<h1>{`Hello W ${workspaceId}`} <WorkspaceMenu /></h1>)
 
 
   if (!currentUser) return null;
@@ -42,10 +41,6 @@ export default function WorkspaceDetails({ workspace }) {
     return null;
   } else if (ref[rKey]) delete ref[rKey]
 
-  if (silly < 5)
-  setInterval(() => {
-    setSilly(prev => prev + 1)
-  }, 1000);
 
   let mapWorkspace = displayWorkspace
 

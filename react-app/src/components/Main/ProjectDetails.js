@@ -8,7 +8,7 @@ import ProjectMenu from "./ProjectMenu";
 export default function ProjectDetails({ project }) {
   const dispatch = useDispatch();
   const currentUser = useSelector(state => state.session.user);
-  const { projectId } = useState(useParams());
+  const { projectId } = useParams();
   const displayProject = useSelector(state => state.projects[projectId]);
 
   const projectIds = useSelector(state => state.session.user?.projects);
@@ -18,7 +18,7 @@ export default function ProjectDetails({ project }) {
 
   console.log('PDetails projectIds', projectIds, 'displayProject', displayProject)
 
-  if (projectId !== ref) return <h1>SURPRISE P <ProjectMenu /></h1>
+  if (projectId !== ref) return (<h1>{`Surprise P ${projectId}`} <ProjectMenu /></h1>)
 
   if (!currentUser) return null;
 
