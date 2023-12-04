@@ -46,7 +46,7 @@ def upgrade():
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('type')
     )
-    op.create_table('user',
+    op.create_table('userb',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('username', sa.String(length=40), nullable=False),
     sa.Column('email', sa.String(length=255), nullable=False),
@@ -54,8 +54,7 @@ def upgrade():
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('email'),
     sa.UniqueConstraint('username')
-    )
-    op.create_table('workspace',
+    )    op.create_table('workspace',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('ownerId', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=50), nullable=False),
@@ -115,7 +114,7 @@ def upgrade():
         op.execute(f"ALTER TABLE project_icon SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE status SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE view_type SET SCHEMA {SCHEMA};")
-        op.execute(f"ALTER TABLE user SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE userb SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE workspace SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE user_member_workspace SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE project SET SCHEMA {SCHEMA};")
@@ -131,7 +130,7 @@ def downgrade():
     op.drop_table('project')
     op.drop_table('user_member_workspace')
     op.drop_table('workspace')
-    op.drop_table('user')
+    op.drop_table('userb')
     op.drop_table('view_type')
     op.drop_table('status')
     op.drop_table('project_icon')
