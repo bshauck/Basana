@@ -1,5 +1,8 @@
 # app/models/__init__.py
 from .db import db, environment, SCHEMA
 from .enum import ViewType, Status, ProjectIcon, Color
-from .user import Section, Project, User, Workspace, user_member_workspace
+from .user import User
+from .workspace import Workspace
+from .project import  Project
+from .section import Section
 from .task import Task
