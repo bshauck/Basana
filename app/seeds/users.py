@@ -1,4 +1,4 @@
-from app.models import db, User, environment, SCHEMA, Project, Workspace
+from app.models import db, User, environment, SCHEMA
 from sqlalchemy.sql import text
 
 # cannot do bulk inserts due to need to encrypt passwords
@@ -46,7 +46,7 @@ def seed_users():
 # it will reset the primary keys for you as well.
 def undo_users():
     if environment == "production":
-        db.session.execute(f"TRUNCATE table {SCHEMA}.user RESTART IDENTITY CASCADE;")
+        db.session.execute(f"TRUNCATE table {SCHEMA}.userb RESTART IDENTITY CASCADE;")
     else:
-        db.session.execute(text("DELETE FROM user"))
+        db.session.execute(text("DELETE FROM userb"))
     db.session.commit()

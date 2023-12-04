@@ -6,7 +6,7 @@ from .workspace import Workspace, user_member_workspace
 from .project import user_member_project
 
 class User(db.Model, UserMixin):
-    __tablename__ = 'user'
+    __tablename__ = 'userb'
 
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}

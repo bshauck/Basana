@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: b526f54b82d3
+Revision ID: 8597bd285aa5
 Revises: 
-Create Date: 2023-12-04 14:16:22.971931
+Create Date: 2023-12-04 15:00:40.616848
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'b526f54b82d3'
+revision = '8597bd285aa5'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -36,7 +36,7 @@ def upgrade():
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('state')
     )
-    op.create_table('user',
+    op.create_table('userb',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('username', sa.String(length=40), nullable=False),
     sa.Column('email', sa.String(length=255), nullable=False),
@@ -55,7 +55,7 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('ownerId', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=50), nullable=False),
-    sa.ForeignKeyConstraint(['ownerId'], ['user.id'], ),
+    sa.ForeignKeyConstraint(['ownerId'], ['userb.id'], ),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('name')
     )
@@ -75,7 +75,7 @@ def upgrade():
     sa.Column('completed', sa.Boolean(), nullable=True),
     sa.ForeignKeyConstraint(['color'], ['color.id'], ),
     sa.ForeignKeyConstraint(['icon'], ['project_icon.id'], ),
-    sa.ForeignKeyConstraint(['ownerId'], ['user.id'], ),
+    sa.ForeignKeyConstraint(['ownerId'], ['userb.id'], ),
     sa.ForeignKeyConstraint(['status'], ['status.id'], ),
     sa.ForeignKeyConstraint(['view'], ['view_type.id'], ),
     sa.ForeignKeyConstraint(['workspaceId'], ['workspace.id'], ),
@@ -84,7 +84,7 @@ def upgrade():
     op.create_table('user_member_workspace',
     sa.Column('userId', sa.Integer(), nullable=False),
     sa.Column('workspaceId', sa.Integer(), nullable=False),
-    sa.ForeignKeyConstraint(['userId'], ['user.id'], ),
+    sa.ForeignKeyConstraint(['userId'], ['userb.id'], ),
     sa.ForeignKeyConstraint(['workspaceId'], ['workspace.id'], ),
     sa.PrimaryKeyConstraint('userId', 'workspaceId')
     )
@@ -110,7 +110,7 @@ def upgrade():
     sa.Column('userId', sa.Integer(), nullable=False),
     sa.Column('projectId', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['projectId'], ['project.id'], ),
-    sa.ForeignKeyConstraint(['userId'], ['user.id'], ),
+    sa.ForeignKeyConstraint(['userId'], ['userb.id'], ),
     sa.PrimaryKeyConstraint('userId', 'projectId')
     )
     # ### end Alembic commands ###
@@ -125,7 +125,7 @@ def downgrade():
     op.drop_table('project')
     op.drop_table('workspace')
     op.drop_table('view_type')
-    op.drop_table('user')
+    op.drop_table('userb')
     op.drop_table('status')
     op.drop_table('project_icon')
     op.drop_table('color')
