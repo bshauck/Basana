@@ -9,7 +9,7 @@ class Color(db.Model):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(14), nullable=False, unique=True)
+    name = db.Column(db.String(15), nullable=False, unique=True)
 
     def to_dict(self):
         return {
@@ -47,7 +47,7 @@ class Status (db.Model):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    state = db.Column(db.String(16), nullable=False, unique=True)
+    state = db.Column(db.String(17), nullable=False, unique=True)
 
     def to_dict(self):
         return {
