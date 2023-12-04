@@ -19,7 +19,7 @@ class Workspace(db.Model):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    ownerId = db.Column(db.Integer, db.ForeignKey('userb.id'), nullable=False)
+    ownerId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('userb.id')), nullable=False)
     name = db.Column(db.String(50), nullable=False, unique=True)
 
     def __init__(self, **kwargs):

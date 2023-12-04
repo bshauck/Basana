@@ -4,6 +4,7 @@ from .db import db, environment, SCHEMA
 class Color(db.Model):
     """Data model for colors. Really should be an enum, but SQLAlchemy doesn't support that."""
     __tablename__ = 'color'
+    maxIndex = 19
 
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}
@@ -23,6 +24,7 @@ class Color(db.Model):
 class ViewType (db.Model):
     """Data model for ways to display task lists. Really should be an enum, but SQLAlchemy doesn't support that."""
     __tablename__ = 'view_type'
+    maxIndex = 4
 
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}
@@ -38,10 +40,11 @@ class ViewType (db.Model):
 
 
 #('Pending', 'Approved', 'Rejected', 'Changes requested')
-#('On track', 'At risk', 'Off track', 'On hold', 'cCmpleted')
+#('On track', 'At risk', 'Off track', 'On hold', 'Completed')
 class Status (db.Model):
     """Data model for project or task status. Really should be an enum, but SQLAlchemy doesn't support that."""
     __tablename__ = 'status'
+    maxIndex = 9
 
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}
@@ -59,6 +62,7 @@ class Status (db.Model):
 class ProjectIcon (db.Model):
     """Data model for project icons. Really should be an enum, but SQLAlchemy doesn't support that."""
     __tablename__ = 'project_icon'
+    maxIndex = 33
 
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}

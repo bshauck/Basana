@@ -10,15 +10,15 @@ class Task(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     projectId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('project.id')), nullable=False)
-    description = db.Column(db.Text)
-    start = db.Column(db.String(30))
-    due = db.Column(db.String(30))
+    description = db.Column(db.Text, nullable=False)
+    status = db.Column(db.Integer, nullable=True, default=1, db.ForeignKey(add_prefix_for_prod('status.id')))
+    start = db.Column(db.Date, nullable=True)
+    due = db.Column(db.Date, nullable=True)
 
     def to_dict(self):
         return {
             'id': self.id,
             'projectId': self.projectId,
-             'view': self.view,
             'description': self.description,
             'start': self.start,
             'due': self.due,

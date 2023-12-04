@@ -48,10 +48,9 @@ def create_task():
         db.session.add(task)
         db.session.commit()
         return task.to_dict(), 201
-    elif form.errors:
-        return error_messages(form.errors), 401
-    else:
-        return error_message("unknown", "An unknown Error has occurred"), 500
+    else:  # form.errors
+        return error_messages(form.errors), 400
+
 
 @task_routes.route('/<int:id>', methods=['PUT'])
 @login_required
@@ -70,10 +69,9 @@ def update_task(id):
         db.session.add(task)
         db.session.commit()
         return task.to_dict(), 201
-    elif form.errors:
-        return error_messages(form.errors), 401
-    else:
-        return error_message("unknown", "An unknown Error has occurred"), 500
+    else:  # form.errors
+        return error_messages(form.errors), 400
+
 
 @task_routes.route('/<int:id>', methods=["DELETE"])
 @login_required
