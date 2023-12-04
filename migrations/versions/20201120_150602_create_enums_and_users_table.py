@@ -81,8 +81,8 @@ def upgrade():
     sa.Column('view', sa.Integer(), nullable=True),
     sa.Column('description', sa.Text(), nullable=True),
     sa.Column('public', sa.Boolean(), nullable=True),
-    sa.Column('start', sa.String(length=24), nullable=True),
-    sa.Column('due', sa.String(length=24), nullable=True),
+    sa.Column('start', sa.String(length=30), nullable=True),
+    sa.Column('due', sa.String(length=30), nullable=True),
     sa.Column('completed', sa.Boolean(), nullable=True),
     sa.ForeignKeyConstraint(['color'], ['color.id'], ),
     sa.ForeignKeyConstraint(['icon'], ['project_icon.id'], ),
@@ -104,7 +104,7 @@ def upgrade():
     sa.Column('projectId', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=50), nullable=False),
     sa.Column('index', sa.Integer(), nullable=False),
-    sa.Column('createdAt', sa.String(length=24), nullable=False),
+    sa.Column('createdAt', sa.String(length=30), nullable=False),
     sa.ForeignKeyConstraint(['projectId'], ['project.id'], ),
     sa.PrimaryKeyConstraint('id')
     )

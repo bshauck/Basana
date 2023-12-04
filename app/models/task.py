@@ -11,8 +11,8 @@ class Task(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     projectId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('project.id')), nullable=False)
     description = db.Column(db.Text)
-    start = db.Column(db.String(24))
-    due = db.Column(db.String(24))
+    start = db.Column(db.String(30))
+    due = db.Column(db.String(30))
 
     def to_dict(self):
         return {
