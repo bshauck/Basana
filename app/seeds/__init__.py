@@ -13,9 +13,9 @@ seed_commands = AppGroup('seed')
 # Creates the `flask seed undo` command
 @seed_commands.command('undo')
 def undo():
-    undo_projects()
-    undo_workspaces()
-    undo_users()
+    # undo_projects()
+    # undo_workspaces()
+    # undo_users()
     undo_enums()
     # Add other undo functions here
 
@@ -28,7 +28,7 @@ def seed():
         # the schema name (see comment in users.py undo_users function).
         undo()
     seed_enums()
-    seed_users()
-    seed_workspaces()
-    seed_projects()
+    # seed_users()
+    # seed_workspaces()
+    # seed_projects()
     # Add other seed functions here
