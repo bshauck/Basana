@@ -54,7 +54,8 @@ def upgrade():
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('email'),
     sa.UniqueConstraint('username')
-    )    op.create_table('workspace',
+    )
+    op.create_table('workspace',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('ownerId', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=50), nullable=False),
