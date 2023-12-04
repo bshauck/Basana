@@ -1,21 +1,38 @@
-import { useSelector, useDispatch } from "react-redux";
-import { thunkGetUserProjects } from "../../store/project";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 
-export default function MainProject() {
+import { thunkGetUserProjects } from "../../store/project";
+import ProjectMenu from "./ProjectMenu";
+
+export default function ProjectDetails({ project }) {
   const dispatch = useDispatch();
-  const projects = Object.values(useSelector(state => state.projects));
-  const projectIds = useSelector(state => state.session.user.projects);
+  const currentUser = useSelector(state => state.session.user);
+  const { projectId } = useState(useParams());
+  const displayProject = useSelector(state => state.projects[projectId]);
+
+  const projectIds = useSelector(state => state.session.user?.projects);
+  const [ref] = useState({});
   const rKey = 'projects';
 
+
+  console.log('PDetails projectIds', projectIds, 'displayProject', displayProject)
+
+  if (projectId !== ref) return <h1>SURPRISE P <ProjectMenu /></h1>
+
+  if (!currentUser) return null;
+
   if (!Array.isArray(projectIds) || !projectIds.length) {
-    if (!ref[rKey]) ref[rKey] = dispatch(thunkGetUserProjects());
-    // else if (ref[rKey]?.errors) delete ref[rKey]
+    if (!ref[rKey]) ref[rKey] = dispatch(thunkGetUserProjects(currentUser.id));
+    else if (ref[rKey]?.errors) console.errors(ref[rKey].errors)
     return null;
   } else if (ref[rKey]) delete ref[rKey]
 
-  const userProjects = projects.filter(w => projectIds.includes(w.id));
+  if (!displayProject) return null;
 
-  const displayProject = userProjects[0];
+  console.log('PDetails rendingering ', projectId, displayProject)
+
+
 
   return (
     <div className="project-main">

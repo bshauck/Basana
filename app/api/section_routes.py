@@ -35,7 +35,6 @@ def create_section():
     """
 
     form = SectionForm()
-
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
@@ -48,10 +47,8 @@ def create_section():
         db.session.add(section)
         db.session.commit()
         return section.to_dict(), 201
-    elif form.errors:
-        return error_messages(form.errors), 401
-    else:
-        return error_message("unknown", "An unknown Error has occurred"), 500
+    else: # form.errors
+        return {'errors': form.errors}, 401
 
 @section_routes.route('/<int:id>', methods=['PUT'])
 @login_required
@@ -63,18 +60,15 @@ def update_section(id):
     section = Section.query.get(id)
 
     form = SectionForm()
-
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
         section.name = form.name.data
         db.session.add(section)
         db.session.commit()
-        return section.to_dit(), 201
-    elif form.errors:
+        return section.to_dict(), 201
+    else: # form.errors
         return error_messages(form.errors), 401
-    else:
-        return error_message("unknown", "An unknown Error has occurred"), 500
 
 @section_routes.route('/<int:id>', methods=["DELETE"])
 @login_required
@@ -85,7 +79,7 @@ def delete_section(id):
     section = Section.query.get(id)
 
     if section.owner != current_user.id:
-        return error_message("user", "Authorization Error"), 403
+        return {'errors': {"user", ["Authorization Error"]}}, 403
 
     db.session.delete(section)
     db.session.commit()

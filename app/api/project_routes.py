@@ -61,20 +61,20 @@ def update_project(id):
     """
 
     project = Project.query.get(id)
+    if current_user.id != project.ownerId:
+        return {errors: {"user": ["Authorization Error"]}}, 403
 
     form = ProjectForm()
-
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
         project.name = form.name.data
         db.session.add(project)
         db.session.commit()
-        return project.to_dit(), 201
+        return project.to_dict(), 201
     elif form.errors:
         return error_messages(form.errors), 401
-    else:
-        return error_message("unknown", "An unknown Error has occurred"), 500
+
 
 @project_routes.route('/<int:id>', methods=["DELETE"])
 @login_required

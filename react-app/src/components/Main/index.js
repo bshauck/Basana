@@ -1,3 +1,4 @@
+// src/components/Main/index.js
 import { Route, Switch } from "react-router-dom";
 
 import Landing from "./Landing";

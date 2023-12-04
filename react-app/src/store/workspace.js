@@ -98,18 +98,18 @@ const workspaceReducer = (state = initialState, action) => {
   switch (action.type) {
     case GOT_ALL_WORKSPACES: {
       const normalized = {};
-      action.workspaces.forEach(a => normalized[a.id] = a);
+      action.workspaces.forEach(w => normalized[w.id] = {...w});
       return normalized;
     }
     case GOT_USER_WORKSPACES: {
       const normalized = {};
-      action.workspaces.forEach(a => normalized[a.id] = a);
+      action.workspaces.forEach(w => normalized[w.id] = {...w});
       return { ...state, ...normalized };
     }
     case GOT_WORKSPACE: // eslint-disable-next-line no-fallthrough
     case CREATED_WORKSPACE: // eslint-disable-next-line no-fallthrough
     case UPDATED_WORKSPACE:
-      return { ...state, [action.workspace.id]: action.workspace };
+      return { ...state, [action.workspace.id]: {...action.workspace} };
     case DELETED_WORKSPACE:
       const newState = { ...state };
       delete newState[action.id];

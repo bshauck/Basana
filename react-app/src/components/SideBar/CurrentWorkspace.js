@@ -1,6 +1,8 @@
 // src/components/SideBar/CurrentWorkspace.js
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { NavLink } from 'react-router-dom';
+
 import { thunkGetUserWorkspaces } from '../../store/workspace';
 
 export default function ProjectList() {
@@ -27,7 +29,7 @@ export default function ProjectList() {
       <h3>Team</h3>
       <ul>
         {/* <li key={displayWorkspace.id}>{`-----   ${displayWorkspace.name}`}</li> */}
-        {userWorkspaces.map(w => <li key={w.id}>{`-----   ${w.name}`}</li>)}
+        {userWorkspaces.map(w => (<NavLink key={w.id} to={`/workspaces/${w.id}`}> <li >{`-----   ${w.name}`}</li></NavLink>))}
 
       </ul>
     </div>

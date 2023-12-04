@@ -4,8 +4,6 @@ from flask_login import UserMixin
 from datetime import datetime
 
 
-
-
 class Section(db.Model):
     __tablename__ = 'section'
 
@@ -222,7 +220,7 @@ class User(db.Model, UserMixin):
     ownedProjects = db.relationship(
         "Project",
         back_populates="owner",
-        cascade="all, delete-orphan"
+        cascade="all, delete"
     )
 
     projects = db.relationship(
@@ -234,7 +232,7 @@ class User(db.Model, UserMixin):
     workspaces = db.relationship(
         "Workspace",
         back_populates="owner",
-        cascade="all, delete-orphan"
+        cascade="all, delete"
     )
 
     teams = db.relationship(
