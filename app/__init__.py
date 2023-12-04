@@ -45,6 +45,12 @@ Migrate(app, db)
 # Application Security
 CORS(app)
 
+# testing reading environment variables
+print(os.getenv('DATABASE_URL'))
+print(os.getenv('SCHEMA'))
+print(os.getenv('FLASK_ENV'))
+
+
 
 # Since we are deploying with Docker and Flask,
 # we won't be using a buildpack when we deploy to Heroku.
