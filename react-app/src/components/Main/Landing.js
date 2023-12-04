@@ -1,24 +1,41 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { thunkGetAllUsers } from "../../store/user";
 import { thunkGetAllWorkspaces } from "../../store/workspace";
+import { thunkGetAllProjects } from "../../store/project";
+import { thunkGetAllSections } from "../../store/section";
+// import { thunkGetAllTasks } from "../../store/task";
 
 export default function Landing() {
   const dispatch = useDispatch();
   const users = Object.values(useSelector(state => state.users));
   const workspaces = Object.values(useSelector(state => state.workspaces));
+  const projects = Object.values(useSelector(state => state.projects));
 
-  useEffect(() => {
-    dispatch(thunkGetAllUsers());
-    // dispatch(thunkGetAllWorkspaces());
+  useEffect(() => { /* for this page we only need current user things, but
+  let's make sure we can read everything */
+    dispatch(thunkGetAllSections());
+    // dispatch(thunkGetAllTasks()); /* none yet */
   }, [dispatch]);
 
-  /* We will need to show possible collaborators on main page, and
-   * current user's workspaces in the profile menu
-   */
-  if (!(users && users.length) /* || !(workspaces && workspaces.length) */)
+  const [ref] = useState({});
+  if (!Array.isArray(users) || !users.length) {
+    if (!ref['users']) ref['users'] = dispatch(thunkGetAllUsers());
     return null;
+  } else if (ref['users']) delete ref['users']
+
+  if (!Array.isArray(workspaces) || !workspaces.length) {
+    if (!ref['workspaces']) ref['workspaces'] = dispatch(thunkGetAllWorkspaces());
+    return null;
+  } else if (ref['workspaces']) delete ref['workspaces']
+
+  if (!Array.isArray(projects) || !projects.length) {
+    if (!ref['projects']) ref['projects'] = dispatch(thunkGetAllProjects());
+    return null;
+  } else if (ref['projects']) delete ref['projects']
+
+
 
   return (
     <div className="landing-container">

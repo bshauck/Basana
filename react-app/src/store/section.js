@@ -41,7 +41,7 @@ export const deletedSection = id => ({
 
 // THUNKS
 export const thunkGetAllSections = () => async dispatch => {
-    const url = `/api/sections/`
+    const url = `/api/sections`
     let answer = await fetchData(url)
     if (!answer.errors) {
         answer = answer.sections

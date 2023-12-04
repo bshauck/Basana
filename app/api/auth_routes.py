@@ -64,11 +64,23 @@ def sign_up():
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         print('form validated')
-        user = User(
+        user_data = dict(
             username=form.data['username'],
             email=form.data['email'],
             password=form.data['password']
         )
+
+        # if form.data["profilePicture"]:
+        #     image = form.profilePicture.data
+        #     image.filename = get_unique_filename(image.filename)
+        #     upload = upload_file_to_s3(image)
+
+        #     if "url" not in upload:
+        #         return error_messages({"profilePicture": upload["errors"]}), 500
+
+        #     user_data["profilePictureUrl"] = upload["url"]
+
+        user = User(**user_data)
         db.session.add(user)
         db.session.commit()
         login_user(user)
@@ -76,8 +88,7 @@ def sign_up():
     print('apparently errors in signup form')
     print(form.errors)
     print(form.data)
-    return {
-        'errors': validation_errors_to_error_messages(form.errors)}, 401
+    return {'errors': form.errors}, 401
 
 
 @auth_routes.route('/unauthorized')

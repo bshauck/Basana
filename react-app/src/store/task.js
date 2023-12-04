@@ -41,7 +41,7 @@ export const deletedTask = id => ({
 
 // THUNKS
 export const thunkGetAllTasks = () => async dispatch => {
-    const url = `/api/tasks/`
+    const url = `/api/tasks`
     let answer = await fetchData(url)
     if (!answer.errors) {
         answer = answer.tasks
