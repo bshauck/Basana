@@ -118,7 +118,7 @@ def upgrade():
         op.execute(f"ALTER TABLE project_icon SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE status SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE view_type SET SCHEMA {SCHEMA};")
- #       op.execute(f"ALTER TABLE user SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE user SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE workspace SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE user_member_workspace SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE project SET SCHEMA {SCHEMA};")
