@@ -4,7 +4,7 @@ from .project import Project
 user_member_workspace = db.Table(
     'user_member_workspace',
     db.Model.metadata,
-    db.Column('userId', db.Integer, db.ForeignKey(add_prefix_for_prod('user.id')), primary_key=True),
+    db.Column('userId', db.Integer, db.ForeignKey(add_prefix_for_prod('userb.id')), primary_key=True),
     db.Column('workspaceId', db.Integer, db.ForeignKey(add_prefix_for_prod('workspace.id')), primary_key=True)
 )
 
@@ -19,7 +19,7 @@ class Workspace(db.Model):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    ownerId = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    ownerId = db.Column(db.Integer, db.ForeignKey('userb.id'), nullable=False)
     name = db.Column(db.String(50), nullable=False, unique=True)
 
     def __init__(self, **kwargs):

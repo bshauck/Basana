@@ -6,7 +6,7 @@ from .section import Section
 user_member_project = db.Table(
     'user_member_project',
     db.Model.metadata,
-    db.Column('userId', db.Integer, db.ForeignKey(add_prefix_for_prod('user.id')), primary_key=True),
+    db.Column('userId', db.Integer, db.ForeignKey(add_prefix_for_prod('userb.id')), primary_key=True),
     db.Column('projectId', db.Integer, db.ForeignKey(add_prefix_for_prod('project.id')), primary_key=True)
 )
 
@@ -29,7 +29,7 @@ class Project(db.Model):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    ownerId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('user.id')), nullable=False)
+    ownerId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('userb.id')), nullable=False)
     workspaceId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('workspace.id')), nullable=False)
     name = db.Column(db.String(50), nullable=False)
     color = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('color.id')))
