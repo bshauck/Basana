@@ -19,7 +19,7 @@ class Workspace(db.Model):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    ownerId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('userb.id')), nullable=False)
+    ownerId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('userb.id'), ondelete='CASCADE'), nullable=False)
     name = db.Column(db.String(50), nullable=False, unique=True)
 
     def __init__(self, **kwargs):
@@ -68,7 +68,8 @@ class Workspace(db.Model):
     projects = db.relationship(
         "Project",
         back_populates="workspace",
-        cascade="all, delete-orphan"
+        cascade="all, delete",
+        passive_deletes=True,
     )
 
     teammates = db.relationship(

@@ -27,19 +27,21 @@ class User(db.Model, UserMixin):
     ownedProjects = db.relationship(
         "Project",
         back_populates="owner",
-        cascade="all, delete"
+        cascade="all, delete",
+        passive_deletes=True
     )
 
     projects = db.relationship(
         "Project",
         secondary=user_member_project,
-        back_populates="members",
+        back_populates="members"
     )
 
     workspaces = db.relationship(
         "Workspace",
         back_populates="owner",
-        cascade="all, delete"
+        cascade="all, delete",
+        passive_deletes=True
     )
 
     teams = db.relationship(
