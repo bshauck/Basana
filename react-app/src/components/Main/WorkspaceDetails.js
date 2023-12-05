@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
 import { thunkGetUserWorkspaces } from "../../store/workspace";
 import WorkspaceMenu from "./WorkspaceMenu";
 
-export default function WorkspaceDetails({ workspace }) {
+export default function WorkspaceDetails() {
   const dispatch = useDispatch();
   const currentUser = useSelector(state => state.session.user);
   // const workspaces = Object.values(useSelector(state => state.workspaces));
@@ -30,7 +30,7 @@ export default function WorkspaceDetails({ workspace }) {
   console.log('WDetails workspaceIds', workspaceIds, 'displayWorkspace', displayWorkspace)
 
 
-  if (currentUser !== workspaceIds) return (<h1>{`Hello W ${workspaceId}`} <WorkspaceMenu /></h1>)
+  // if (currentUser !== workspaceIds) return (<h1>{`Hello W ${workspaceId}`} <WorkspaceMenu  workspace={displayWorkspace} /></h1>)
 
 
   if (!currentUser) return null;
@@ -51,12 +51,15 @@ export default function WorkspaceDetails({ workspace }) {
     else return null;
 
 
-  console.log('WDetails rendingering ', workspaceId, displayWorkspace)
+  console.log('WDetails rendering id worksp', workspaceId, displayWorkspace)
+/* <span className="wsMenu"><i className="fas fa-down-chevron"></i></span> */
+
 
   return (
     <div className="workspace-main">
       <div className="workspace-header">
-        <h2>Workspace/Team: {mapWorkspace.name} <span className="wsMenu"><i className="fas fa-down-chevron"></i></span></h2>
+        <h2>Workspace/Team: {mapWorkspace.name} </h2>
+        <WorkspaceMenu  workspace={displayWorkspace} />
       </div>
       <div className="workspace-body">
       </div>

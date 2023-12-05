@@ -90,8 +90,10 @@ export const thunkUpdateWorkspace = (id, data) => async dispatch => {
 }
 
 export const thunkDeleteWorkspace = (id, songIds) => async dispatch => {
+    console.log("DELETING workspace", id, songIds)
     const url = `/api/workspaces/${id}`
     const answer = await fetchData(url, { method: 'DELETE' });
+    console.log("AFTER DELETING workspace: errors?", answer.errors)
     if (!answer.errors) dispatch(deletedWorkspace(id, songIds))
     return answer
 }

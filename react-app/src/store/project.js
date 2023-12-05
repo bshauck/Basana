@@ -76,6 +76,7 @@ export const thunkCreateProject = (id, project) => async dispatch => {
 };
 
 export const thunkUpdateProject = (id, data) => async dispatch => {
+
     const url = `/api/projects/${id}`
     const answer = await fetchData(url, {
         method: 'PUT',
@@ -87,8 +88,10 @@ export const thunkUpdateProject = (id, data) => async dispatch => {
 }
 
 export const thunkDeleteProject = (id, songIds) => async dispatch => {
+    console.log("DELETING project", id)
     const url = `/api/projects/${id}`
     const answer = await fetchData(url, { method: 'DELETE' });
+    console.log("AFTER DELETING project: errors?", answer.errors)
     if (!answer.errors) dispatch(deletedProject(id, songIds))
     return answer
 }

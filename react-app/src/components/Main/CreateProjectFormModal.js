@@ -1,18 +1,20 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { thunkCreateProject } from "../../store/project";
 
-function CreateProjectFormModal() {
+function CreateProjectFormModal({ project}) {
   const dispatch = useDispatch();
   const [name, setName] = useState("");
   const [isPublic, setIsPublic] = useState(false);
   const [errors, setErrors] = useState([]);
   const { closeModal } = useModal();
+  const user = useSelector(state => state.session.user);
+
 
   const handleSubmit = async e => {
     e.preventDefault();
-    const data = await dispatch(thunkCreateProject({ name, public: isPublic }));
+    const data = await dispatch(thunkCreateProject(user.workspaces[0].id, { name, public: isPublic }));
     if (data.errors) setErrors(Object.values(data.errors));
     else closeModal()
   }

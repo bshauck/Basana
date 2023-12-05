@@ -91,6 +91,7 @@ def delete_workspace(id):
     """
     Deletes an workspace and returns a message if successfully deleted
     """
+    print("DB: about to delete a workspace")
     workspace = Workspace.query.get(id)
     if workspace.ownerId != current_user.id:
         return error_message("user", "Authorization Error"), 403
