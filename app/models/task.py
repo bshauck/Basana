@@ -10,8 +10,9 @@ class Task(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     projectId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('project.id')), nullable=False)
+    title = db.Column(db.String(50), nullable=False)
     description = db.Column(db.Text, nullable=False)
-    status = db.Column(db.Integer, nullable=True, default=1, db.ForeignKey(add_prefix_for_prod('status.id')))
+    status = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('status.id')), nullable=True, default=1)
     start = db.Column(db.Date, nullable=True)
     due = db.Column(db.Date, nullable=True)
 
