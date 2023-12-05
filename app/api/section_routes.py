@@ -47,8 +47,9 @@ def create_section():
         db.session.add(section)
         db.session.commit()
         return section.to_dict(), 201
-    else: # form.errors
-        return {'errors': form.errors}, 401
+    else:  # form.errors
+        return error_messages(form.errors), 400
+
 
 @section_routes.route('/<int:id>', methods=['PUT'])
 @login_required
@@ -67,8 +68,9 @@ def update_section(id):
         db.session.add(section)
         db.session.commit()
         return section.to_dict(), 201
-    else: # form.errors
-        return error_messages(form.errors), 401
+    else:  # form.errors
+        return error_messages(form.errors), 400
+
 
 @section_routes.route('/<int:id>', methods=["DELETE"])
 @login_required
@@ -79,7 +81,7 @@ def delete_section(id):
     section = Section.query.get(id)
 
     if section.owner != current_user.id:
-        return {'errors': {"user", ["Authorization Error"]}}, 403
+        return error_message("user", "Authorization Error"), 403
 
     db.session.delete(section)
     db.session.commit()

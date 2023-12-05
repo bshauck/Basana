@@ -6,14 +6,11 @@ import uuid
 from io import BytesIO
 
 def error_message(key, string):
-    errorMessages= {"errors":{key:[string]}}
-    return errorMessages
+    return error_messages({key: [string]})
 
 def error_messages(dictionary):
     return {"errors": dictionary}
 
-
-ALLOWED_EXTENSIONS = {"pdf", "png", "jpg", "jpeg", "gif", "webp", "svg", "bmp", "tiff", "jfif"}
 
 BUCKET_NAME = os.environ.get("S3_BUCKET")
 S3_LOCATION = f"http://{BUCKET_NAME}.s3.amazonaws.com/"

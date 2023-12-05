@@ -47,8 +47,9 @@ def create_workspace():
         db.session.add(workspace)
         db.session.commit()
         return workspace.to_dict(), 201
-    else: # form.errors
+    else:  # form.errors
         return error_messages(form.errors), 400
+
 
 
 @workspace_routes.route('/<int:id>', methods=['PUT'])
@@ -60,7 +61,7 @@ def update_workspace(id):
 
     workspace = Workspace.query.get(id)
     if current_user.id != workspace.ownerId:
-        return {errors: {"user": ["Authorization Error"]}}, 403
+        return error_message("user", "Authorization Error"), 403
 
     form = WorkspaceForm()
     form['csrf_token'].data = request.cookies['csrf_token']
@@ -71,7 +72,7 @@ def update_workspace(id):
         db.session.commit()
         return workspace.to_dict(), 201
     else: # form.errors
-        return error_messages(form.errors), 401
+        return error_messages(form.errors), 400
 
 
 @workspace_routes.route('/<int:id>', methods=["DELETE"])
@@ -82,7 +83,7 @@ def delete_workspace(id):
     """
     workspace = Workspace.query.get(id)
     if workspace.ownerId != current_user.id:
-        return {errors: {"user": ["Authorization Error"]}}, 403
+        return error_message("user", "Authorization Error"), 403
 
     db.session.delete(workspace)
     db.session.commit()
