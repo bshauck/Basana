@@ -88,3 +88,37 @@ def delete_workspace(id):
     db.session.delete(workspace)
     db.session.commit()
     return {"message": "workspace successfully deleted"}
+
+
+# Projects
+
+
+@project_routes.route('/<int:id>'/projects', methods=["POST"])
+@login_required
+def create_project_for_workspace():
+    """
+    Creates a new project and returns the new project in a dictionary
+    """
+
+    form = ProjectForm()
+
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+    if form.validate_on_submit():
+        new_project = {
+            "owner": current_user.id,
+            "workspace": id,
+            "name": form.name.data,
+            'description': form.description.data,
+            'public': form.public.data,
+            'start': form.start.data,
+            'due': form.due.data,
+            'completed': form.completed.data,
+        }
+
+        project = project(**new_project)
+        db.session.add(project)
+        db.session.commit()
+        return project.to_dict(), 201
+    else:  # form.errors
+        return error_messages(form.errors), 400

@@ -33,7 +33,7 @@ class Project(db.Model):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    ownerId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('userb.id'), ondelete='CASCADE'), nullable=False)
+    ownerId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('userb.id')), nullable=False)
     workspaceId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('workspace.id'), ondelete='CASCADE'),nullable=False)
     name = db.Column(db.String(50), nullable=False)
     color = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('color.id')), default=1)

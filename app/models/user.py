@@ -28,7 +28,6 @@ class User(db.Model, UserMixin):
         "Project",
         back_populates="owner",
         cascade="all, delete",
-        passive_deletes=True
     )
 
     projects = db.relationship(
