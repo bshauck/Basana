@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import OpenModalButton from "../OpenModalButton";
 import LoginFormModal from "../LoginFormModal";
+import CreateWorkspaceFormModal from "./CreateWorkspaceFormModal";
 
 function WorkspaceMenu({ workspace }) {
 //   const dispatch = useDispatch();
@@ -47,7 +48,7 @@ function WorkspaceMenu({ workspace }) {
             <OpenModalButton
               buttonText="Create Workspace"
               onItemClick={closeMenu}
-              modalComponent={<LoginFormModal />/*<CreateWorkspaceModal /> */}
+              modalComponent={<CreateWorkspaceFormModal />/*<CreateWorkspaceModal /> */}
             />
             <OpenModalButton
               buttonText="Edit Workspace"

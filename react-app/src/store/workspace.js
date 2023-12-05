@@ -65,17 +65,20 @@ export const thunkGetWorkspace = id => async dispatch => {
     return answer
 }
 
-export const thunkCreateWorkspace = (id, workspace) => async dispatch => {
+export const thunkCreateWorkspace = workspace => async dispatch => {
+    console.log("CREATING workspace", workspace)
     const url = `/api/workspaces/new`
-    const answer = await fetch(url, {
+    const answer = await fetchData(url, {
       method: 'POST',
       body: JSON.stringify(workspace),
     });
+    console.log("AFTER CREATING workspace: errors?", answer.errors)
+
     if (!answer.errors) dispatch(createdWorkspace(answer));
   return answer;
 };
 
-export const thunkUpdateWorkspace = (data, id) => async dispatch => {
+export const thunkUpdateWorkspace = (id, data) => async dispatch => {
     const url = `/api/workspaces/${id}`
     const answer = await fetchData(url, {
         method: 'PUT',

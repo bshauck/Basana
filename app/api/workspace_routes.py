@@ -1,7 +1,7 @@
 from flask import Blueprint, request
 from flask_login import login_required, current_user
-from app.models import Workspace, db
-from app.forms import WorkspaceForm, error_message, error_messages
+from app.models import Workspace, Project, db
+from app.forms import WorkspaceForm, ProjectForm, error_message, error_messages
 
 workspace_routes = Blueprint('workspaces', __name__)
 
@@ -34,21 +34,31 @@ def create_workspace():
     Creates a new workspace and returns the new workspace in a dictionary
     """
 
+    print("DB: about to create a new workspace")
+
     form = WorkspaceForm()
     form['csrf_token'].data = request.cookies['csrf_token']
 
+    print("DB: form", form)
+    print("DB: formdata", form.name.data)
+
     if form.validate_on_submit():
         new_workspace = {
-            "owner": current_user.id,
+            "owner": current_user,
             "name": form.name.data,
         }
 
-        workspace = workspace(**new_workspace)
+        print("DB: new_workspace", new_workspace)
+        workspace = Workspace(**new_workspace)
         db.session.add(workspace)
         db.session.commit()
         return workspace.to_dict(), 201
-    else:  # form.errors
+    elif form.errors:
+        print("DB: ws form errors", form.errors)
         return error_messages(form.errors), 400
+    else:
+        print("DB: form not validated")
+        return error_message("form", "form not validated"), 500 # this should never happen
 
 
 
@@ -93,7 +103,7 @@ def delete_workspace(id):
 # Projects
 
 
-@project_routes.route('/<int:id>'/projects', methods=["POST"])
+@workspace_routes.route('/<int:id>/projects/new', methods=["POST"])
 @login_required
 def create_project_for_workspace():
     """
@@ -101,24 +111,22 @@ def create_project_for_workspace():
     """
 
     form = ProjectForm()
-
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
         new_project = {
-            "owner": current_user.id,
-            "workspace": id,
+            "owner": current_user,
+            "workspaceId": id,
             "name": form.name.data,
-            'description': form.description.data,
             'public': form.public.data,
-            'start': form.start.data,
-            'due': form.due.data,
-            'completed': form.completed.data,
         }
 
         project = project(**new_project)
         db.session.add(project)
         db.session.commit()
         return project.to_dict(), 201
-    else:  # form.errors
+    elif form.errors:
         return error_messages(form.errors), 400
+    else:
+        print("DB: project form not validated")
+        return error_message("form", "form not validated"), 500 # this should never happen

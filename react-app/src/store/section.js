@@ -67,7 +67,7 @@ export const thunkGetSection = id => async dispatch => {
 
 export const thunkCreateSection = (id, section) => async dispatch => {
     const url = `/api/sections/new`
-    const answer = await fetch(url, {
+    const answer = await fetchData(url, {
       method: 'POST',
       body: JSON.stringify(section),
     });
@@ -75,7 +75,7 @@ export const thunkCreateSection = (id, section) => async dispatch => {
   return answer;
 };
 
-export const thunkUpdateSection = (data, id) => async dispatch => {
+export const thunkUpdateSection = (id, data) => async dispatch => {
     const url = `/api/sections/${id}`
     const answer = await fetchData(url, {
         method: 'PUT',

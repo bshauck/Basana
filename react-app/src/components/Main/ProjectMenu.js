@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import OpenModalButton from "../OpenModalButton";
 import LoginFormModal from "../LoginFormModal";
+import CreateProjectFormModal from "./CreateProjectFormModal";
 
 function ProjectMenu({ project }) {
 //   const dispatch = useDispatch();
@@ -47,7 +48,7 @@ function ProjectMenu({ project }) {
             <OpenModalButton
               buttonText="Create Project"
               onItemClick={closeMenu}
-              modalComponent={<LoginFormModal />/*<CreateProjectModal /> */}
+              modalComponent={<CreateProjectFormModal />}
             />
             <OpenModalButton
               buttonText="Edit Project"
