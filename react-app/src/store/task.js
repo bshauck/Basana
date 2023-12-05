@@ -67,7 +67,7 @@ export const thunkGetTask = id => async dispatch => {
 
 export const thunkCreateTask = (id, task) => async dispatch => {
     const url = `/api/tasks/new`
-    const answer = await fetch(url, {
+    const answer = await fetchData(url, {
       method: 'POST',
       body: JSON.stringify(task),
     });
@@ -75,7 +75,7 @@ export const thunkCreateTask = (id, task) => async dispatch => {
   return answer;
 };
 
-export const thunkUpdateTask = (data, id) => async dispatch => {
+export const thunkUpdateTask = (id, data) => async dispatch => {
     const url = `/api/tasks/${id}`
     const answer = await fetchData(url, {
         method: 'PUT',

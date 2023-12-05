@@ -48,7 +48,7 @@ export const thunkGetUser = id => async dispatch => {
 
 export const thunkCreateUser = (id, user) => async dispatch => {
     const url = `/api/users/new`
-    const answer = await fetch(url, {
+    const answer = await fetchData(url, {
       method: 'POST',
       body: JSON.stringify(user),
     })
@@ -56,7 +56,7 @@ export const thunkCreateUser = (id, user) => async dispatch => {
   return answer
 }
 
-export const thunkUpdateUser = (data, id) => async dispatch => {
+export const thunkUpdateUser = (id, data) => async dispatch => {
     const url = `/api/users/${id}`
     const answer = await fetchData(url, {
         method: 'PUT',

@@ -1,14 +1,14 @@
 import { useState, useEffect, useRef } from "react";
 // import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
 import OpenModalButton from "../OpenModalButton";
 import LoginFormModal from "../LoginFormModal";
+import CreateProjectFormModal from "./CreateProjectFormModal";
+import ProjectDeleteFormModal from "./ProjectDeleteFormModal";
 
 function ProjectMenu({ project }) {
 //   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
   const ulRef = useRef();
-  const user = useSelector(state => state.session.user);
 
   const openMenu = () => {
     if (showMenu) return;
@@ -35,6 +35,8 @@ function ProjectMenu({ project }) {
   const ulClassName = "project-dropdown" + (showMenu ? "" : " hidden");
   const closeMenu = () => setShowMenu(false);
 
+  if (!project) return null;
+
   return (
     <>
       <button onClick={openMenu}>
@@ -43,22 +45,22 @@ function ProjectMenu({ project }) {
       <ul className={ulClassName} ref={ulRef}>
         {project !== true && (
           <>
-            <li>{project}</li>
+            <li>Project menu</li>
             <OpenModalButton
               buttonText="Create Project"
               onItemClick={closeMenu}
-              modalComponent={<LoginFormModal />/*<CreateProjectModal /> */}
+              modalComponent={<CreateProjectFormModal project={project} />}
             />
             <OpenModalButton
               buttonText="Edit Project"
               onItemClick={closeMenu}
               modalComponent={<LoginFormModal />/*<EditProjectModal />*/}
             />
-        </>)} {user !== false && (
+        </>)} {closeMenu !== false && (
             <OpenModalButton
               buttonText="Delete Project"
               onItemClick={closeMenu}
-              modalComponent={<LoginFormModal />/*<DeleteProjectModal /> */} />)}
+              modalComponent={<ProjectDeleteFormModal id={project.id} />} />)}
       </ul>
     </>
   )

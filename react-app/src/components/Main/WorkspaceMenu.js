@@ -3,6 +3,8 @@ import { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import OpenModalButton from "../OpenModalButton";
 import LoginFormModal from "../LoginFormModal";
+import CreateWorkspaceFormModal from "./CreateWorkspaceFormModal";
+import WorkspaceDeleteFormModal from "./WorkspaceDeleteFormModal";
 
 function WorkspaceMenu({ workspace }) {
 //   const dispatch = useDispatch();
@@ -35,6 +37,8 @@ function WorkspaceMenu({ workspace }) {
   const ulClassName = "workspace-dropdown" + (showMenu ? "" : " hidden");
   const closeMenu = () => setShowMenu(false);
 
+  if (!workspace) return null;
+
   return (
     <>
       <button onClick={openMenu}>
@@ -43,11 +47,11 @@ function WorkspaceMenu({ workspace }) {
       <ul className={ulClassName} ref={ulRef}>
         {workspace !== true && (
           <>
-            <li>{workspace}</li>
+            <li>Workspace Menu</li>
             <OpenModalButton
               buttonText="Create Workspace"
               onItemClick={closeMenu}
-              modalComponent={<LoginFormModal />/*<CreateWorkspaceModal /> */}
+              modalComponent={<CreateWorkspaceFormModal /> }
             />
             <OpenModalButton
               buttonText="Edit Workspace"
@@ -58,7 +62,7 @@ function WorkspaceMenu({ workspace }) {
             <OpenModalButton
               buttonText="Delete Workspace"
               onItemClick={closeMenu}
-              modalComponent={<LoginFormModal />/*<DeleteWorkspaceModal /> */} />)}
+              modalComponent={<WorkspaceDeleteFormModal id={workspace.id} /> } />)}
       </ul>
     </>
   )

@@ -35,7 +35,6 @@ def create_project():
     """
 
     form = ProjectForm()
-
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
@@ -81,9 +80,10 @@ def delete_project(id):
     """
     Deletes an project and returns a message if successfully deleted
     """
+    print("DB: about to delete a project")
     project = Project.query.get(id)
 
-    if project.owner != current_user.id:
+    if project.ownerId != current_user.id:
         return error_message("user", "Authorization Error"), 403
 
     db.session.delete(project)

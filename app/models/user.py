@@ -20,15 +20,13 @@ class User(db.Model, UserMixin):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         db.session.add(self)
-        db.session.commit() # because I need to create a workspace with the right ownerId
         if len(self.workspaces) == 0 and Workspace.query.filter_by(name=self.username + "'s team").first() is None :
-            self.workspaces.append(Workspace(ownerId=self.id, name=self.username + "'s team"))
+            self.workspaces.append(Workspace(owner=self, name=self.username + "'s team"))
 
     ownedProjects = db.relationship(
         "Project",
         back_populates="owner",
         cascade="all, delete",
-        passive_deletes=True
     )
 
     projects = db.relationship(
