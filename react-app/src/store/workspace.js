@@ -73,6 +73,7 @@ export const thunkCreateWorkspace = workspace => async dispatch => {
     console.log("AFTER CREATING workspace: errors?", answer.errors)
 
     if (!answer.errors) dispatch(createdWorkspace(answer));
+    console.log("AFTER CREATING workspace: answer", answer)
   return answer;
 };
 
@@ -111,7 +112,7 @@ const workspaceReducer = (state = initialState, action) => {
     case GOT_WORKSPACE: // eslint-disable-next-line no-fallthrough
     case CREATED_WORKSPACE: // eslint-disable-next-line no-fallthrough
     case UPDATED_WORKSPACE:
-      console.log("WS created workspace", action.workspace.ownerId)
+      console.log("WS updated WS: ws/userId", action.workspace, action.workspace.ownerId)
       return { ...state, [action.workspace.id]: {...action.workspace} };
     case DELETED_WORKSPACE:
       const newState = { ...state };

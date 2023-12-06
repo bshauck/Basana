@@ -92,11 +92,12 @@ const userReducer = (state = initialState, action) => {
       delete newState[action.id]
       return newState
     case CREATED_WORKSPACE:
-      console.log("WS created workspace", action.workspace.ownerId)
+      console.log("USER created WS ws/userId", action.workspace, action.workspace.ownerId)
       const user = state[action.workspace.ownerId]
+      console.log("USER lookup gives: ", user)
       if (!user) return state
       return { ...state,
-        [action.workspace.id]:
+        [action.workspace.ownerId]:
           {...user,
             workspaces: [...user.workspaces, action.workspace.id]} }
     case DELETED_WORKSPACE: {
