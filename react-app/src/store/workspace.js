@@ -112,7 +112,7 @@ const workspaceReducer = (state = initialState, action) => {
     case GOT_WORKSPACE: // eslint-disable-next-line no-fallthrough
     case CREATED_WORKSPACE: // eslint-disable-next-line no-fallthrough
     case UPDATED_WORKSPACE:
-      console.log("WS updated WS: ws/userId", action.workspace, action.workspace.ownerId)
+      // console.log("WS updated WS: ws/userId", action.workspace, action.workspace.ownerId)
       return { ...state, [action.workspace.id]: {...action.workspace} };
     case DELETED_WORKSPACE:
       const newState = { ...state };

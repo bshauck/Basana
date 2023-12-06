@@ -1,42 +1,42 @@
 import { fetchData } from "./csrf"
 
+import { CREATED_PROJECT, DELETED_PROJECT } from "./common";
+
 const GOT_ALL_PROJECTS = "projects/GOT_ALL_PROJECTS";
 const GOT_USER_PROJECTS = "projects/GOT_USER_PROJECTS";
 const GOT_PROJECT = "projects/GOT_PROJECT";
-const CREATED_PROJECT = "projects/CREATED_PROJECT";
 const UPDATED_PROJECT = "projects/UPDATED_PROJECT";
-const DELETED_PROJECT = "projects/DELETED_PROJECT";
 
-export const gotAllProjects = projects => ({
+
+const gotAllProjects = projects => ({
     type: GOT_ALL_PROJECTS,
     projects
 });
 
-
-export const getUserProjects = projects => ({
+const getUserProjects = projects => ({
     type: GOT_USER_PROJECTS,
     projects
   })
 
-
-export const gotProject = project => ({
+const gotProject = project => ({
     type: GOT_PROJECT,
     project
 });
 
-export const createdProject = project => ({
+const createdProject = project => ({
     type: CREATED_PROJECT,
     project
 });
 
-export const updatedProject = project => ({
+const updatedProject = project => ({
     type: UPDATED_PROJECT,
     project
 });
 
-export const deletedProject = id => ({
+const deletedProject = (id, userId) => ({
     type: DELETED_PROJECT,
-    id
+    id,
+    userId
 });
 
 // THUNKS
@@ -66,13 +66,16 @@ export const thunkGetProject = id => async dispatch => {
 }
 
 export const thunkCreateProject = (id, project) => async dispatch => {
-    const url = `/api/workspace/${id}/projects/new`
+    console.log("CREATING project; wsId/project", id, project)
+    const url = `/api/workspaces/${id}/projects/new`
     const answer = await fetchData(url, {
       method: 'POST',
-      body: JSON.stringify(project),
+      body: JSON.stringify(project)
     });
+    console.log("CREATING project; errprs?", answer.errors)
     if (!answer.errors) dispatch(createdProject(answer));
-  return answer;
+    console.log("CREATING project; answer", answer)
+    return answer;
 };
 
 export const thunkUpdateProject = (id, data) => async dispatch => {
@@ -85,12 +88,12 @@ export const thunkUpdateProject = (id, data) => async dispatch => {
     return answer
 }
 
-export const thunkDeleteProject = (id, songIds) => async dispatch => {
+export const thunkDeleteProject = id => async (dispatch, getState) => {
     console.log("DELETING project", id)
     const url = `/api/projects/${id}`
     const answer = await fetchData(url, { method: 'DELETE' });
     console.log("AFTER DELETING project: errors?", answer.errors)
-    if (!answer.errors) dispatch(deletedProject(id, songIds))
+    if (!answer.errors) dispatch(deletedProject(id, getState().session.user.id))
     return answer
 }
 
@@ -111,6 +114,7 @@ const projectReducer = (state = initialState, action) => {
     case GOT_PROJECT: // eslint-disable-next-line no-fallthrough
     case CREATED_PROJECT: // eslint-disable-next-line no-fallthrough
     case UPDATED_PROJECT:
+      console.log("PR created PR: ws/userId", action.project, action.project.ownerId)
       return { ...state, [action.project.id]: {...action.project} };
     case DELETED_PROJECT:
       const newState = { ...state };

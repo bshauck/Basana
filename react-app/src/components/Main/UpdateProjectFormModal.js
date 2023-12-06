@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { thunkUpdateProject } from "../../store/project";
-
+import { format } from 'date-fns';
 function UpdateProjectFormModal({ project }) {
   const dispatch = useDispatch();
   const [name, setName] = useState(project?.name || "");
-  const [due, setDue] = useState(project?.due || "");
+  const [due, setDue] = useState((project?.due && new Date(project.due))|| "");
   const [description, setDescription] = useState(project?.description || "");
   const [isPublic, setIsPublic] = useState(project?.public || false);
   const [errors, setErrors] = useState([]);
@@ -53,7 +53,7 @@ function UpdateProjectFormModal({ project }) {
             <input
             type='date'
                 name="due"
-                value={due}
+                value={due?format(new Date(due), 'yyyy-MM-dd'):''}
                 onChange={e=>setDue(e.target.value)}
             />
         </label>
