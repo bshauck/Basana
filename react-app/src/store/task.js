@@ -79,7 +79,6 @@ export const thunkUpdateTask = (id, data) => async dispatch => {
     const url = `/api/tasks/${id}`
     const answer = await fetchData(url, {
         method: 'PUT',
-        headers: {"Content-Type": "application/json"},
         body: JSON.stringify(data)
     })
     if (!answer.errors) dispatch(updatedTask(answer))

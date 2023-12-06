@@ -76,11 +76,9 @@ export const thunkCreateProject = (id, project) => async dispatch => {
 };
 
 export const thunkUpdateProject = (id, data) => async dispatch => {
-
     const url = `/api/projects/${id}`
     const answer = await fetchData(url, {
         method: 'PUT',
-        headers: {"Content-Type": "application/json"},
         body: JSON.stringify(data)
     })
     if (!answer.errors) dispatch(updatedProject(answer))
