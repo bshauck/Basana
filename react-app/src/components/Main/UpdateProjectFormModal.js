@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { thunkUpdateProject } from "../../store/project";
-import { ymd } from '../../utils/helpers';
+// import { ymd } from '../../utils/helpers';
 function UpdateProjectFormModal({ project }) {
   const dispatch = useDispatch();
   const [name, setName] = useState(project?.name || "");
-  const [due, setDue] = useState((project?.due && new Date(project.due))|| "");
+  // const [due, setDue] = useState((project?.due && new Date(project.due))|| "");
   const [description, setDescription] = useState(project?.description || "");
   const [isPublic, setIsPublic] = useState(project?.public || false);
   const [errors, setErrors] = useState([]);
@@ -18,7 +18,7 @@ function UpdateProjectFormModal({ project }) {
 
   const handleSubmit = async e => {
     e.preventDefault();
-    const data = await dispatch(thunkUpdateProject(project.id, { name, description, due, public: isPublic }));
+    const data = await dispatch(thunkUpdateProject(project.id, { name, description, /* due, */public: isPublic }));
     if (data.errors) setErrors(Object.values(data.errors));
     else closeModal()
   }
@@ -48,7 +48,7 @@ function UpdateProjectFormModal({ project }) {
             required
           />
         </label>
-        <label>
+        {/* <label>
             Due Date:
             <input
             type='date'
@@ -56,7 +56,7 @@ function UpdateProjectFormModal({ project }) {
                 value={due?ymd(due):''}
                 onChange={e=>setDue(e.target.value)}
             />
-        </label>
+        </label> */}
         <label>
             Description:
             <textarea
