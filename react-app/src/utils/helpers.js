@@ -25,3 +25,24 @@ export function simplifyErrors2(fetchResult) {
     return result
 }
 /* Eventually, better handling is checking each key and doing something appropriate per type. */
+
+
+
+function typeCheck(date) {
+    return (typeof date === 'string' || typeof date === 'number')
+        ? new Date(date) : date
+}
+function dayDate(date) { // return Date instance with local time 0
+    date = typeCheck(date);
+    return new Date(date.toDateString())
+}
+
+export function ymd(date) { // return a string of YYYY-MM-DD of the date
+    date = typeCheck(date);
+    return date.toISOString().split('T')[0]
+}
+
+export function ymdt(date) { // return string YYYY-MM-DD 00:00:00 of the date
+    // date = typeCheck(date); // not required; within dayDate
+    return new Date(ymd(date)).toISOString().replace('T', ' ').split('.')[0]
+}
