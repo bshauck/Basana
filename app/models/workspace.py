@@ -1,12 +1,12 @@
 from .db import db, environment, SCHEMA, SEED, add_prefix_for_prod
 from .project import Project
+from .internalProject import InternalProject
 
 user_member_workspace = db.Table(
     'user_member_workspace',
     db.Model.metadata,
-    db.Column('userId', db.Integer, db.ForeignKey(add_prefix_for_prod('userb.id')), primary_key=True),
-    db.Column('workspaceId', db.Integer, db.ForeignKey(add_prefix_for_prod('workspace.id')), primary_key=True)
-)
+    db.Column('userId', db.Integer, db.ForeignKey(add_prefix_for_prod('userb.id'), ondelete='CASCADE'), primary_key=True),
+    db.Column('workspaceId', db.Integer, db.ForeignKey(add_prefix_for_prod('workspace.id'), ondelete='CASCADE'), primary_key=True))
 
 if environment == "production":
     user_member_workspace.schema = SCHEMA
@@ -26,20 +26,26 @@ class Workspace(db.Model):
         super().__init__(**kwargs)
         db.session.add(self)
         self.checkSeed()
-        self.projects.append(self.createMyTaskProject())
+        self.internalProjects.append(self.createMyTaskProject())
 
     def createMyTaskProject(self):
-        p = Project(
+        p = InternalProject(
             owner=self.owner,
             workspace=self,
-            name=Project.myTaskProjectName,
-        )
+            name=InternalProject.myTaskProjectName)
         db.session.add(p)
         return p
 
     owner = db.relationship(
         'User',
         back_populates='workspaces'
+    )
+
+    internalProjects = db.relationship(
+        "InternalProject",
+        back_populates="workspace",
+        cascade="all, delete",
+        passive_deletes=True,
     )
 
     projects = db.relationship(

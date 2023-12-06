@@ -31,7 +31,7 @@ def user_projects(id):
     print ("DB: about to get user's projects")
     if current_user.id != id:
         return error_message("user","Unauthorized"), 403
-    projects = [project.to_dict() for project in current_user.ownedProjects]
+    projects = [project.to_dict() for project in current_user.projects]
     print("DB: projects", projects)
     return { "projects": projects }
 

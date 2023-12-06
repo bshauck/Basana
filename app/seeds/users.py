@@ -4,8 +4,7 @@ from sqlalchemy.sql import text
 # cannot do bulk inserts due to need to encrypt passwords
 # Adds a demo user, you can add other users here if you want
 def seed_users():
-    demo = User(
-        username='Demo', email='demo@aa.io', password='password')
+    demo = User(username='Demo', email='demo@aa.io', password='password')
     alex = User(username='alex', email='alex@aa.io', password='password')
     ali = User(username='ali', email='ali@aa.io', password='password')
     andrei = User(username='andrei', email='andrei@aa.io', password='password')

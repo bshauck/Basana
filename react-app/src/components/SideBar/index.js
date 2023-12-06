@@ -12,6 +12,8 @@ import { thunkGetUserWorkspaces } from '../../store/workspace'
 export default function SideBar() {
 const dispatch = useDispatch();
   const currentUser = useSelector(state => state.session.user);
+  const userProjectIds = useSelector(state => state.session.user?.projects);
+  const userWorkspaceIds = useSelector(state => state.session.user?.workspaces);
 
 
 
@@ -22,7 +24,7 @@ const dispatch = useDispatch();
     if (!currentUser) return null;
     dispatch(thunkGetUserProjects(currentUser.id));
     dispatch(thunkGetUserWorkspaces(currentUser.id));
-  }, [dispatch, currentUser]);
+  }, [dispatch, currentUser, userProjectIds, userWorkspaceIds]);
 
 
 

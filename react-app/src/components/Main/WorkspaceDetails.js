@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
 import { thunkGetUserWorkspaces } from "../../store/workspace";
 import WorkspaceMenu from "./WorkspaceMenu";
+import { useContentLoaded } from "../../context/ContentLoaded";
+import { gotWorkspace } from "../../store/session";
 
 export default function WorkspaceDetails() {
   const dispatch = useDispatch();
@@ -14,6 +16,7 @@ export default function WorkspaceDetails() {
   const allWorkspaces = Object.values(allNormalizedWorkspaces)
   const displayWorkspace = useSelector(state => state.workspaces[workspaceId]);
   const workspaceIds = useSelector(state => state.session.user?.workspaces);
+  const {userLoaded} = useContentLoaded();
 
   const [ref] = useState({});
   const rKey = 'workspaces';
@@ -22,10 +25,14 @@ export default function WorkspaceDetails() {
 
 
 
-  // useEffect(() => {
-  //   if (!currentUser) return null;
-  //   dispatch(thunkGetUserWorkspaces(currentUser.id));
-  // } , [dispatch, currentUser, displayWorkspace]);
+  useEffect(() => {
+    if (!userLoaded) return null;
+    else if (!displayWorkspace) dispatch(thunkGetUserWorkspaces(currentUser.id));
+    else {
+      console.log("SETTING appWorkspace: ", displayWorkspace);
+      dispatch(gotWorkspace(displayWorkspace))
+    }
+  } , [dispatch, currentUser, displayWorkspace, userLoaded]);
 
   console.log('WDetails workspaceIds', workspaceIds, 'displayWorkspace', displayWorkspace)
 

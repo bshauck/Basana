@@ -1,16 +1,18 @@
 """empty message
 
-Revision ID: e414f87752f9
-Revises: 
-Create Date: 2023-12-04 18:59:20.766096
+Revision ID: e5742a83fcbb
+Revises:
+Create Date: 2023-12-05 22:30:29.731459
 
 """
 from alembic import op
 import sqlalchemy as sa
-
+import os
+environment = os.getenv("FLASK_ENV")
+SCHEMA = os.environ.get("SCHEMA")
 
 # revision identifiers, used by Alembic.
-revision = 'e414f87752f9'
+revision = 'e5742a83fcbb'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -59,6 +61,14 @@ def upgrade():
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('name')
     )
+    op.create_table('internal_project',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('ownerId', sa.Integer(), nullable=False),
+    sa.Column('workspaceId', sa.Integer(), nullable=False),
+    sa.ForeignKeyConstraint(['ownerId'], ['userb.id'], ),
+    sa.ForeignKeyConstraint(['workspaceId'], ['workspace.id'], ondelete='CASCADE'),
+    sa.PrimaryKeyConstraint('id')
+    )
     op.create_table('project',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('ownerId', sa.Integer(), nullable=False),
@@ -84,17 +94,19 @@ def upgrade():
     op.create_table('user_member_workspace',
     sa.Column('userId', sa.Integer(), nullable=False),
     sa.Column('workspaceId', sa.Integer(), nullable=False),
-    sa.ForeignKeyConstraint(['userId'], ['userb.id'], ),
-    sa.ForeignKeyConstraint(['workspaceId'], ['workspace.id'], ),
+    sa.ForeignKeyConstraint(['userId'], ['userb.id'], ondelete='CASCADE'),
+    sa.ForeignKeyConstraint(['workspaceId'], ['workspace.id'], ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('userId', 'workspaceId')
     )
     op.create_table('section',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('projectId', sa.Integer(), nullable=False),
+    sa.Column('projectId', sa.Integer(), nullable=True),
+    sa.Column('internalProjectId', sa.Integer(), nullable=True),
     sa.Column('name', sa.String(length=50), nullable=False),
     sa.Column('index', sa.Integer(), nullable=False),
     sa.Column('createdAt', sa.Date(), nullable=False),
-    sa.ForeignKeyConstraint(['projectId'], ['project.id'], ),
+    sa.ForeignKeyConstraint(['internalProjectId'], ['internal_project.id'], ondelete='CASCADE'),
+    sa.ForeignKeyConstraint(['projectId'], ['project.id'], ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('task',
@@ -105,17 +117,31 @@ def upgrade():
     sa.Column('status', sa.Integer(), nullable=True),
     sa.Column('start', sa.Date(), nullable=True),
     sa.Column('due', sa.Date(), nullable=True),
-    sa.ForeignKeyConstraint(['projectId'], ['project.id'], ),
+    sa.ForeignKeyConstraint(['projectId'], ['project.id'], ondelete='CASCADE'),
     sa.ForeignKeyConstraint(['status'], ['status.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('user_member_project',
     sa.Column('userId', sa.Integer(), nullable=False),
     sa.Column('projectId', sa.Integer(), nullable=False),
-    sa.ForeignKeyConstraint(['projectId'], ['project.id'], ),
-    sa.ForeignKeyConstraint(['userId'], ['userb.id'], ),
+    sa.ForeignKeyConstraint(['projectId'], ['project.id'], ondelete='CASCADE'),
+    sa.ForeignKeyConstraint(['userId'], ['userb.id'], ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('userId', 'projectId')
     )
+    if environment == "production":
+        op.execute(f"ALTER TABLE color SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE project_icon SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE statue SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE userb SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE view_type SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE workspace SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE internal_project SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE project SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE user_member_workspace SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE section SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE task SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE user_member_project SET SCHEMA {SCHEMA};")
+
     # ### end Alembic commands ###
 
 
@@ -126,6 +152,7 @@ def downgrade():
     op.drop_table('section')
     op.drop_table('user_member_workspace')
     op.drop_table('project')
+    op.drop_table('internal_project')
     op.drop_table('workspace')
     op.drop_table('view_type')
     op.drop_table('userb')

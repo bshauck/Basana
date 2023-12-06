@@ -2,13 +2,15 @@ import React, { useState } from "react";
 import { login } from "../../store/session";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
+import { useContentLoaded } from "../../context/ContentLoaded";
 
 function LoginFormPage() {
   const dispatch = useDispatch();
-  const sessionUser = useSelector((state) => state.session.user);
+  const sessionUser = useSelector(state => state.session.user);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
+  const { setUserLoaded } = useContentLoaded();
 
   if (sessionUser) return <Redirect to="/" />;
 
@@ -17,7 +19,8 @@ function LoginFormPage() {
     const data = await dispatch(login(email, password));
     if (data.errors) {
       setErrors(data.errors);
-    }
+    } else setUserLoaded(true);
+
   };
 
   return (

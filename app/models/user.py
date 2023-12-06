@@ -23,16 +23,26 @@ class User(db.Model, UserMixin):
         if len(self.workspaces) == 0 and Workspace.query.filter_by(name=self.username + "'s team").first() is None :
             self.workspaces.append(Workspace(owner=self, name=self.username + "'s team"))
 
-    ownedProjects = db.relationship(
+    projects = db.relationship(
         "Project",
         back_populates="owner",
         cascade="all, delete",
+        passive_deletes=True
     )
 
-    projects = db.relationship(
+    internalProjects = db.relationship(
+        "InternalProject",
+        back_populates="owner",
+        cascade="all, delete",
+        passive_deletes=True
+    )
+
+    collaborations = db.relationship(
         "Project",
         secondary=user_member_project,
-        back_populates="members"
+        back_populates="collaborators",
+        cascade="all, delete",
+        passive_deletes=True
     )
 
     workspaces = db.relationship(
@@ -66,6 +76,6 @@ class User(db.Model, UserMixin):
             'email': self.email,
             'teams': [team.id for team in self.teams],
             'projects': [project.id for project in self.projects],
-            'ownedProjects': [project.id for project in self.ownedProjects],
+            'colloborations': [project.id for project in self.collaborations],
             'workspaces': [workspace.id for workspace in self.workspaces]
         }

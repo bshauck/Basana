@@ -1,42 +1,40 @@
 import { fetchData } from "./csrf"
 
+import { CREATED_WORKSPACE, DELETED_WORKSPACE } from "./common";
 const GOT_ALL_WORKSPACES = "workspaces/GOT_ALL_WORKSPACES";
 const GOT_USER_WORKSPACES = "workspaces/GOT_USER_WORKSPACES";
 const GOT_WORKSPACE = "workspaces/GOT_WORKSPACE";
-const CREATED_WORKSPACE = "workspaces/CREATED_WORKSPACE";
 const UPDATED_WORKSPACE = "workspaces/UPDATED_WORKSPACE";
-const DELETED_WORKSPACE = "workspaces/DELETED_WORKSPACE";
 
-export const gotAllWorkspaces = workspaces => ({
+const gotAllWorkspaces = workspaces => ({
     type: GOT_ALL_WORKSPACES,
     workspaces
 });
 
-
-export const getUserWorkspaces = workspaces => ({
+const getUserWorkspaces = workspaces => ({
     type: GOT_USER_WORKSPACES,
     workspaces
-  })
+})
 
-
-export const gotWorkspace = workspace => ({
+const gotWorkspace = workspace => ({
     type: GOT_WORKSPACE,
     workspace
 });
 
-export const createdWorkspace = workspace => ({
+const createdWorkspace = workspace => ({
     type: CREATED_WORKSPACE,
     workspace
 });
 
-export const updatedWorkspace = workspace => ({
+const updatedWorkspace = workspace => ({
     type: UPDATED_WORKSPACE,
     workspace
 });
 
-export const deletedWorkspace = id => ({
+const deletedWorkspace = (id, userId) => ({
     type: DELETED_WORKSPACE,
-    id
+    id,
+    userId
 });
 
 // THUNKS
@@ -89,12 +87,12 @@ export const thunkUpdateWorkspace = (id, data) => async dispatch => {
     return answer
 }
 
-export const thunkDeleteWorkspace = (id, songIds) => async dispatch => {
-    console.log("DELETING workspace", id, songIds)
+export const thunkDeleteWorkspace = id => async (dispatch, getState) => {
+    console.log("DELETING workspace", id)
     const url = `/api/workspaces/${id}`
     const answer = await fetchData(url, { method: 'DELETE' });
     console.log("AFTER DELETING workspace: errors?", answer.errors)
-    if (!answer.errors) dispatch(deletedWorkspace(id, songIds))
+    if (!answer.errors) dispatch(deletedWorkspace(id, getState().workspaces[id].ownerId))
     return answer
 }
 
@@ -114,6 +112,7 @@ const workspaceReducer = (state = initialState, action) => {
     case GOT_WORKSPACE: // eslint-disable-next-line no-fallthrough
     case CREATED_WORKSPACE: // eslint-disable-next-line no-fallthrough
     case UPDATED_WORKSPACE:
+      console.log("WS created workspace", action.workspace.ownerId)
       return { ...state, [action.workspace.id]: {...action.workspace} };
     case DELETED_WORKSPACE:
       const newState = { ...state };

@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { signUp, login } from "../../store/session";
 import { convertErrorsToArray } from "../../utils/helpers";
+import { useContentLoaded } from "../../context/ContentLoaded";
 
 function SignupFormModal() {
 	const dispatch = useDispatch();
@@ -14,6 +15,7 @@ function SignupFormModal() {
 	// error format is {key1:[error1, error2], key2:[error1, error2]}}
 	const [errors, setErrors] = useState([]);
 	const { closeModal } = useModal();
+	const { setUserLoaded } = useContentLoaded();
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -36,7 +38,10 @@ function SignupFormModal() {
 		setPassword('password')
 		const data = await dispatch(login('demo@aa.io', 'password'));
 		if (data.errors) setErrors(convertErrorsToArray(data.errors));
-		else closeModal()
+		else {
+			setUserLoaded(true);
+			closeModal()
+		}
 	  }
 
 	  const defaultJill = async () => {
