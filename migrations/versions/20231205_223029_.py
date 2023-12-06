@@ -131,7 +131,7 @@ def upgrade():
     if environment == "production":
         op.execute(f"ALTER TABLE color SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE project_icon SET SCHEMA {SCHEMA};")
-        op.execute(f"ALTER TABLE statue SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE status SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE userb SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE view_type SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE workspace SET SCHEMA {SCHEMA};")
