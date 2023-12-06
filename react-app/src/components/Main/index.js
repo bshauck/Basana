@@ -4,6 +4,7 @@ import { Route, Switch } from "react-router-dom";
 import Landing from "./Landing";
 import ProjectDetails from "./ProjectDetails";
 import WorkspaceDetails from "./WorkspaceDetails";
+import WorkspaceMyTasksList from "./WorkspaceMyTasksList";
 
 
 export default function Main() {
@@ -18,7 +19,9 @@ export default function Main() {
             <Route exact path="/workspaces/:workspaceId">
                 <WorkspaceDetails />
             </Route>
-
+            <Route exact path="/workspaces/:workspaceId/list">
+                <WorkspaceMyTasksList  />
+            </Route>
             <Route>
                 404 Page Not Found
             </Route>

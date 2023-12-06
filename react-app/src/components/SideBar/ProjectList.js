@@ -1,9 +1,11 @@
 // src/components/SideBar/ProjectList.js
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { NavLink } from 'react-router-dom';
-
+import { NavLink, useHistory } from 'react-router-dom';
 import { thunkGetUserProjects } from '../../store/project';
+import OpenModalButton from '../OpenModalButton';
+import CreateProjectFormModal from '../Main/CreateProjectFormModal';
+
 
 export default function ProjectList() {
   const dispatch = useDispatch();
@@ -11,6 +13,7 @@ export default function ProjectList() {
   const projects = Object.values(useSelector(state => state.projects));
   const userProjectIds = useSelector(state => state.session.user?.projects);
   const [ref] = useState({});
+  const history = useHistory();
 
   if (!currentUser) return null;
 
@@ -21,13 +24,12 @@ export default function ProjectList() {
     return null;
   } else if (ref[rKey]) delete ref[rKey]
 
-  /* probably TODO need to refactor projects */
-  const userProjects = projects.filter(project => userProjectIds.includes(project.id)  && project.name !== 'My tasks');
+  const userProjects = projects.filter(project => userProjectIds.includes(project.id) && project.name !== 'My tasks');
   console.log ('userProjects', userProjects, 'userProjectIds', userProjectIds )
 
   return (
     <div className="project-list">
-      <h3>Projects</h3>
+      <h3><div className='sidebar-home-title'  > Projects</div></h3>
       <ul>
         {userProjects.map(p => (<NavLink key={p.id} to={`/projects/${p.id}`}> <li >{`-----   ${p.name}`}</li></NavLink>))}
       </ul>

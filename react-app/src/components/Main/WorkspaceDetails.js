@@ -69,6 +69,8 @@ export default function WorkspaceDetails() {
         <WorkspaceMenu  workspace={displayWorkspace} />
       </div>
       <div className="workspace-body">
+        <h1>Workspace Members</h1>
+        <h1>Workspace Projects</h1>
       </div>
     </div>
   );
