@@ -1,6 +1,7 @@
 import { fetchData } from "./csrf"
 
 import { CREATED_WORKSPACE, DELETED_WORKSPACE } from "./common";
+import { CREATED_PROJECT, DELETED_PROJECT } from "./common";
 
 const GOT_ALL_USERS = "users/GOT_ALL_USERS"
 const GOT_USER = "users/GOT_USER"
@@ -107,6 +108,20 @@ const userReducer = (state = initialState, action) => {
         [user.id]:
           {...user,
             workspaces: user.workspaces.filter(wId => wId !== action.id)} }
+    }
+    case CREATED_PROJECT:
+      console.log("Session created PR: pr/userId", action.project, action.project.ownerId)
+      if (!state.user || state.user.id !== action.project.ownerId) return state
+      return { ...state,
+        user: {...state.user,
+          projects: [...state.user.projects, action.project.id]} }
+    case DELETED_PROJECT: {
+      const user = state.user
+      if (!user || user.id !== action.userId ||
+        !user.projects.includes(action.id)) return state
+      return { ...state,
+        user: {...state.user,
+        projects: user.projects.filter(wId => wId !== action.id)} }
     }
     default:
       return state

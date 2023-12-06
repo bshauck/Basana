@@ -46,9 +46,7 @@ Migrate(app, db)
 CORS(app)
 
 # testing reading environment variables
-print(os.getenv('DATABASE_URL'))
-print(os.getenv('SCHEMA'))
-print(os.getenv('FLASK_ENV'))
+print("env", os.getenv('FLASK_ENV'), "schema: ", os.getenv('SCHEMA'))
 
 
 

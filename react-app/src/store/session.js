@@ -1,6 +1,8 @@
 import { fetchData } from "./csrf"
 
 import { CREATED_WORKSPACE, DELETED_WORKSPACE } from "./common";
+import { CREATED_PROJECT, DELETED_PROJECT } from "./common";
+
 const SET_USER = "session/SET_USER"
 const REMOVE_USER = "session/REMOVE_USER"
 const GOT_CURRENT_WORKSPACE = "session/GOT_CURRENT_WORKSPACE"
@@ -91,6 +93,20 @@ export default function reducer(state = initialState, action) {
 		return { ...state,
 			user: {...state.user,
 			workspaces: user.workspaces.filter(wId => wId !== action.id)} }
+	}
+	case CREATED_PROJECT:
+		console.log("Session created PR: pr/userId", action.project, action.project.ownerId)
+		if (!state.user || state.user.id !== action.project.ownerId) return state
+		return { ...state,
+		  user: {...state.user,
+				projects: [...state.user.projects, action.project.id]} }
+	case DELETED_PROJECT: {
+		const user = state.user
+		if (!user || user.id !== action.userId ||
+			!user.projects.includes(action.id)) return state
+		return { ...state,
+			user: {...state.user,
+			projects: user.projects.filter(wId => wId !== action.id)} }
 	}
 	default:
 		return state

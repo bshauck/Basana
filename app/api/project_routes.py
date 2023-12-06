@@ -67,6 +67,9 @@ def update_project(id):
 
     if form.validate_on_submit():
         project.name = form.name.data
+        project.due = form.due.data
+        project.description = form.description.data
+        project.public = form.public.data
         db.session.add(project)
         db.session.commit()
         return project.to_dict(), 201

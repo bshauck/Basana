@@ -5,6 +5,7 @@ from app.forms import WorkspaceForm, ProjectForm, error_message, error_messages
 
 workspace_routes = Blueprint('workspaces', __name__)
 
+
 @workspace_routes.route('')
 @login_required
 def get_all_workspaces():
@@ -106,7 +107,7 @@ def delete_workspace(id):
 
 @workspace_routes.route('/<int:id>/projects/new', methods=["POST"])
 @login_required
-def create_project_for_workspace():
+def create_project_for_workspace(id):
     """
     Creates a new project and returns the new project in a dictionary
     """
@@ -126,7 +127,7 @@ def create_project_for_workspace():
         }
         print("DB: validated new_project", new_project)
 
-        project = project(**new_project)
+        project = Project(**new_project)
         db.session.add(project)
         db.session.commit()
         print("DB: successful save of project")
