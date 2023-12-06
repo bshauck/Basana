@@ -8,8 +8,8 @@ from random import choice
 user_member_project = db.Table(
     'user_member_project',
     db.Model.metadata,
-    db.Column('userId', db.Integer, db.ForeignKey(add_prefix_for_prod('userb.id')), primary_key=True),
-    db.Column('projectId', db.Integer, db.ForeignKey(add_prefix_for_prod('project.id')), primary_key=True)
+    db.Column('userId', db.Integer, db.ForeignKey(add_prefix_for_prod('userb.id'), ondelete='CASCADE'), primary_key=True),
+    db.Column('projectId', db.Integer, db.ForeignKey(add_prefix_for_prod('project.id'), ondelete='CASCADE'), primary_key=True)
 )
 
 if environment == "production":
@@ -18,12 +18,11 @@ if environment == "production":
 
 class Project(db.Model):
     __tablename__ = 'project'
-    myTaskProjectName = "My tasks"
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         db.session.add(self)
-        self.createSectionsForMyTask()
+        self.createInternalSection()
         self.color = choice(range(1, Color.maxIndex+1))
         self.icon = choice(range(1, ProjectIcon.maxIndex+1))
 
@@ -45,20 +44,22 @@ class Project(db.Model):
     due = db.Column(db.Date, nullable=True)
     completed = db.Column(db.Boolean, default=False)
 
-    sections = db.relationship(
-        'Section',
-        back_populates='project'
-    )
-
-    members = db.relationship(
+    collaborators = db.relationship(
         "User",
         secondary=user_member_project,
-        back_populates="projects",
+        back_populates="collaborations",
     )
 
     owner = db.relationship(
         'User',
-        back_populates='ownedProjects'
+        back_populates='projects'
+    )
+
+    sections = db.relationship(
+        'Section',
+        back_populates='project',
+        cascade="all, delete",
+        passive_deletes=True,
     )
 
     workspace = db.relationship(
@@ -66,21 +67,15 @@ class Project(db.Model):
         back_populates='projects'
     )
 
-    def addSectionsNamed(self, names):
-        timeNow = datetime.now()
-        index = 0
-        for name in names:
-            index = index + 1000
-            self.addToSectionsSession(Section(project=self, name=name, index=index, createdAt=timeNow))
-
-
-    def createSectionsForMyTask(self):
-        if self.name == self.myTaskProjectName:
-            self.addSectionsNamed(( "Recently assigned", "Do today", "Do next week", "Do later" ))
-
     def addToSectionsSession(self, section):
         self.sections.append(section)
         db.session.add(section)
+
+    def createInternalSection(self):
+        self.addToSectionsSession(Section(project=self, name="Untitled section", index=0, createdAt=datetime.now()))
+
+    def internalSectionName(self):
+        return "Untitled section"
 
     def to_dict(self):
         return {
@@ -97,6 +92,6 @@ class Project(db.Model):
             'start': self.start,
             'due': self.due,
             'completed': self.completed,
-            'members': [member.id for member in self.members],
+            'collaborators': [member.id for member in self.collaborators],
             'sections': [section.id for section in self.sections]
         }

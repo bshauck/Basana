@@ -9,7 +9,7 @@ class Task(db.Model):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    projectId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('project.id')), nullable=False)
+    projectId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('project.id'), ondelete='CASCADE'), nullable=False)
     title = db.Column(db.String(50), nullable=False)
     description = db.Column(db.Text, nullable=False)
     status = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('status.id')), nullable=True, default=1)

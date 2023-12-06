@@ -9,7 +9,7 @@ export default function ProjectList() {
   const dispatch = useDispatch();
   const currentUser = useSelector(state => state.session.user);
   const projects = Object.values(useSelector(state => state.projects));
-  const userProjectIds = useSelector(state => state.session.user?.ownedProjects);
+  const userProjectIds = useSelector(state => state.session.user?.projects);
   const [ref] = useState({});
 
   if (!currentUser) return null;

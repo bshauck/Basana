@@ -5,7 +5,7 @@ const ContentLoadedContext = createContext();
 export function ContentLoadedProvider({ children }) {
   const [sidebarLoaded, setSidebarLoaded] = useState(false);
   const [userLoaded, setUserLoaded] = useState(false);
-  const [appWorkspace, setAppWorkspace] = useState(null);
+  const [appWorkspace, setAppWorkspace] = useState('');
 
   const contextValue = {
     sidebarLoaded,

@@ -110,9 +110,12 @@ def create_project_for_workspace():
     """
     Creates a new project and returns the new project in a dictionary
     """
+    print("DB: about to create a new project for a workspace")
 
     form = ProjectForm()
     form['csrf_token'].data = request.cookies['csrf_token']
+
+    print("DB: form", form)
 
     if form.validate_on_submit():
         new_project = {
@@ -121,12 +124,15 @@ def create_project_for_workspace():
             "name": form.name.data,
             'public': form.public.data,
         }
+        print("DB: validated new_project", new_project)
 
         project = project(**new_project)
         db.session.add(project)
         db.session.commit()
+        print("DB: successful save of project")
         return project.to_dict(), 201
     elif form.errors:
+        print("DB: project form errors", form.errors)
         return error_messages(form.errors), 400
     else:
         print("DB: project form not validated")

@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
-import { thunkCreateProject } from "../../store/project";
+import { thunkUpdateProject } from "../../store/project";
 
-function CreateProjectFormModal({ project}) {
+function UpdateProjectFormModal({ project}) {
   const dispatch = useDispatch();
   const [name, setName] = useState("");
   const [isPublic, setIsPublic] = useState(false);
@@ -12,17 +12,16 @@ function CreateProjectFormModal({ project}) {
   const user = useSelector(state => state.session.user);
   const appWorkspace = useSelector(state => state.session.workspace);
 
-  console.log('CreateProjectFormModal: user', user, 'appWorkspace', appWorkspace)
+  console.log('UpdateProjectFormModal: user', user, 'appWorkspace', appWorkspace)
 
   const handleSubmit = async e => {
     e.preventDefault();
-    const data = await dispatch(thunkCreateProject(appWorkspace.id, { name, public: isPublic }));
+    const data = await dispatch(thunkUpdateProject(appWorkspace.id, { name, public: isPublic }));
     if (data.errors) setErrors(Object.values(data.errors));
     else closeModal()
   }
 
   useEffect(() => {
-
     if (!appWorkspace) dispatch()
   }, [appWorkspace, dispatch])
 
@@ -30,7 +29,7 @@ function CreateProjectFormModal({ project}) {
 
   return (
     <>
-      <h1>Create new project </h1>
+      <h1>Update new project </h1>
       <form onSubmit={handleSubmit}>
         <ul>
           {errors.map((error, idx) => (
@@ -54,10 +53,10 @@ function CreateProjectFormModal({ project}) {
             checked={isPublic}
             onChange={e=>setIsPublic(e.target.checked)} />
       </label>
-        <button type="submit">Create project</button>
+        <button type="submit">Update project</button>
       </form>
     </>
   )
 }
 
-export default CreateProjectFormModal
+export default UpdateProjectFormModal

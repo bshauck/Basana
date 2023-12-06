@@ -1,36 +1,47 @@
 // src/components/SideBar/CurrentWorkspace.js
-import { useState } from 'react';
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
 import { thunkGetUserWorkspaces } from '../../store/workspace';
+import { gotWorkspace } from '../../store/session';
 
-export default function ProjectList() {
+export default function CurrentWorkspace() {
   const dispatch = useDispatch();
   const currentUser = useSelector(state => state.session.user);
   const workspaces = Object.values(useSelector(state => state.workspaces));
   const userWorkspaceIds = useSelector(state => state.session.user?.workspaces);
-  const [ref] = useState({});
+  const currentWorkspace = useSelector(state => state.session.workspace);
 
-  if (!currentUser) return null;
+  let userWorkspaces
 
-  const rKey = 'userWorkspaceIds';
-  if (!Array.isArray(userWorkspaceIds) || !userWorkspaceIds.length) {
-    if (!ref[rKey]) ref[rKey] = dispatch(thunkGetUserWorkspaces(currentUser.id));
-    return null;
-  } else if (ref[rKey]) delete ref[rKey]
+  useEffect(() => {
+    if (!currentUser) return null;
+    if (!Array.isArray(userWorkspaceIds) || !userWorkspaceIds.length)
+      dispatch(thunkGetUserWorkspaces(currentUser.id))
+    else {
+      if (!currentWorkspace)
+        userWorkspaces = workspaces.filter(w => userWorkspaceIds?.includes(w.id));
+        const displayWorkspace = userWorkspaces[0];
+        if (displayWorkspace)  {
+          console.log("SETTING appWorkspace: ", displayWorkspace);
+          dispatch(gotWorkspace(displayWorkspace))
+        }
+    }
+  }, [currentUser, userWorkspaceIds, dispatch, workspaces]);
 
-  const userWorkspaces = workspaces.filter(w => userWorkspaceIds.includes(w.id));
-  const displayWorkspace = userWorkspaces[0];
-  if (!displayWorkspace) return null;
+
+  if (!currentWorkspace || !userWorkspaceIds) return null;
+  else if (!userWorkspaces) userWorkspaces = workspaces.filter(w => userWorkspaceIds.includes(w.id));
+
+
 
   return (
     <div className="team-list">
       <h3>Team</h3>
+      <h4>{currentWorkspace.name}</h4>
       <ul>
-        {/* <li key={displayWorkspace.id}>{`-----   ${displayWorkspace.name}`}</li> */}
-        {userWorkspaces.map(w => (<NavLink key={w.id} to={`/workspaces/${w.id}`}> <li >{`-----   ${w.name}`}</li></NavLink>))}
-
+        {userWorkspaces.map(w => (<li key={w.id} ><NavLink to={`/workspaces/${w.id}`}>{`-----   ${w.name}`}</NavLink></li>))}
       </ul>
     </div>
   )

@@ -7,13 +7,19 @@ class Section(db.Model):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    projectId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('project.id')), nullable=False)
+    projectId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('project.id'), ondelete='CASCADE'), nullable=True)
+    internalProjectId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('internal_project.id'), ondelete='CASCADE'), nullable=True)
     name = db.Column(db.String(50), nullable=False)
     index = db.Column(db.Integer, nullable=False)
     createdAt = db.Column(db.Date, nullable=False)
 
     project = db.relationship(
         'Project',
+        back_populates='sections'
+    )
+
+    internalProject = db.relationship(
+        'InternalProject',
         back_populates='sections'
     )
 

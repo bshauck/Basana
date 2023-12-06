@@ -1,5 +1,7 @@
 import { fetchData } from "./csrf"
 
+import { CREATED_WORKSPACE, DELETED_WORKSPACE } from "./common";
+
 const GOT_ALL_USERS = "users/GOT_ALL_USERS"
 const GOT_USER = "users/GOT_USER"
 const CREATED_USER = "users/CREATED_USER"
@@ -90,7 +92,23 @@ const userReducer = (state = initialState, action) => {
       const newState = { ...state }
       delete newState[action.id]
       return newState
-     default:
+    case CREATED_WORKSPACE:
+      console.log("WS created workspace", action.workspace.ownerId)
+      const user = state[action.workspace.ownerId]
+      if (!user) return state
+      return { ...state,
+        [action.workspace.id]:
+          {...user,
+            workspaces: [...user.workspaces, action.workspace.id]} }
+    case DELETED_WORKSPACE: {
+      const user = state[action.userId]
+      if (!user || !user.workspaces?.includes(action.id)) return state
+      return { ...state,
+        [user.id]:
+          {...user,
+            workspaces: user.workspaces.filter(wId => wId !== action.id)} }
+    }
+    default:
       return state
   }
 };
