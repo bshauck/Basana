@@ -44,7 +44,7 @@ export default function Landing() {
       <div className="landing-header">
         <h2>Home</h2>
         <h3>{new Date().toLocaleDateString(undefined, {weekday: 'long',year: 'numeric',month: 'long',day: 'numeric'})}</h3>
-        <h2>{`Good ${hours < 12 ? "morning" : (hours < 17 ? "afternoon" : "evening")}, ${user.username}`}</h2>
+        <h2>{`Good ${hours < 12 ? "morning" : (hours < 17 ? "afternoon" : "evening")}, ${user ? user.username : "!"}`}</h2>
 
       </div>
       <div className="landing-body">
