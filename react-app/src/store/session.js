@@ -79,11 +79,11 @@ export default function reducer(state = initialState, action) {
 	case REMOVE_USER:
 		return { ...state, user: null }
 	case CREATED_WORKSPACE:
-		console.log("WS created workspace", action.workspace.ownerId)
+		console.log("Session created WS ws/userId", action.workspace, action.workspace.ownerId)
 		if (!state.user || state.user.id !== action.workspace.ownerId) return state
 		return { ...state,
 		  user: {...state.user,
-				workspaces: [...state.user.workspaces, action.id]} }
+				workspaces: [...state.user.workspaces, action.workspace.id]} }
 	case DELETED_WORKSPACE: {
 		const user = state.user
 		if (!user || user.id !== action.userId ||

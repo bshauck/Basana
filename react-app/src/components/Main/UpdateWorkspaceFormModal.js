@@ -11,7 +11,7 @@ function UpdateWorkspaceFormModal({ workspace }) {
 
   const handleSubmit = async e => {
     e.preventDefault();
-    const data = await dispatch(thunkUpdateWorkspace({ name }));
+    const data = await dispatch(thunkUpdateWorkspace(workspace.id, { name }));
     if (data.errors) setErrors(Object.values(data.errors));
     else closeModal()
   }
