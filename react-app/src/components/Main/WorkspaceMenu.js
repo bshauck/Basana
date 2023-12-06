@@ -1,13 +1,10 @@
 import { useState, useEffect, useRef } from "react";
-// import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import OpenModalButton from "../OpenModalButton";
-import LoginFormModal from "../LoginFormModal";
 import CreateWorkspaceFormModal from "./CreateWorkspaceFormModal";
 import WorkspaceDeleteFormModal from "./WorkspaceDeleteFormModal";
-
+import UpdateWorkspaceFormModal from "./UpdateWorkspaceFormModal";
 function WorkspaceMenu({ workspace }) {
-//   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
   const ulRef = useRef();
   const user = useSelector(state => state.session.user);
@@ -56,7 +53,7 @@ function WorkspaceMenu({ workspace }) {
             <OpenModalButton
               buttonText="Edit Workspace"
               onItemClick={closeMenu}
-              modalComponent={<LoginFormModal />/*<EditWorkspaceModal />*/}
+              modalComponent={<UpdateWorkspaceFormModal workspace={workspace} />}
             />
         </>)} {user !== false && (
             <OpenModalButton

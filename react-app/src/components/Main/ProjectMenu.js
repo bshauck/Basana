@@ -1,12 +1,10 @@
 import { useState, useEffect, useRef } from "react";
-// import { useDispatch } from "react-redux";
 import OpenModalButton from "../OpenModalButton";
-import LoginFormModal from "../LoginFormModal";
 import CreateProjectFormModal from "./CreateProjectFormModal";
 import ProjectDeleteFormModal from "./ProjectDeleteFormModal";
+import UpdateProjectFormModal from "./UpdateProjectFormModal";
 
 function ProjectMenu({ project }) {
-//   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
   const ulRef = useRef();
 
@@ -54,7 +52,7 @@ function ProjectMenu({ project }) {
             <OpenModalButton
               buttonText="Edit Project"
               onItemClick={closeMenu}
-              modalComponent={<LoginFormModal />/*<EditProjectModal />*/}
+              modalComponent={<UpdateProjectFormModal project={project}/>}
             />
         </>)} {closeMenu !== false && (
             <OpenModalButton

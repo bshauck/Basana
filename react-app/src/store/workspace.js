@@ -80,7 +80,6 @@ export const thunkUpdateWorkspace = (id, data) => async dispatch => {
     const url = `/api/workspaces/${id}`
     const answer = await fetchData(url, {
         method: 'PUT',
-        headers: {"Content-Type": "application/json"},
         body: JSON.stringify(data)
     })
     if (!answer.errors) dispatch(updatedWorkspace(answer))

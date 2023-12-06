@@ -79,7 +79,6 @@ export const thunkUpdateSection = (id, data) => async dispatch => {
     const url = `/api/sections/${id}`
     const answer = await fetchData(url, {
         method: 'PUT',
-        headers: {"Content-Type": "application/json"},
         body: JSON.stringify(data)
     })
     if (!answer.errors) dispatch(updatedSection(answer))

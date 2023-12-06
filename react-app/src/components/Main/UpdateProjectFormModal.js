@@ -3,10 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { thunkUpdateProject } from "../../store/project";
 
-function UpdateProjectFormModal({ project}) {
+function UpdateProjectFormModal({ project }) {
   const dispatch = useDispatch();
-  const [name, setName] = useState("");
-  const [isPublic, setIsPublic] = useState(false);
+  const [name, setName] = useState(project?.name || "");
+  const [due, setDue] = useState(project?.due || "");
+  const [description, setDescription] = useState(project?.description || "");
+  const [isPublic, setIsPublic] = useState(project?.public || false);
   const [errors, setErrors] = useState([]);
   const { closeModal } = useModal();
   const user = useSelector(state => state.session.user);
@@ -16,7 +18,7 @@ function UpdateProjectFormModal({ project}) {
 
   const handleSubmit = async e => {
     e.preventDefault();
-    const data = await dispatch(thunkUpdateProject(appWorkspace.id, { name, public: isPublic }));
+    const data = await dispatch(thunkUpdateProject(project.id, { name, description, due, public: isPublic }));
     if (data.errors) setErrors(Object.values(data.errors));
     else closeModal()
   }
@@ -47,12 +49,31 @@ function UpdateProjectFormModal({ project}) {
           />
         </label>
         <label>
+            Due Date:
+            <input
+            type='date'
+                name="due"
+                value={due}
+                onChange={e=>setDue(e.target.value)}
+            />
+        </label>
+        <label>
+            Description:
+            <textarea
+            type='text'
+                name="description"
+                value={description}
+                onChange={e=>setDescription(e.target.value)}
+            />
+        </label>
+        <label>
         Public:
         <input
             type="checkbox"
             checked={isPublic}
             onChange={e=>setIsPublic(e.target.checked)} />
       </label>
+        <button type="button" onClick={closeModal} >Cancel</button>
         <button type="submit">Update project</button>
       </form>
     </>
