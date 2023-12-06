@@ -7,34 +7,34 @@ const CREATED_TASK = "tasks/CREATED_TASK";
 const UPDATED_TASK = "tasks/UPDATED_TASK";
 const DELETED_TASK = "tasks/DELETED_TASK";
 
-export const gotAllTasks = tasks => ({
+const gotAllTasks = tasks => ({
     type: GOT_ALL_TASKS,
     tasks
 });
 
 
-export const getUserTasks = tasks => ({
+const gotUserTasks = tasks => ({
     type: GOT_USER_TASKS,
     tasks
   })
 
 
-export const gotTask = task => ({
+const gotTask = task => ({
     type: GOT_TASK,
     task
 });
 
-export const createdTask = task => ({
+const createdTask = task => ({
     type: CREATED_TASK,
     task
 });
 
-export const updatedTask = task => ({
+const updatedTask = task => ({
     type: UPDATED_TASK,
     task
 });
 
-export const deletedTask = id => ({
+const deletedTask = id => ({
     type: DELETED_TASK,
     id
 });
@@ -54,7 +54,7 @@ export const thunkGetUserTasks = userId => async dispatch => {
   const url = `/api/users/${userId}/tasks`;
   let answer = await fetchData(url);
   if (!answer.errors) {
-    dispatch(getUserTasks(answer.tasks));
+    dispatch(gotUserTasks(answer.tasks));
   }
 }
 

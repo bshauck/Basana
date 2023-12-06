@@ -1,24 +1,18 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-
 import { thunkGetUserProjects } from "../../store/project";
-import ProjectMenu from "./ProjectMenu";
 
-export default function ProjectDetails() {
+export default function WorkspaceMyTasksList() {
   const dispatch = useDispatch();
+    const { workspaceId } = useParams();
   const currentUser = useSelector(state => state.session.user);
-  const { projectId } = useParams();
-  const displayProject = useSelector(state => state.projects[projectId]);
+  const appWorkspace = useSelector(state => state.session.workspace);
 
   const projectIds = useSelector(state => state.session.user?.projects);
   const [ref] = useState({});
   const rKey = 'projects';
 
-
-  console.log('PDetails projectIds', projectIds, 'displayProject', displayProject)
-
-  if (projectId !== ref) return (<h1>{`Surprise P ${projectId}`} <ProjectMenu project={displayProject} /></h1>)
 
   if (!currentUser) return null;
 
@@ -28,20 +22,19 @@ export default function ProjectDetails() {
     return null;
   } else if (ref[rKey]) delete ref[rKey]
 
-  if (!displayProject) return null;
 
-  console.log('PDetails rendering ', projectId, displayProject)
+  console.log('Task Details rendering ')
 
 /* <span className="prMenu"><i className="fas fa-down-chevron"></i></span> */
 
   return (
-    <div className="project-main">
-      <div className="project-header">
-        <h2>Project: XXXXX </h2>
+    <div className="task-main">
+      <div className="task-header">
+        <h2>My tasks: XXXXX </h2>
         {/* <h2>Project: {displayProject.name} </h2> */}
         {/* <ProjectMenu project={displayProject} /> */}
       </div>
-      <div className="project-body">
+      <div className="task-body">
         <h1>Task List for Project with SEctions</h1>
 
       </div>

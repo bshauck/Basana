@@ -1,6 +1,6 @@
 from flask import Blueprint, request
 from flask_login import login_required, current_user
-from app.models import Project, db
+from app.models import Project, db, Task
 from app.forms import ProjectForm, error_message, error_messages
 
 project_routes = Blueprint('projects', __name__)
@@ -92,3 +92,16 @@ def delete_project(id):
     db.session.delete(project)
     db.session.commit()
     return {"message": "project successfully deleted"}
+
+
+
+@project_routes.route('/<int:id>/tasks')
+@login_required
+def get_all_project_tasks(id):
+    """
+    Query for all Tasks within the given Project and returns them in a list of dictionaries
+    """
+    print("DB: about to get all project tasks")
+    tasks = Task.query.filter_by(Task.projectId == id).all()
+    print("DB: tasks", tasks)
+    return {"tasks": [task.to_dict() for task in tasks]}

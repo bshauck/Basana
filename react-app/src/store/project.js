@@ -13,7 +13,7 @@ const gotAllProjects = projects => ({
     projects
 });
 
-const getUserProjects = projects => ({
+const gotUserProjects = projects => ({
     type: GOT_USER_PROJECTS,
     projects
   })
@@ -54,7 +54,7 @@ export const thunkGetUserProjects = userId => async dispatch => {
   const url = `/api/users/${userId}/projects`;
   let answer = await fetchData(url);
   if (!answer.errors) {
-    dispatch(getUserProjects(answer.projects));
+    dispatch(gotUserProjects(answer.projects));
   }
 }
 

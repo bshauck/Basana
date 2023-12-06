@@ -104,7 +104,6 @@ def delete_workspace(id):
 
 # Projects
 
-
 @workspace_routes.route('/<int:id>/projects/new', methods=["POST"])
 @login_required
 def create_project_for_workspace(id):
@@ -138,3 +137,18 @@ def create_project_for_workspace(id):
     else:
         print("DB: project form not validated")
         return error_message("form", "form not validated"), 500 # this should never happen
+
+
+# Tasks
+
+@workspace_routes.route('/<int:workspaceId>/myTasks')
+@login_required
+def user_workspace_tasks(workspaceId):
+    """
+    Query for a user's tasks in a workspace and returns a task collection
+    """
+    print ("DB: about to get user's tasks in a workspace")
+
+    tasks = [task.to_dict() for task in current_user.tasks if task.workspace_id == workspaceId]
+    print("DB: tasks", tasks)
+    return { "tasks": tasks }
