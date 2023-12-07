@@ -19,10 +19,6 @@ const dispatch = useDispatch();
   const history = useHistory();
 
 
-
-
-
-
   useEffect(() => {
     if (!currentUser) return null;
     dispatch(thunkGetUserProjects(currentUser.id));

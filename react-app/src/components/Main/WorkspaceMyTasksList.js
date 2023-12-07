@@ -7,7 +7,7 @@ import SectionTableListHeader from "../ProjectTaskList/SectionTableListHeader";
 import AddSectionLine from "../ProjectTaskList/AddSectionLine";
 export default function WorkspaceMyTasksList() {
   const dispatch = useDispatch();
-const currentUser = useSelector(state => state.session.user);
+// const currentUser = useSelector(state => state.session.user);
   const appWorkspace = useSelector(state => state.session.workspace);
   const { workspaceId } = useParams();
 
@@ -43,7 +43,7 @@ const currentUser = useSelector(state => state.session.user);
   return (
     <div className="task-main">
       <div className="task-header">
-        <h2>My tasks: XXXXX </h2>
+        <h2>My tasks: {`(${appWorkspace ? appWorkspace.name : 'XXXXX'})`} </h2>
       </div>
       <div className="task-body">
         <h1>Task List for Workspace internal Project with Sections</h1>

@@ -40,10 +40,16 @@ const deletedI_Project = (id, userId) => ({
 });
 
 // THUNKS
-
 export const thunkGetInternalInfo = (wsId, uId) => async (dispatch, getState) => {
+    // not implemented; notion of getting info for My tasks
+    // main window for the list of section-task tables
+
+    // const url = `/api/workspaces/${wsId}/i_projects/${uId}`
+    // const answer = await fetchData(url)
+    // if (!answer.errors) dispatch(gotI_Project(answer))
+    // return answer
     const state = getState()
-    if (state !== getState()) return state
+    // if (state !== getState()) return state
 }
 
 
@@ -73,15 +79,12 @@ export const thunkGetI_Project = id => async dispatch => {
 }
 
 export const thunkCreateI_Project = (id, i_project) => async dispatch => {
-    console.log("CREATING i_project; wsId/i_project", id, i_project)
     const url = `/api/workspaces/${id}/i_projects/new`
     const answer = await fetchData(url, {
       method: 'POST',
       body: JSON.stringify(i_project)
     });
-    console.log("CREATING i_project; errprs?", answer.errors)
     if (!answer.errors) dispatch(createdI_Project(answer));
-    console.log("CREATING i_project; answer", answer)
     return answer;
 };
 
@@ -96,10 +99,8 @@ export const thunkUpdateI_Project = (id, data) => async dispatch => {
 }
 
 export const thunkDeleteI_Project = id => async (dispatch, getState) => {
-    console.log("DELETING i_project", id)
     const url = `/api/i_projects/${id}`
     const answer = await fetchData(url, { method: 'DELETE' });
-    console.log("AFTER DELETING i_project: errors?", answer.errors)
     if (!answer.errors) dispatch(deletedI_Project(id, getState().session.user.id))
     return answer
 }

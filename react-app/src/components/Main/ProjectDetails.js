@@ -18,7 +18,7 @@ export default function ProjectDetails() {
 
   console.log('PDetails projectIds', projectIds, 'displayProject', displayProject)
 
-  if (projectId !== ref) return (<h1>{`Surprise P ${projectId}`} <ProjectMenu project={displayProject} /></h1>)
+  if (projectId !== ref) return (<h1>{`Project: ${projectId}`} <ProjectMenu project={displayProject} /></h1>)
 
   if (!currentUser) return null;
 
@@ -37,8 +37,7 @@ export default function ProjectDetails() {
   return (
     <div className="project-main">
       <div className="project-header">
-        <h2>Project: XXXXX </h2>
-        {/* <h2>Project: {displayProject.name} </h2> */}
+        <h2>Project: {`${displayProject ? 'XXXXX' : displayProject.name}`}</h2>
         {/* <ProjectMenu project={displayProject} /> */}
       </div>
       <div className="project-body">

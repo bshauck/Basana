@@ -12,6 +12,7 @@ export default function ProjectList() {
   const currentUser = useSelector(state => state.session.user);
   const projects = Object.values(useSelector(state => state.projects));
   const userProjectIds = useSelector(state => state.session.user?.projects);
+  const [selectedProject, setSelectedProject] = useState(null);
   const [ref] = useState({});
   const history = useHistory();
 

@@ -1,4 +1,16 @@
 
+
+
+
+
+
+
+
+
+
+
+
+
 export default function SectionTableListHeader() {
     return (
     <span> Task name              Due date              Project Visibility                                   Collaborators
