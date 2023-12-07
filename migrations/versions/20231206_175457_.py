@@ -8,7 +8,6 @@ Create Date: 2023-12-06 17:54:57.588806
 from alembic import op
 import sqlalchemy as sa
 import os
-from app.models.db import profdify
 environment = os.getenv("FLASK_ENV")
 SCHEMA = os.environ.get("SCHEMA")
 
