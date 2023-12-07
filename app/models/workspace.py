@@ -31,6 +31,7 @@ class Workspace(db.Model):
     def createMyTaskProject(self):
         p = InternalProject(
             owner=self.owner,
+            ownerId=self.owner.id,
             workspace=self,
             name=InternalProject.myTaskProjectName)
         db.session.add(p)
