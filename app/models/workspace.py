@@ -1,12 +1,12 @@
-from .db import db, environment, SCHEMA, SEED, add_prefix_for_prod
+from .db import db, environment, SCHEMA, SEED, prodify
 from .project import Project
 from .internalProject import InternalProject
 
 user_member_workspace = db.Table(
     'user_member_workspace',
     db.Model.metadata,
-    db.Column('userId', db.Integer, db.ForeignKey(add_prefix_for_prod('userb.id'), ondelete='CASCADE'), primary_key=True),
-    db.Column('workspaceId', db.Integer, db.ForeignKey(add_prefix_for_prod('workspace.id'), ondelete='CASCADE'), primary_key=True))
+    db.Column('userId', db.Integer, db.ForeignKey(prodify('userb.id'), ondelete='CASCADE'), primary_key=True),
+    db.Column('workspaceId', db.Integer, db.ForeignKey(prodify('workspace.id'), ondelete='CASCADE'), primary_key=True))
 
 if environment == "production":
     user_member_workspace.schema = SCHEMA
@@ -19,7 +19,7 @@ class Workspace(db.Model):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    ownerId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('userb.id'), ondelete='CASCADE'), nullable=False)
+    ownerId = db.Column(db.Integer, db.ForeignKey(prodify('userb.id'), ondelete='CASCADE'), nullable=False)
     name = db.Column(db.String(50), nullable=False, unique=True)
 
     def __init__(self, **kwargs):
@@ -55,6 +55,13 @@ class Workspace(db.Model):
         passive_deletes=True,
     )
 
+    tasks = db.relationship(
+        "Task",
+        back_populates="workspace",
+        cascade="all, delete",
+        passive_deletes=True,
+    )
+
     teammates = db.relationship(
         "User",
         secondary=user_member_workspace,
@@ -71,5 +78,7 @@ class Workspace(db.Model):
             'name': self.name,
             'ownerId': self.ownerId,
             'teammates': [teammate.id for teammate in self.teammates],
-            'projects': [project.id for project in self.projects]
+            'projects': [project.id for project in self.projects],
+            'internalProjects': [internalProject.id for internalProject in self.internalProjects],
+            'tasks': [task.id for task in self.tasks],
         }

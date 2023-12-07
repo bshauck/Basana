@@ -1,12 +1,7 @@
-
-
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { thunkDeleteTask } from '../../store/task'
 import { thunkDeleteSection } from '../../store/section'
-
-
-
 
 
 export default function SectionTable({section, project}) {

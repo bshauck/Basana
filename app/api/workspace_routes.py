@@ -41,12 +41,12 @@ def create_workspace():
     form['csrf_token'].data = request.cookies['csrf_token']
 
     print("DB: form", form)
-    print("DB: formdata", form.name.data)
+    print("DB: formdata", form.data['name'])
 
     if form.validate_on_submit():
         new_workspace = {
             "owner": current_user,
-            "name": form.name.data,
+            "name": form.data['name'],
         }
 
         print("DB: new_workspace", new_workspace)
@@ -149,6 +149,6 @@ def user_workspace_tasks(workspaceId):
     """
     print ("DB: about to get user's tasks in a workspace")
 
-    tasks = [task.to_dict() for task in current_user.tasks if task.workspace_id == workspaceId]
+    tasks = [task.to_dict() for task in current_user.tasks if task.workspaceId == workspaceId]
     print("DB: tasks", tasks)
     return { "tasks": tasks }

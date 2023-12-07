@@ -40,8 +40,12 @@ def create_task():
 
     if form.validate_on_submit():
         new_task = {
-            "owner": current_user.id,
-            "name": form.name.data,
+            "ownerId": current_user.id,
+            "title": form.data['title'],
+            "description": form.data['description'],
+            # "due": form.data['due'],
+            "complete": form.data['complete'],
+            "public": form.data['public']
         }
 
         task = task(**new_task)
