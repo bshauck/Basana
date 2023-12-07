@@ -1,14 +1,24 @@
-from .db import db, environment, SCHEMA, add_prefix_for_prod
+from .db import db, environment, SCHEMA, prodify, SEED
+from datetime import datetime
+from .task import Task
 
 class Section(db.Model):
     __tablename__ = 'section'
+    initialIndexStep = 1000
 
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}
 
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        db.session.add(self)
+        self.createdAt = datetime.now()
+        self.index = self.currentMaxIndex() + self.initialIndexStep
+        self.checkSeedDemo()
+
     id = db.Column(db.Integer, primary_key=True)
-    projectId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('project.id'), ondelete='CASCADE'), nullable=True)
-    internalProjectId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('internal_project.id'), ondelete='CASCADE'), nullable=True)
+    projectId = db.Column(db.Integer, db.ForeignKey(prodify('project.id'), ondelete='CASCADE'), nullable=True)
+    internalProjectId = db.Column(db.Integer, db.ForeignKey(prodify('internal_project.id'), ondelete='CASCADE'), nullable=True)
     name = db.Column(db.String(50), nullable=False)
     index = db.Column(db.Integer, nullable=False)
     createdAt = db.Column(db.Date, nullable=False)
@@ -18,10 +28,30 @@ class Section(db.Model):
         back_populates='sections'
     )
 
+    tasks = db.relationship(
+        "Task",
+        back_populates="section",
+        cascade="all, delete",
+        passive_deletes=True
+    )
+
     internalProject = db.relationship(
         'InternalProject',
         back_populates='sections'
     )
+
+    def checkSeedDemo(self):
+        if SEED == 1:
+            self.tasks.append(Task(section=self, title="Demo task 1", index=1, createdAt=datetime.now()))
+            self.tasks.append(Task(section=self, title="Demo task 2", index=1001, createdAt=datetime.now()))
+            self.tasks.append(Task(section=self, title="Demo task 3", index=2001, createdAt=datetime.now()))
+            db.session.add_all(self.tasks)
+
+    def currentMaxIndex(self):
+        """
+        Returns the current max index for the section's project
+        """
+        return max([t.index for t in self.tasks]) if len(self.tasks)  else 0
 
     def to_dict(self):
         return {
@@ -29,5 +59,6 @@ class Section(db.Model):
             'projectId': self.projectId,
             'name': self.name,
             'index': self.index,
-            'createdAt': self.createdAt
+            'createdAt': self.createdAt,
+            'tasks': [t.to_dict() for t in self.tasks] if self.tasks else [],
         }

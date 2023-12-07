@@ -4,6 +4,7 @@ import session from './session'
 import users from './user'
 import workspaces from './workspace'
 import projects from './project'
+import i_projects from './internal_project'
 import sections from './section'
 import tasks from './task'
 
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
   users,
   workspaces,
   projects,
+  i_projects,
   sections,
   tasks
 });

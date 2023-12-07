@@ -1,4 +1,4 @@
-from .db import db, environment, SCHEMA, add_prefix_for_prod
+from .db import db, environment, SCHEMA, prodify
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from datetime import datetime
@@ -24,6 +24,13 @@ class User(db.Model, UserMixin):
             self.workspaces.append(Workspace(owner=self, name=self.username + "'s team"))
 
     projects = db.relationship(
+        "Project",
+        back_populates="owner",
+        cascade="all, delete",
+        passive_deletes=True
+    )
+
+    tasks = db.relationship(
         "Project",
         back_populates="owner",
         cascade="all, delete",
@@ -77,5 +84,7 @@ class User(db.Model, UserMixin):
             'teams': [team.id for team in self.teams],
             'projects': [project.id for project in self.projects],
             'colloborations': [project.id for project in self.collaborations],
-            'workspaces': [workspace.id for workspace in self.workspaces]
+            'workspaces': [workspace.id for workspace in self.workspaces],
+            'internalProjects': [internalProject.id for internalProject in self.internalProjects],
+            'tasks': [task.id for task in self.tasks],
         }

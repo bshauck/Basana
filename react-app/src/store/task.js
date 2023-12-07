@@ -2,19 +2,25 @@ import { fetchData } from "./csrf"
 
 const GOT_ALL_TASKS = "tasks/GOT_ALL_TASKS";
 const GOT_USER_TASKS = "tasks/GOT_USER_TASKS";
+const GOT_MY_TASKS = "tasks/GOT_MY_TASKS";
 const GOT_TASK = "tasks/GOT_TASK";
 const CREATED_TASK = "tasks/CREATED_TASK";
 const UPDATED_TASK = "tasks/UPDATED_TASK";
 const DELETED_TASK = "tasks/DELETED_TASK";
+
 
 const gotAllTasks = tasks => ({
     type: GOT_ALL_TASKS,
     tasks
 });
 
-
 const gotUserTasks = tasks => ({
     type: GOT_USER_TASKS,
+    tasks
+  })
+
+const gotUserWorkspaceTasks = tasks => ({
+    type: GOT_MY_TASKS,
     tasks
   })
 
@@ -54,9 +60,22 @@ export const thunkGetUserTasks = userId => async dispatch => {
   const url = `/api/users/${userId}/tasks`;
   let answer = await fetchData(url);
   if (!answer.errors) {
-    dispatch(gotUserTasks(answer.tasks));
+    answer = answer.tasks
+    dispatch(gotUserTasks(answer));
   }
+  return answer
 }
+
+export const thunkGetUserWorkspaceTasks = workspaceId => async dispatch => {
+  const url = `/api/workspaces/${workspaceId}/myTasks`;
+  let answer = await fetchData(url);
+  if (!answer.errors) {
+    answer = answer.tasks
+    dispatch(gotUserWorkspaceTasks(answer));
+  }
+  return answer
+}
+
 
 export const thunkGetTask = id => async dispatch => {
     const url = `/api/tasks/${id}`
@@ -98,12 +117,13 @@ const taskReducer = (state = initialState, action) => {
   switch (action.type) {
     case GOT_ALL_TASKS: {
       const normalized = {};
-      action.tasks.forEach(a => normalized[a.id] = a);
+      action.tasks.forEach(t => normalized[t.id] = t);
       return normalized;
     }
+    case GOT_MY_TASKS: // eslint-disable-next-line no-fallthrough
     case GOT_USER_TASKS: {
       const normalized = {};
-      action.tasks.forEach(a => normalized[a.id] = a);
+      action.tasks.forEach(t => normalized[t.id] = t);
       return { ...state, ...normalized };
     }
     case GOT_TASK: // eslint-disable-next-line no-fallthrough

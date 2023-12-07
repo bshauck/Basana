@@ -6,6 +6,7 @@ import { thunkGetAllWorkspaces } from "../../store/workspace";
 import { thunkGetAllProjects } from "../../store/project";
 import { thunkGetAllSections } from "../../store/section";
 import { thunkGetAllTasks } from "../../store/task";
+import { thunkGetAllI_Projects } from "../../store/internal_project";
 
 export default function Landing() {
   const dispatch = useDispatch();
@@ -15,8 +16,9 @@ export default function Landing() {
   const projects = Object.values(useSelector(state => state.projects));
 
   useEffect(() => {
-    // dispatch(thunkGetAllSections());
-    // dispatch(thunkGetAllTasks());
+    dispatch(thunkGetAllI_Projects)
+    dispatch(thunkGetAllSections());
+    dispatch(thunkGetAllTasks());
   }, [dispatch]);
 
   const [ref] = useState({});
@@ -44,7 +46,7 @@ export default function Landing() {
       <div className="landing-header">
         <h2>Home</h2>
         <h3>{new Date().toLocaleDateString(undefined, {weekday: 'long',year: 'numeric',month: 'long',day: 'numeric'})}</h3>
-        <h2>{`Good ${hours < 12 ? "morning" : (hours < 17 ? "afternoon" : "evening")}, ${user.username}`}</h2>
+        <h2>{`Good ${hours < 12 ? "morning" : (hours < 17 ? "afternoon" : "evening")}, ${user ? user.username : "!"}`}</h2>
 
       </div>
       <div className="landing-body">

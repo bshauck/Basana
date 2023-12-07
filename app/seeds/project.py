@@ -1,12 +1,19 @@
-from app.models import db, User, environment, SCHEMA, Project, Workspace
+from app.models import db, environment, SCHEMA, Project
 from sqlalchemy.sql import text
 
 def seed_projects():
     one = Project(name='Project 1', ownerId=1, workspaceId=1)
     two = Project(name='Project 2', ownerId=1, workspaceId=1)
     three = Project(name='Project 3', ownerId=1, workspaceId=1)
+    # four = Project(name='Project 1', ownerId=1, workspaceId=2)
+    # five = Project(name='Project 2', ownerId=1, workspaceId=2)
+    # six = Project(name='Project 3', ownerId=1, workspaceId=2)
+    # seven = Project(name='Project 1', ownerId=1, workspaceId=3)
+    # eight = Project(name='Project 2', ownerId=1, workspaceId=3)
+    # nine = Project(name='Project 3', ownerId=1, workspaceId=3)
 
     projects = [one, two, three]
+    # projects = [one, two, three, four, five, six, seven, eight, nine]
     db.session.add_all(projects)
     db.session.commit()
 # Uses a raw SQL query to TRUNCATE or DELETE the users table. SQLAlchemy doesn't

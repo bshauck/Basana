@@ -1,4 +1,4 @@
-from app.models import db, User, environment, SCHEMA, Project, Workspace
+from app.models import db, environment, SCHEMA, Workspace
 from sqlalchemy.sql import text
 
 

@@ -40,8 +40,8 @@ const dispatch = useDispatch();
   return (
     <div className="sidebar-container">
       <br/><br/>
-      <p><div className='sidebar-home-title' onClick={home} > Home</div></p><br/>
-      <p><div className='sidebar-home-title' onClick={myTasks} > My Tasks   </div></p><br/><br/><br/><br/>
+      <div className='sidebar-home-title' onClick={home} > Home</div><br/>
+      <div className='sidebar-home-title' onClick={myTasks} > My Tasks   </div><br/><br/><br/><br/>
       <ProjectList /><br/><br/><br/><br/>
       <CurrentWorkspace />
     </div>

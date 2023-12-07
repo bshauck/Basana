@@ -5,10 +5,10 @@ from sqlalchemy.sql import text
 # Adds a demo user, you can add other users here if you want
 def seed_users():
     demo = User(username='Demo', email='demo@aa.io', password='password')
-    alex = User(username='alex', email='alex@aa.io', password='password')
-    ali = User(username='ali', email='ali@aa.io', password='password')
-    andrei = User(username='andrei', email='andrei@aa.io', password='password')
-    ann = User(username='ann', email='ann@aa.io', password='password')
+    # alex = User(username='alex', email='alex@aa.io', password='password')
+    # ali = User(username='ali', email='ali@aa.io', password='password')
+    # andrei = User(username='andrei', email='andrei@aa.io', password='password')
+    # ann = User(username='ann', email='ann@aa.io', password='password')
     # bill = User(username='bill', email='bill@aa.io', password='password')
     # brian = User(username='brian', email='brian@aa.io', password='password')
     # brian = User(username='brian', email='brian@aa.io', password='password')
@@ -32,7 +32,7 @@ def seed_users():
     # viviane = User(username='viviane', email='viviane@aa.io', password='password')
     # yoseph = User(username='yoseph', email='yoseph@aa.io', password='password')
 
-    users = [demo, alex, ali, andrei, ann]
+    users = [demo]
     # users = [demo, alex, ali, andrei, ann, bill, brian, cory, hector, khuong, malcolm, mason, matt, min, nina, peang, peter, quinlan, rae, roderick, sophia, sophie, toney, zohaib, viviane, yoseph]
     db.session.add_all(users)
     db.session.flush()
