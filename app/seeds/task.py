@@ -51,10 +51,10 @@ def seed_tasks():
         description='it is a very hairy task; you can follow a path for it')
     createTaskInToday(
         title='This is the 6th task',
-        description='it is a very cranky')
+        description='it is a very cranky!')
     createTaskInToday(
         title='This is the 4th task',
-        description="I could tell you about it, but then I'd have to kill you1")
+        description="I could tell you about it, but then I'd have to kill you1!")
     db.session.commit()
 
 
