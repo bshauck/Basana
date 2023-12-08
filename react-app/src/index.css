@@ -616,3 +616,90 @@ input[type=file] {
 .normal-label>span {
     width: 100%;
 }
+
+
+
+
+/********************** TABLE ********************/
+table {
+    table-layout: fixed;
+    width: 80vw;
+  }
+
+  td {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+    .table-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .table-container>table {
+        margin: 10px;
+    }
+
+
+/*
+    .table-container>table>thead>tr>th {
+        background-color: var(--backgroundAccent);
+        color: var(--textColor);
+        padding: 10px;
+    }
+
+    .table-container>table>tbody>tr>td {
+        background-color: var(--sectionBackground);
+        color: var(--textColor);
+        padding: 10px;
+    }
+
+    .table-container>table>tbody>tr>td>button {
+        background-color: var(--backgroundAccent);
+        color: var(--textColor);
+        padding: 10px;
+        border-radius: var(--buttonBorderRadius);
+        border: var(--buttonBorder);
+    }
+
+    .table-container>table>tbody>tr>td>button:hover {
+        background-color: var(--backgroundAccent);
+        color: var(--textColor);
+        padding: 10px;
+        border-radius: var(--buttonBorderRadius);
+        border: var(--buttonBorder);
+        font-weight: bold;
+    }
+
+    .table-container>table>tbody>tr>td>button:disabled {
+        background-color: var(--backgroundAccent);
+        color: var(--textColor);
+        padding: 10px;
+        border-radius: var(--buttonBorderRadius);
+        border: var(--buttonBorder);
+        font-weight: bold;
+    }
+
+
+    .table-container>table>tbody>tr>td>button:hover:disabled {
+        background-color: var(--backgroundAccent);
+        color: var(--textColor);
+        padding: 10px;
+        border-radius: var(--buttonBorderRadius);
+        border: var(--buttonBorder);
+    }
+
+    .table-container>table>tbody>tr>td>button:disabled:hover {
+        background-color: var(--backgroundAccent);
+        color: var(--textColor);
+        padding: 10px;
+        border-radius: var(--buttonBorderRadius);
+        border: var(--buttonBorder);
+    }
+
+
+
+    */
