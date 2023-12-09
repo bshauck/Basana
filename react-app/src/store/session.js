@@ -7,6 +7,8 @@ const SET_USER = "session/SET_USER"
 const REMOVE_USER = "session/REMOVE_USER"
 const GOT_CURRENT_WORKSPACE = "session/GOT_CURRENT_WORKSPACE"
 const REMOVE_CURRENT_WORKSPACE = "session/REMOVE_CURRENT_WORKSPACE"
+const GOT_CURRENT_PROJECT = "session/GOT_CURRENT_PROJECT"
+const REMOVE_CURRENT_PROJECT = "session/REMOVE_CURRENT_PROJECT"
 
 export const gotWorkspace = workspace => ({
 	type: GOT_CURRENT_WORKSPACE,
@@ -15,6 +17,15 @@ export const gotWorkspace = workspace => ({
 
 export const removeWorkspace = () => ({
 	type: REMOVE_CURRENT_WORKSPACE
+})
+
+export const gotProject = project => ({
+	type: GOT_CURRENT_PROJECT,
+	project
+})
+
+export const removeProject = () => ({
+	type: REMOVE_CURRENT_PROJECT
 })
 
 const setUser = user => ({
@@ -48,34 +59,76 @@ export const logout = () => async dispatch => {
 	if (!answer.errors) dispatch(removeUser())
 }
 
-export const signUp = body => async dispatch => {
-	// body is FormData; pass along with no headers
-	console.log("signup", body)
-	if (!body.get("profilePicture")) {
-		console.log("no pic: JSON the body")
-		body = Object.fromEntries(body.entries())
-		console.log("signup body out of form", body)
-		body = JSON.stringify(body)
-		console.log("signup body json", body)
-		console.log("signup TYPEOF body", typeof body)
-	} else console.log("profile picture type", typeof body.get("profilePicture"), body.get("profilePicture"))
-	const answer = await fetchData("/api/auth/signup", {
+export const signUp = formData => async dispatch => {
+	// formData is FormData; pass along with no headers
+	// formData = Object.fromEntries(formData.entries())
+	// console.log("signup formData out of form", formData)
+	// formData = JSON.stringify(formData)
+	// console.log("signup formData json", formData)
+	// console.log("signup TYPEOF formData", typeof formData)
+	// else console.log("profile picture type", typeof formData.get("profilePicture"), formData.get("profilePicture"))
+	// const answer = await fetchData("/api/auth/signup", {
+	// 	method: "POST",
+	// 	isEvilFormData: true,
+	// 	body: formData })
+	// console.log("signup answer", answer)
+	// console.log("signup answer.errors", answer.errors)
+	// if (!answer.errors) dispatch(setUser(answer))
+	// return answer
+
+
+	const headers = {};
+	const body = formData;
+	let res;
+	// if (formData.profilePicture)
+	// 	headers["Content-Type"] = "multipart/form-data"
+	const bodyClasses = document.body.classList;
+	bodyClasses.add("waiting");
+	try {
+	const res = await fetch("/api/auth/signup", {
 		method: "POST",
-		body })
-	console.log("signup answer", answer)
-	console.log("signup answer.errors", answer.errors)
-	if (!answer.errors) dispatch(setUser(answer))
-	return answer
+		headers,
+		body
+	});
+
+	if (res.ok) {
+		const data = await res.json();
+		dispatch(setUser(data));
+		return data;
+	} else if (res.status < 600) {
+		const data = await res.json();
+		if (data.errors) {
+			return data;
+		} else return {errors: {system: data}}
+	}
+} catch (error) {
+    console.error(error);
+    error.status = error.status || 500;
+    if (error.errors) error.errors.fetch = "Failed to Fetch"
+    else error.errors = {"fetch": "Failed to Fetch"}
+    res = error;
+  }
+  finally {
+    bodyClasses.remove("waiting");
+  }
+  return res;
 }
 
-const initialState = { user: null, workspace: null }
+const initialState = { user: null, workspace: null, project: null}
 export default function reducer(state = initialState, action) {
 	switch (action.type) {
 	case GOT_CURRENT_WORKSPACE:
+		console.log("SETTING got WS", action.workspace)
 		if (!action.workspace || action.workspace === state.workspace) return state
+		// if (!action.workspace || action.workspace?.id === state.workspace?.id) return state
 		return { ...state, workspace: action.workspace }
 	case REMOVE_CURRENT_WORKSPACE:
 		return { ...state, workspace: null }
+	case GOT_CURRENT_PROJECT:
+		if (!action.project || action.project === state.project) return state
+		return { ...state, project: action.project }
+	case REMOVE_CURRENT_PROJECT:
+		return { ...state, project: null }
 	case SET_USER:
 		return { ...state, user: action.user }
 	case REMOVE_USER:

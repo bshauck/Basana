@@ -42,6 +42,11 @@ class Task(db.Model):
         back_populates='tasks'
     )
 
+    owner = db.relationship(
+        'User',
+        back_populates='tasks'
+    )
+
 
     def to_dict(self):
         return {

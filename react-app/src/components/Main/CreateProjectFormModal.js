@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { thunkCreateProject } from "../../store/project";
+import { simplify } from "../../utils/helpers";
 
 function CreateProjectFormModal({ project}) {
   const dispatch = useDispatch();
@@ -17,7 +18,7 @@ function CreateProjectFormModal({ project}) {
   const handleSubmit = async e => {
     e.preventDefault();
     const data = await dispatch(thunkCreateProject(appWorkspace.id, { name, public: isPublic }));
-    if (data.errors) setErrors(Object.values(data.errors));
+    if (data.errors) setErrors(simplify(data));
     else closeModal()
   }
 

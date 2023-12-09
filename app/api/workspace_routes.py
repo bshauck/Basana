@@ -152,3 +152,21 @@ def user_workspace_tasks(workspaceId):
     tasks = [task.to_dict() for task in current_user.tasks if task.workspaceId == workspaceId]
     print("DB: tasks", tasks)
     return { "tasks": tasks }
+
+
+# Internal Projects
+
+@workspace_routes.route('/<int:workspaceId>/myTasksProject')
+@login_required
+def user_workspace_my_tasks_project(workspaceId):
+    """
+    Query for the internal support for my tasks based on user
+    and workspace.
+    """
+    print ("DB: about to get user's / workspaces, internal project tasks in a workspace")
+
+    ips = [ip.to_dict() for ip in current_user.internalProjects if ip.workspaceId == workspaceId]
+    print("DB: ips", ips)
+    if len(ips) != 1:
+        return error_message("user", "Internal Project Error"), 500
+    return { "internalProjects": ips }

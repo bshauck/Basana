@@ -7,7 +7,7 @@ import SectionTableListHeader from "../ProjectTaskList/SectionTableListHeader";
 import AddSectionLine from "../ProjectTaskList/AddSectionLine";
 export default function WorkspaceMyTasksList() {
   const dispatch = useDispatch();
-// const currentUser = useSelector(state => state.session.user);
+// const appUser = useSelector(state => state.session.user);
   const appWorkspace = useSelector(state => state.session.workspace);
   const { workspaceId } = useParams();
 

@@ -8,17 +8,6 @@ from app.forms.utils import error_message, error_messages
 auth_routes = Blueprint('auth', __name__)
 
 
-def validation_errors_to_error_messages(validation_errors):
-    """
-    Turn the WTForms validation errors into a list
-    """
-    errorMessages = []
-    for field in validation_errors:
-        for error in validation_errors[field]:
-            errorMessages.append(f'{field} : {error}')
-    return errorMessages
-
-
 @auth_routes.route('')
 def authenticate():
     """
@@ -26,6 +15,7 @@ def authenticate():
     """
     if current_user.is_authenticated:
         return current_user.to_dict()
+    print (error_message("user", "Unauthorized"))
     return error_message("user", "Unauthorized"), 401
 
 
@@ -43,6 +33,7 @@ def login():
         user = User.query.filter(User.email == form.data['email']).first()
         login_user(user)
         return user.to_dict()
+    print(error_messages(form.errors))
     return error_messages(form.errors), 401
 
 
@@ -86,10 +77,11 @@ def sign_up():
         db.session.commit()
         login_user(user)
         return user.to_dict()
-    print('apparently errors in signup form')
-    print(form.errors)
-    print(form.data)
-    return error_messages(form.errors), 401
+    else: # form.errors
+        print('apparently errors in signup form')
+        print(form.errors)
+        print(form.data)
+        return error_messages(form.errors), 401
 
 
 @auth_routes.route('/unauthorized')
@@ -97,4 +89,6 @@ def unauthorized():
     """
     Returns unauthorized JSON when flask-login authentication fails
     """
+
+    print (error_message("login", "Unauthorized"))
     return error_message("login", "Unauthorized"), 401

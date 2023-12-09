@@ -31,7 +31,7 @@ class User(db.Model, UserMixin):
     )
 
     tasks = db.relationship(
-        "Project",
+        "Task",
         back_populates="owner",
         cascade="all, delete",
         passive_deletes=True

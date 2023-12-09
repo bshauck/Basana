@@ -10,7 +10,7 @@ export async function csrfFetch(url, options = {}) {
   // If body is FormData leave it alone, browsers will handle it automatically
   console.log("csrf TYPEOF body", typeof options?.body)
 
-  if (!(options?.body instanceof FormData)) {
+  // if (!(options?.isEvilFormData)) {
     console.log("csrfFetch: not form data");
 
     // set options.method to 'GET' if no method
@@ -29,7 +29,10 @@ export async function csrfFetch(url, options = {}) {
         options.headers['Content-Type'] = "application/json";
       // options.headers['XSRF-Token'] = Cookies.get('XSRF-TOKEN');
     }
-  } else console.log("csrfFetch: is form data");
+  // } else {
+    delete options.isEvilFormData;
+    console.log("csrfFetch: is form data");
+  // }
   // call the default fetch with the url and the options passed in
   let res;
   try {

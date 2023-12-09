@@ -3,6 +3,7 @@ import { login } from "../../store/session";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { useContentLoaded } from "../../context/ContentLoaded";
+import { simplify } from "../../utils/helpers";
 
 function LoginFormPage() {
   const dispatch = useDispatch();
@@ -18,7 +19,7 @@ function LoginFormPage() {
     e.preventDefault();
     const data = await dispatch(login(email, password));
     if (data.errors) {
-      setErrors(data.errors);
+      setErrors(simplify(data));
     } else setUserLoaded(true);
 
   };

@@ -27,7 +27,7 @@
     --backgroundAccent: rgb(50,50,50);
 
     --logoColor: white;
-    --sectionBackground: #1E1F21;
+    --sectionColor: #1E1F21;
     --detailsTopSectionColor: rgb(70,70,70);
     --textColor: white;
     --textOtherColor: rgb(255,255,255);
@@ -66,7 +66,7 @@ time, mark, audio, video {
 	font-size: 100% ;
 	font: inherit ;
 	vertical-align: baseline ;
-    /* background-color: var(--backgroundColor); */
+    /* background-color: var(--YYY); */
     /* color: var(--textColor); */
 }
 
@@ -186,18 +186,18 @@ h2 {
 .HeaderContainer{
     grid-area: header;
     width: 100%;
-    background-color: var(--sectionBackground);
+    background-color: var(--backgroundAccent);
 }
 
 .SideBarContainer{
     grid-area: sidebar ;
     color: var(--textColor) ;
+    background-color: var(--backgroundAccent);
     font-size: var(--sidebarFontSize) ;
 }
 
 .MainContainer{
     grid-area: main;
-    background: linear-gradient(var(--backgroundAccent), var(--backgroundColor));
     color: var(--textColor);
 }
 
@@ -232,7 +232,7 @@ h2 {
 }
 
 .fa-user-circle {
-    color: var(--backgroundColor);
+    color: var(--sectionColor);
     background-color: var(--buttonBackgroundColor);
     font-size: xx-large;
 }
@@ -301,7 +301,7 @@ h2 {
     padding: 20px;
     padding-top: 15px;
     position: absolute;
-    background-color: var(--backgroundColor);
+    background-color: var(--sectionColor);
     border-radius: var(--modalBorderRadius);
     border: var(--lightBorder);
     color: var(--textColor);
@@ -317,7 +317,7 @@ input {
 }
 
 input[type=file] {
-    background-color: var(--backgroundColor);
+    background-color: var(--sectionColor);
 }
 .custom-modal-button{
     width: 150px;
@@ -389,22 +389,6 @@ input[type=file] {
 
 .landing-header>h2 {
     font-weight: bold;
-}
-
-.AlbumCardContainermain, .PlaylistCardContainermain{
-    cursor: pointer;
-    border-radius: var(--cardBorderRadius);
-    background-color: var(--sectionBackground);
-    height: 240px;
-    display: flex;
-    width: 240px;
-    justify-content: center;
-    align-items: flex-start;
-    padding: 15px;
-}
-
-.AlbumCardContainermain:hover, .PlaylistCardContainermain:hover {
-    background-color: var(--backgroundAccent);
 }
 
 /*************** ABOUT ************************/
@@ -559,16 +543,6 @@ input[type=file] {
     margin-top: 7px;
 }
 
-.sidebar-card-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-.sidebar-card-container>button {
-    margin: 3px;
-}
 
 
 /********************** FORMS ********************/
@@ -652,7 +626,7 @@ table {
     }
 
     .table-container>table>tbody>tr>td {
-        background-color: var(--sectionBackground);
+        background-color: var(--XXX);
         color: var(--textColor);
         padding: 10px;
     }
@@ -703,3 +677,68 @@ table {
 
 
     */
+
+
+
+
+
+    /* CARDS */
+
+.MainCardContainer {
+    cursor: pointer;
+    border-radius: var(--cardBorderRadius);
+    background-color: var(--backgroundAccent);
+    height: 350px;
+    display: flex;
+    width: 550px;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 15px;
+}
+
+.MainCardContainer:hover {
+    border-color: white;
+}
+
+.MainCardHeader {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+
+
+.landing-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.landing-header {
+    display: flex;
+    flex-direction: column;
+    /* justify-content: space-between; */
+    align-items: center;
+}
+.landing-header>h2 {
+    font-weight: bold;
+    align-self: flex-start
+}
+.landing-header-bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+.landing-body {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    /* width: 100%; */
+}

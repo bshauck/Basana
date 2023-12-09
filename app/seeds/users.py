@@ -11,7 +11,6 @@ def seed_users():
     # ann = User(username='ann', email='ann@aa.io', password='password')
     # bill = User(username='bill', email='bill@aa.io', password='password')
     # brian = User(username='brian', email='brian@aa.io', password='password')
-    # brian = User(username='brian', email='brian@aa.io', password='password')
     # cory = User(username='cory', email='cory@aa.io', password='password')
     # hector = User(username='hector', email='hector@aa.io', password='password')
     # khuong = User(username='khuong', email='khuong@aa.io', password='password')

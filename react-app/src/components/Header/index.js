@@ -14,11 +14,12 @@ export default function Header() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
   useEffect(() => {
+    if (isLoaded) return;
     dispatch(authenticate()).then(() => {
       setIsLoaded(true);
       setUserLoaded(true);
     });
-  }, [dispatch, setUserLoaded]);
+  }, [dispatch, isLoaded, setUserLoaded]);
 
   return (
     <div className='HeaderStyle'>

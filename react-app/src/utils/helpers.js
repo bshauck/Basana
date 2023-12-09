@@ -2,21 +2,18 @@
  * and the errors key is only present if there are errors. What is passed to this function
  * is the value of the errors key, so a dicationary of error keys with arrays of
  * error messages. We want to convert this to an array of error messages. */
-export const convertErrorsToArray = errors => {
-    console.log("convertErrorsToArray", errors);
-    if (!errors) return [];
-    console.log("convertErrorsToArray", Object.values(errors).flat())
-    return Object.values(errors).flat();
-}
-
-export function simplifyErrors(fetchResult) {
+export function simplify(fetchResult) {
+    console.log("SIMPLIFY", fetchResult)
     if (!fetchResult.errors) return []
     return Object.values(fetchResult.errors).flat()
 }
 
+export function simplify2(fetchResult) {
+    return Object.values(fetchResult.errors)
+}
 
 /* if originator didn't smush key into error message already */
-export function simplifyErrors2(fetchResult) {
+export function simplify4(fetchResult) {
     const result = []
     if (fetchResult.errors)
         for (const [key, value] of Object.entries(fetchResult.errors))
@@ -25,6 +22,15 @@ export function simplifyErrors2(fetchResult) {
     return result
 }
 /* Eventually, better handling is checking each key and doing something appropriate per type. */
+
+export function simplify3(fetchResult) {
+    const result = []
+    if (fetchResult.errors)
+        for (const values of Object.values(fetchResult.errors))
+            for (const error of values)
+                result.push(`${error}`)
+    return result
+}
 
 
 
