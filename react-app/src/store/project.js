@@ -4,6 +4,7 @@ import { CREATED_PROJECT, DELETED_PROJECT } from "./common";
 
 const GOT_ALL_PROJECTS = "projects/GOT_ALL_PROJECTS";
 const GOT_USER_PROJECTS = "projects/GOT_USER_PROJECTS";
+const GOT_WORKSPACE_PROJECTS = "workspaces/GOT_WORKSPACE_PROJECTS";
 const GOT_PROJECT = "projects/GOT_PROJECT";
 const UPDATED_PROJECT = "projects/UPDATED_PROJECT";
 
@@ -17,6 +18,12 @@ const gotUserProjects = projects => ({
     type: GOT_USER_PROJECTS,
     projects
   })
+
+
+const gotWorkspaceProjects = projects => ({
+  type: GOT_WORKSPACE_PROJECTS,
+  projects
+})
 
 const gotProject = project => ({
     type: GOT_PROJECT,
@@ -56,6 +63,13 @@ export const thunkGetUserProjects = userId => async dispatch => {
   if (!answer.errors) {
     dispatch(gotUserProjects(answer.projects));
   }
+}
+
+export const thunkGetWorkspaceProjects = id => async dispatch => {
+  const url = `/api/workspaces/${id}/projects`
+  const answer = await fetchData(url)
+  if (!answer.errors) dispatch(gotWorkspaceProjects(answer))
+  return answer
 }
 
 export const thunkGetProject = id => async dispatch => {
@@ -106,7 +120,8 @@ const projectReducer = (state = initialState, action) => {
       action.projects.forEach(a => normalized[a.id] = a);
       return normalized;
     }
-    case GOT_USER_PROJECTS: {
+    case GOT_USER_PROJECTS: // eslint-disable-next-line
+    case GOT_WORKSPACE_PROJECTS: {
       const normalized = {};
       action.projects.forEach(a => normalized[a.id] = {...a});
       return { ...state, ...normalized };

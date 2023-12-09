@@ -1,12 +1,11 @@
 // src/components/SideBar/index.js
 import { useEffect } from 'react'
-import { NavLink, useHistory } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { thunkGetUserProjects } from '../../store/project'
-import { thunkGetUserWorkspaces } from '../../store/workspace'
-// import { gotProject, gotWorkspace } from '../../store/session'
-import { gotWorkspace } from '../../store/session'
+import { thunkGetAllProjects, thunkGetWorkspaceProjects } from '../../store/project'
+import { thunkGetUserWorkspaces, thunkGetWorkspace } from '../../store/workspace'
+import { gotProject, gotWorkspace } from '../../store/session'
 
 export default function SideBar() {
   const dispatch = useDispatch();
@@ -15,6 +14,7 @@ export default function SideBar() {
   const appProject = useSelector(state => state.session.project);
   const userWorkspaceIds = useSelector(state => state.session.user?.workspaces);
   const userProjectIds = useSelector(state => state.session.user?.projects);
+  const wsProjectIds = appWorkspace?.projects;
 
   const workspaces = Object.values(useSelector(state => state.workspaces));
   const projects = Object.values(useSelector(state => state.projects));
@@ -25,10 +25,11 @@ export default function SideBar() {
   useEffect(() => {
     if (appUser && !userWorkspaceIds) {
       dispatch(thunkGetUserWorkspaces(appUser.id));
-      dispatch(thunkGetUserProjects(appUser.id));
+      dispatch(thunkGetAllProjects());
     }
     if (!appWorkspace && userWorkspaceIds) {
         if (workspaces[userWorkspaceIds[0]]) {
+          dispatch(thunkGetWorkspaceProjects(userWorkspaceIds[0]))
           dispatch(gotWorkspace(workspaces[userWorkspaceIds[0]]))
         }
     }
@@ -56,8 +57,8 @@ export default function SideBar() {
   // }
 
   if (!appUser) return <h1>No appUser</h1>;
-
   if (!userWorkspaceIds)  return <h1>No appUserWorkspaceIds</h1>;
+
   const userWorkspaces = workspaces.filter(w => userWorkspaceIds.includes(w.id));
 
   if (!appWorkspace)  {
@@ -67,10 +68,12 @@ export default function SideBar() {
     appWorkspace = userWorkspaces[0]
   }
 
-      // return <h1>No appWorkspace</h1>;
-      const userProjects = projects.filter(p => userProjectIds.includes(p.id));
+  if (appWorkspace.projects.length) { // need to set wsProjects
+    if (!projects.length)  return <h1>No projects ws: {appWorkspace.id} {appWorkspace.name} {appWorkspace.projects} Projects {projects} Length {projects.length}</h1>;
+    if (!wsProjectIds || !wsProjectIds.length)  return <h1>No wsProjectIds</h1>;
+  }
 
-
+  const wsProjects = projects.filter(p => wsProjectIds.includes(p.id));
 
   return (
     <div className="sidebar-container">
@@ -79,17 +82,19 @@ export default function SideBar() {
       <div className='sidebar-title' onClick={myTasks} > My Tasks   </div><br/><br/><br/><br/>
       <h3 className='sidebar-title'  > Projects</h3>
       <br/>
-      <h4>{appProject ? appProject.name : ''}</h4>
+      {appProject ? <h4>appProject.name</h4>: ''}
+      {wsProjects ?
       <ul>
-        {userProjects.map(p => (<NavLink key={p.id} to={`/projects/${p.id}`}> <li >{`-----   ${p.name}`}</li></NavLink>))}
+        {wsProjects.map(p => (<li key={p.id} ><Link to={`/projects/${p.id}`}>{`-----   ${p.name}`}</Link></li>))}
       </ul>
+      : ''}
       <div className="team-list">
       <h3>Team</h3>
       <br/>
       <h4>{appWorkspace.name}</h4>
       <br/><br/>
       <ul>
-        {userWorkspaces.map(w => (<li key={w.id} ><NavLink to={`/workspaces/${w.id}`}>{`-----   ${w.name}`}</NavLink></li>))}
+        {userWorkspaces.map(w => (<li key={w.id} ><Link to={`/workspaces/${w.id}`}>{`-----   ${w.name}`}</Link></li>))}
       </ul>
     </div>
     </div>

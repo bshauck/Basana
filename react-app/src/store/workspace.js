@@ -11,7 +11,7 @@ const gotAllWorkspaces = workspaces => ({
     workspaces
 });
 
-const getUserWorkspaces = workspaces => ({
+const gotUserWorkspaces = workspaces => ({
     type: GOT_USER_WORKSPACES,
     workspaces
 })
@@ -52,7 +52,7 @@ export const thunkGetUserWorkspaces = userId => async dispatch => {
   const url = `/api/users/${userId}/workspaces`;
   let answer = await fetchData(url);
   if (!answer.errors) {
-    dispatch(getUserWorkspaces(answer.workspaces));
+    dispatch(gotUserWorkspaces(answer.workspaces));
   }
 }
 
