@@ -5,6 +5,8 @@ import os
 import uuid
 from io import BytesIO
 
+ALLOWED_EXTENSIONS = {"pdf", "png", "jpg", "jpeg", "gif", "webp", "svg", "bmp", "tiff", "jfif"}
+
 def error_message(key, string):
     return error_messages({key: [string]})
 

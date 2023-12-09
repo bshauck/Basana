@@ -7,7 +7,7 @@ import ProjectMenu from "./ProjectMenu";
 
 export default function ProjectDetails() {
   const dispatch = useDispatch();
-  const currentUser = useSelector(state => state.session.user);
+  const appUser = useSelector(state => state.session.user);
   const { projectId } = useParams();
   const displayProject = useSelector(state => state.projects[projectId]);
 
@@ -20,10 +20,10 @@ export default function ProjectDetails() {
 
   if (projectId !== ref) return (<h1>{`Project: ${projectId}`} <ProjectMenu project={displayProject} /></h1>)
 
-  if (!currentUser) return null;
+  if (!appUser) return null;
 
   if (!Array.isArray(projectIds) || !projectIds.length) {
-    if (!ref[rKey]) ref[rKey] = dispatch(thunkGetUserProjects(currentUser.id));
+    if (!ref[rKey]) ref[rKey] = dispatch(thunkGetUserProjects(appUser.id));
     else if (ref[rKey]?.errors) console.errors(ref[rKey].errors)
     return null;
   } else if (ref[rKey]) delete ref[rKey]

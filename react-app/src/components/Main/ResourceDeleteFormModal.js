@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 
 import { useModal } from "../../context/Modal";
 import { useHistory } from "react-router-dom";
+import { simplify } from "../../utils/helpers";
 
   /* For reuse: need resource id for thunk invocation,
      lowercase resource name (workspace, project, section, task) and
@@ -19,7 +20,7 @@ export default function ResourceDeleteFormModal({ id, resource, thunkDeleteFunc 
   const resouceYesDelete = async (e) => {
     e.preventDefault();
     const answer = await dispatch(thunkDeleteFunc(id))
-    if (answer.errors) setErrors(answer)
+    if (answer.errors) setErrors(simplify(answer))
     else {
         closeModal();
         history.push(`/`)

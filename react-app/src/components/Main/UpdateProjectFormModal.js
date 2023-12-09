@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { thunkUpdateProject } from "../../store/project";
+import { simplify } from "../../utils/helpers";
+
+
 // import { ymd } from '../../utils/helpers';
 function UpdateProjectFormModal({ project }) {
   const dispatch = useDispatch();
@@ -19,7 +22,7 @@ function UpdateProjectFormModal({ project }) {
   const handleSubmit = async e => {
     e.preventDefault();
     const data = await dispatch(thunkUpdateProject(project.id, { name, description, /* due, */public: isPublic }));
-    if (data.errors) setErrors(Object.values(data.errors));
+    if (data.errors) setErrors(simplify(data));
     else closeModal()
   }
 

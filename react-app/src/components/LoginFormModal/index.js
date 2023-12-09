@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { login } from "../../store/session";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { useContentLoaded } from "../../context/ContentLoaded";
+import { simplify } from "../../utils/helpers";
 
 function LoginFormModal() {
   const dispatch = useDispatch();
@@ -15,7 +16,7 @@ function LoginFormModal() {
   const handleSubmit = async e => {
     e.preventDefault();
     const data = await dispatch(login(email, password));
-    if (data.errors) setErrors(Object.values(data.errors));
+    if (data.errors) setErrors(simplify(data));
     else {
       setUserLoaded(true);
       closeModal()
@@ -26,7 +27,7 @@ function LoginFormModal() {
     setEmail('demo@aa.io')
     setPassword('password')
     const data = await dispatch(login('demo@aa.io', 'password'));
-    if (data.errors) setErrors(Object.values(data.errors));
+    if (data.errors) setErrors(simplify(data));
     else {
       setUserLoaded(true);
       closeModal()
@@ -37,7 +38,7 @@ function LoginFormModal() {
     <>
       <h1>Log In</h1>
       <form onSubmit={handleSubmit}>
-        <ul>
+        <ul style={{minHeight:50,paddingTop:8}} >
           {errors.map((error, idx) => (
             <li className="error" key={idx}>{error}</li>
           ))}

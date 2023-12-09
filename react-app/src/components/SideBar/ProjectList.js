@@ -1,26 +1,24 @@
 // src/components/SideBar/ProjectList.js
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { NavLink, useHistory } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { thunkGetUserProjects } from '../../store/project';
-import OpenModalButton from '../OpenModalButton';
-import CreateProjectFormModal from '../Main/CreateProjectFormModal';
 
 
 export default function ProjectList() {
   const dispatch = useDispatch();
-  const currentUser = useSelector(state => state.session.user);
+  const appUser = useSelector(state => state.session.user);
+  const appWorkspace = useSelector(state => state.workspaces[1]);
+  const appProject = useSelector(state => state.session.project);
   const projects = Object.values(useSelector(state => state.projects));
   const userProjectIds = useSelector(state => state.session.user?.projects);
-  const [selectedProject, setSelectedProject] = useState(null);
   const [ref] = useState({});
-  const history = useHistory();
 
-  if (!currentUser) return null;
+  if (!appUser || !appWorkspace) return null;
 
   const rKey = 'userProjectIds';
   if (!Array.isArray(userProjectIds) || !userProjectIds.length) {
-    if (!ref[rKey]) ref[rKey] = dispatch(thunkGetUserProjects(currentUser.id));
+    if (!ref[rKey]) ref[rKey] = dispatch(thunkGetUserProjects(appUser.id));
     else if (ref[rKey]?.errors) console.error(ref[rKey].errors)
     return null;
   } else if (ref[rKey]) delete ref[rKey]
@@ -30,7 +28,9 @@ export default function ProjectList() {
 
   return (
     <div className="project-list">
-      <h3><div className='sidebar-home-title'  > Projects</div></h3>
+      <h3 className='sidebar-title'  > Projects</h3>
+      <br/>
+      <h4>{appWorkspace.name}</h4>
       <ul>
         {userProjects.map(p => (<NavLink key={p.id} to={`/projects/${p.id}`}> <li >{`-----   ${p.name}`}</li></NavLink>))}
       </ul>

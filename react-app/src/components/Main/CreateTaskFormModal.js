@@ -25,7 +25,7 @@ function CreateTaskFormModal({ task, project, section }) {
   const handleSubmit = async e => {
     e.preventDefault();
     const data = await dispatch(thunkCreateTask(appWorkspace.id, { name, public: isPublic }));
-    if (data.errors) setErrors(Object.values(data.errors));
+    if (data.errors) setErrors(simplify(data));
     else closeModal()
   }
 

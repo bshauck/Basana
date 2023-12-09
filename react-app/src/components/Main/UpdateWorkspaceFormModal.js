@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { thunkUpdateWorkspace } from "../../store/workspace";
+import { simplify } from "../../utils/helpers";
 
 function UpdateWorkspaceFormModal({ workspace }) {
   const dispatch = useDispatch();
@@ -12,7 +13,7 @@ function UpdateWorkspaceFormModal({ workspace }) {
   const handleSubmit = async e => {
     e.preventDefault();
     const data = await dispatch(thunkUpdateWorkspace(workspace.id, { name }));
-    if (data.errors) setErrors(Object.values(data.errors));
+    if (data.errors) setErrors(simplify(data));
     else closeModal()
   }
 
