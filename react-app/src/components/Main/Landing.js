@@ -24,6 +24,7 @@ export default function Landing() {
     dispatch(thunkGetAllI_Projects)
     dispatch(thunkGetAllSections());
     console.log('Landing: thunkGetAllTasks')
+    dispatch(thunkGetAllProjects());
     dispatch(thunkGetAllTasks());
   }
   }, [dispatch, user]);
@@ -49,6 +50,7 @@ export default function Landing() {
 
   const hours = new Date().getHours();
 
+  console.log(`USERS: ${users} WORKSPACES: ${workspaces} PROJECTS: ${projects}`)
 
 
   return (

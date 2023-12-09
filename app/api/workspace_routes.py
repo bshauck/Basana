@@ -104,6 +104,18 @@ def delete_workspace(id):
 
 # Projects
 
+@workspace_routes.route('/<int:id>/projects')
+@login_required
+def get_all_workspace_projects():
+    """
+    Query for all Projects in a Workspace and returns them in a list of dictionaries
+    """
+    print("DB: about to get all projects")
+    projects = Project.query.filter_by(Project.workspaceId == id).all()
+    print("DB: projects", projects)
+    return {"projects": [project.to_dict() for project in projects]}
+
+
 @workspace_routes.route('/<int:id>/projects/new', methods=["POST"])
 @login_required
 def create_project_for_workspace(id):
