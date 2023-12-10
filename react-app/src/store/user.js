@@ -1,7 +1,6 @@
 import { fetchData } from "./csrf"
 
-import { CREATED_WORKSPACE, DELETED_WORKSPACE } from "./common";
-import { CREATED_PROJECT, DELETED_PROJECT } from "./common";
+import { CREATED_PROJECT, DELETED_PROJECT, CREATED_WORKSPACE, DELETED_WORKSPACE, SET_USER } from "./common";
 
 const GOT_ALL_USERS = "users/GOT_ALL_USERS"
 const GOT_USER = "users/GOT_USER"
@@ -86,6 +85,8 @@ const userReducer = (state = initialState, action) => {
     }
     case GOT_USER: // eslint-disable-next-line no-fallthrough
     case CREATED_USER: // eslint-disable-next-line no-fallthrough
+    case SET_USER: // eslint-disable-next-line no-fallthrough
+      if (!action.user || action.user.id === state.user?.id) return state
     case UPDATED_USER:
       return { ...state, [action.user.id]: action.user }
     case DELETED_USER:

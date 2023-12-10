@@ -41,11 +41,12 @@ class Section(db.Model):
     )
 
     def checkSeedDemo(self):
-        if SEED == 1:
-            self.tasks.append(Task(section=self, title="Demo task 1", index=1, createdAt=datetime.now()))
-            self.tasks.append(Task(section=self, title="Demo task 2", index=1001, createdAt=datetime.now()))
-            self.tasks.append(Task(section=self, title="Demo task 3", index=2001, createdAt=datetime.now()))
-            db.session.add_all(self.tasks)
+        if SEED:
+            # self.tasks.append(Task(section=self, projectId=self.projectId, internalProjectId=self.internalProjectId, title="Demo task 1",))
+            # self.tasks.append(Task(section=self, projectId=self.projectId, internalProjectId=self.internalProjectId, title="Demo task 2",))
+            # self.tasks.append(Task(section=self, projectId=self.projectId, internalProjectId=self.internalProjectId, title="Demo task 3",))
+            # db.session.add_all(self.tasks)
+            pass
 
     def currentMaxIndex(self):
         """

@@ -66,14 +66,7 @@ time, mark, audio, video {
 	font-size: 100% ;
 	font: inherit ;
 	vertical-align: baseline ;
-    /* background-color: var(--YYY); */
-    /* color: var(--textColor); */
 }
-
-html, form {
-    background-color: var(--backgroundColor);
-}
-
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
@@ -98,6 +91,7 @@ table {
 	border-spacing: 0 ;
 }
 /* end of Eric Meyer's reset */
+
 html {
     height: 100vh;/* Overrides 100% height in modern HTML5 browsers and uses the viewport's height. Only works in modern HTML5 browsers */
 }
@@ -106,6 +100,11 @@ body {
     min-height: 100vh;/* Starts web page with 100% height. Uses the viewport's height. Only works in modern HTML5 browsers */
     overflow-y: scroll;/* Optional: Adds an empty scrollbar to the right margin in case content grows vertically, creating a scrollbar.  Allows for better width calculations, as the browser pre-calculates width before scrollbar appears, avoiding page content shifting.*/
 }
+
+html, form {
+    background-color: var(--backgroundColor);
+}
+
 /* add progress cursor during db access */
 body.waiting * {
     cursor: progress !important ;
@@ -151,7 +150,8 @@ label:not(.normal-label) {
 }
 
 a {
-    text-decoration: none;
+    color: inherit;
+    text-decoration: inherit;
 }
 
 h1 {

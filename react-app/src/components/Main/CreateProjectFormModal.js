@@ -4,16 +4,16 @@ import { useModal } from "../../context/Modal";
 import { thunkCreateProject } from "../../store/project";
 import { simplify } from "../../utils/helpers";
 
-function CreateProjectFormModal({ project}) {
+function CreateProjectFormModal({ project}) {  /* for edit, pass in project */
   const dispatch = useDispatch();
   const [name, setName] = useState("");
   const [isPublic, setIsPublic] = useState(false);
   const [errors, setErrors] = useState([]);
   const { closeModal } = useModal();
-  const user = useSelector(state => state.session.user);
   const appWorkspace = useSelector(state => state.session.workspace);
 
-  console.log('CreateProjectFormModal: user', user, 'appWorkspace', appWorkspace)
+  // const appUser = useSelector(state => state.session.user);
+  // console.log('CreateProjectFormModal: appUser', appUser, 'appWorkspace', appWorkspace)
 
   const handleSubmit = async e => {
     e.preventDefault();

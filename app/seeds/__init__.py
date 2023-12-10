@@ -42,6 +42,7 @@ def seed():
 def undo():
     undo_tasks()
     undo_sections()
+    undo_internal_projects()
     undo_projects()
     undo_workspaces()
     undo_users()

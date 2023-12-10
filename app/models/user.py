@@ -21,7 +21,9 @@ class User(db.Model, UserMixin):
         super().__init__(**kwargs)
         db.session.add(self)
         if len(self.workspaces) == 0 and Workspace.query.filter_by(name=self.username + "'s team").first() is None :
-            self.workspaces.append(Workspace(owner=self, name=self.username + "'s team"))
+            w = Workspace(owner=self, name=self.username + "'s team")
+            self.workspaces.append(w)
+            db.session.add(w)
 
     projects = db.relationship(
         "Project",

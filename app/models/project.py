@@ -80,11 +80,12 @@ class Project(db.Model):
         db.session.add(section)
 
     def checkSeedDemo(self):
-        if SEED == 1:
-            self.addToSectionsSession(Section(project=self, name="Demo", index=1000, createdAt=datetime.now()))
+        if SEED:
+            # self.addToSectionsSession(Section(project=self, projectId=self.id, name="Demo", index=1000, createdAt=datetime.now()))
+            pass
 
     def createInternalSection(self):
-        self.addToSectionsSession(Section(project=self, name="Untitled section", index=1, createdAt=datetime.now()))
+        self.addToSectionsSession(Section(project=self, projectId=self.id, name="Untitled section", index=1, createdAt=datetime.now()))
 
     def internalSectionName(self):
         return "Untitled section"
