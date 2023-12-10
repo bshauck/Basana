@@ -4,6 +4,11 @@ import { useParams } from "react-router-dom";
 
 import { thunkGetUserWorkspaces } from "../../store/workspace";
 import WorkspaceMenu from "./WorkspaceMenu";
+import UserCard from "./Card/UserCard";
+import ProjectCard from "./Card/ProjectCard";
+
+
+
 // import { gotWorkspace } from "../../store/session";
 export default function WorkspaceDetails() {
   const dispatch = useDispatch();
@@ -30,6 +35,8 @@ export default function WorkspaceDetails() {
   useEffect(() => {
   }, [appWorkspace, displayWorkspace, workspaceId])
 
+  if (!appUser) return null;
+
   if (!appWorkspace || !appWorkspace.id === workspaceId) {
     if (!ref[rKey]) ref[rKey] = dispatch(thunkGetUserWorkspaces(appUser.id));
     // else if (ref[rKey]?.errors) delete ref[rKey]
@@ -49,12 +56,13 @@ export default function WorkspaceDetails() {
   return (
     <div className="workspace-main">
       <div className="workspace-header">
-        <h2>Workspace/Team: {displayWorkspace.name} </h2>
+        <h2>Workspace/Team: {displayWorkspace?.name} </h2>
         <WorkspaceMenu  workspace={displayWorkspace} />
       </div>
       <div className="workspace-body">
-        <h1>Workspace Members</h1>
-        <h1>Workspace Projects</h1>
+        <UserCard />
+        <ProjectCard />
+        {/* <WorkspaceCard /> */}
       </div>
     </div>
   );

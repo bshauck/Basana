@@ -26,5 +26,5 @@ class SignUpForm(FlaskForm):
     username = StringField(
         'username', validators=[InputRequired(), Length(6, 40, "Username: 6 - 40 characters"),username_exists])
     email = EmailField('email', validators=[InputRequired(), Length(6, 255, "Email:6 - 255 characters"), Email("Invalid email"), user_exists])
-    password = StringField('password', Length(6, 255, "Password: 6 - 255 characters"), validators=[InputRequired()])
+    password = StringField('password', validators=[InputRequired(), Length(6, 255, "Password: 6 - 255 characters")])
 #    profilePicture = FileField('profile picture', validators=[Optional(), FileAllowed(list(ALLOWED_EXTENSIONS))])

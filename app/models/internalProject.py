@@ -1,4 +1,4 @@
-from .db import db, environment, SCHEMA, prodify
+from .db import db, environment, SCHEMA, prodify, SEED
 from .section import Section
 from datetime import datetime
 
@@ -46,10 +46,8 @@ class InternalProject(db.Model):
 
     def addSectionsNamed(self, names):
         timeNow = datetime.now()
-        index = 1
-        for name in names:
-            self.addToSectionsSession(Section(internalProject=self, name=name, index=index, createdAt=timeNow))
-            index = index + 1000
+        for i in range(len(names)):
+            self.addToSectionsSession(Section(internalProject=self, name=names[i], index=i * 1000 + 1, createdAt=timeNow))
 
     def addToSectionsSession(self, section):
         self.sections.append(section)

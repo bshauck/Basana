@@ -1,9 +1,7 @@
 import { fetchData } from "./csrf"
 
-import { CREATED_WORKSPACE, DELETED_WORKSPACE } from "./common";
-import { CREATED_PROJECT, DELETED_PROJECT } from "./common";
+import { CREATED_PROJECT, DELETED_PROJECT, CREATED_WORKSPACE, DELETED_WORKSPACE, SET_USER } from "./common";
 
-const SET_USER = "session/SET_USER"
 const REMOVE_USER = "session/REMOVE_USER"
 const GOT_CURRENT_WORKSPACE = "session/GOT_CURRENT_WORKSPACE"
 const REMOVE_CURRENT_WORKSPACE = "session/REMOVE_CURRENT_WORKSPACE"
@@ -28,29 +26,34 @@ export const removeProject = () => ({
 	type: REMOVE_CURRENT_PROJECT
 })
 
-const setUser = user => ({
+const setUser = (user, workspace) => ({
 	type: SET_USER,
-	user
+	user,
+	workspace
 })
 
 const removeUser = () => ({
 	type: REMOVE_USER
 })
 
-export const authenticate = () => async dispatch => {
+export const authenticate = () => async (dispatch) => {
 	const answer = await fetchData("/api/auth")
-	if (!answer.errors) dispatch(setUser(answer))
+	if (!answer.errors) {
+		dispatch(setUser(answer))
+	}
 	return answer
 }
 
-export const login = (email, password) => async dispatch => {
+export const login = (email, password) => async (dispatch) => {
 	console.log("login", email, password)
 	console.log("jsony: ", JSON.stringify({email, password}))
 
 	const answer = await fetchData("/api/auth/login", {
 		method: "POST",
 		body: JSON.stringify({email, password})})
-	if (!answer.errors) dispatch(setUser(answer))
+	if (!answer.errors) {
+		dispatch(setUser(answer))
+	}
 	return answer
 }
 
@@ -73,7 +76,7 @@ export const signUp = formData => async dispatch => {
 	// 	body: formData })
 	// console.log("signup answer", answer)
 	// console.log("signup answer.errors", answer.errors)
-	// if (!answer.errors) dispatch(setUser(answer))
+	// if (!answer.errors) dispatch(setUserWithWorkspace(answer))
 	// return answer
 
 
@@ -121,7 +124,7 @@ export default function reducer(state = initialState, action) {
 		console.log("SETTING got WS", action.workspace)
 		if (!action.workspace || action.workspace === state.workspace) return state
 		// if (!action.workspace || action.workspace?.id === state.workspace?.id) return state
-		return { ...state, workspace: action.workspace }
+		return { ...state, workspace: action.workspace, project: null }
 	case REMOVE_CURRENT_WORKSPACE:
 		return { ...state, workspace: null }
 	case GOT_CURRENT_PROJECT:
@@ -129,10 +132,15 @@ export default function reducer(state = initialState, action) {
 		return { ...state, project: action.project }
 	case REMOVE_CURRENT_PROJECT:
 		return { ...state, project: null }
-	case SET_USER:
-		return { ...state, user: action.user }
+	case SET_USER: {
+		console.log("Session SET_USER user ws:", action.user, action.workspace	)
+		if (!action.user) return initialState
+		if (state.user?.id === action.user.id) return state
+		const workspace = action.workspace || state.workspace
+		return { ...state, user: action.user, workspace}
+	}
 	case REMOVE_USER:
-		return { ...state, user: null }
+		return initialState
 	case CREATED_WORKSPACE:
 		console.log("Session created WS ws/userId", action.workspace, action.workspace.ownerId)
 		if (!state.user || state.user.id !== action.workspace.ownerId) return state

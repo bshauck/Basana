@@ -25,7 +25,7 @@ class Workspace(db.Model):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         db.session.add(self)
-        self.checkSeed()
+        db.session.commit()
         self.internalProjects.append(self.createMyTaskProject())
 
     def createMyTaskProject(self):
@@ -33,6 +33,7 @@ class Workspace(db.Model):
             owner=self.owner,
             ownerId=self.ownerId,
             workspace=self,
+            workspaceId=self.id,
             name=InternalProject.myTaskProjectName)
         db.session.add(p)
         return p
@@ -70,7 +71,7 @@ class Workspace(db.Model):
     )
 
     def checkSeed(self):
-        if (SEED):
+        if SEED:
             db.session.commit()
 
     def to_dict(self):

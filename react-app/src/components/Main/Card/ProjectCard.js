@@ -1,4 +1,6 @@
 // Path: react-app/src/components/Main/Card/ProjectCard.js
+import OpenModalButton from "../../OpenModalButton"
+import CreateProjectFormModal from "../CreateProjectFormModal"
 
 
 export default function ProjectCard() {
@@ -25,6 +27,14 @@ export default function ProjectCard() {
             <div className="MainCardBody ProjectCardBody">
                 <div className="MainCardSection ProjectCardSection">
                 <div className="MainCardSectionBody ProjectCardSectionBody">
+
+                    <div className="MainCardItem ProjectCardItem">
+                <OpenModalButton
+              buttonText="Create Project"
+            //   onItemClick={closeMenu}
+              modalComponent={<CreateProjectFormModal />}
+              />
+              </div>
                     <div className="MainCardItem ProjectCardItem">
                     <h3>Project 1</h3>
                     </div>
