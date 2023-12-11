@@ -19,13 +19,14 @@ export default function AddSectionLine({project}) {
             project.sections.append(answer)
         }
     }
+    return null
 
-    return (
-    <span>  <form onSubmit={handleSubmit} >
-             <button type="submit">
-            <input type="text" placeholder="+ Add Section" value={sectionName} onChange={(e) => setSectionName(e.target.value)} />
-            </button>
-        </form>
-    </span>
-    )
+    // return (
+    // <span>  <form onSubmit={handleSubmit} >
+    //          <button type="submit">
+    //         <input type="text" placeholder="+ Add Section" value={sectionName} onChange={(e) => setSectionName(e.target.value)} />
+    //         </button>
+    //     </form>
+    // </span>
+    // )
 }
