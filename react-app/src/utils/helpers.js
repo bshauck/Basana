@@ -33,6 +33,14 @@ export function simplify3(fetchResult) {
 }
 
 
+export function projectIcon(project) {
+    let result = project?.icon;
+    if (!result) result = "fas fa-project-diagram";
+    else if (!result.startsWith("far ")) result = "fas fa-" + result;
+    return result
+}
+
+
 
 // function typeCheck(date) {
 //     return (typeof date === 'string' || typeof date === 'number')

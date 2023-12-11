@@ -20,7 +20,7 @@ def seed_view_types():
     # commit in seed_enums()
 
 def seed_project_icons():
-    icons = ['list', 'table-lines', 'bars-progress', 'calendar', 'space-awesome', 'users', 'chart-columns', 'galactic-republic', 'baby', 'lightbulb', 'globe', 'gear', 'rectangle-list', 'cake-candles', 'calendar-check', 'bullseye', 'repeat', 'bullhorn', 'far comments', 'suitcase', 'list-check', 'school-flag', 'puzzle-piece', 'chart-pie', 'arrow-upright-dots', 'gauge', 'far bookmark', 'person-running', 'basket-shopping', 'arrrow-trend up', 'ticket', 'heart-circle-plus', 'box-archive']
+    icons = ['list', 'table-lines', 'bars-progress', 'calendar', 'space-awesome', 'users', 'chart-columns', 'galactic-republic', 'baby', 'lightbulb', 'globe', 'gear', 'rectangle-list', 'cake-candles', 'calendar-check', 'bullseye', 'repeat', 'bullhorn', 'far fa-comments', 'suitcase', 'list-check', 'school-flag', 'puzzle-piece', 'chart-pie', 'arrow-upright-dots', 'gauge', 'far fa-bookmark', 'person-running', 'basket-shopping', 'arrrow-trend up', 'ticket', 'heart-circle-plus', 'box-archive']
     dicts = [{'icon': icon } for icon in icons]
     db.session.execute(insert(ProjectIcon), dicts)
     # commit in seed_enums()

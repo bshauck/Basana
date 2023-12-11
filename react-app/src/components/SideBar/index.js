@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { thunkGetAllProjects, thunkGetWorkspaceProjects } from '../../store/project'
 import { thunkGetUserWorkspaces } from '../../store/workspace'
 import { gotProject, gotWorkspace } from '../../store/session'
+import { projectIcon } from '../../utils/helpers'
 
 export default function SideBar() {
   const dispatch = useDispatch();
@@ -32,6 +33,8 @@ export default function SideBar() {
     if (!appWorkspace && userWorkspaceIds) {
         if (workspaces[userWorkspaceIds[0]]) {
           dispatch(thunkGetWorkspaceProjects(userWorkspaceIds[0]))
+          console.log("SETTING WORKSPACE in Sidebar/userEffect", workspaces[userWorkspaceIds[0]] )
+
           dispatch(gotWorkspace(workspaces[userWorkspaceIds[0]]))
         }
     }
@@ -54,6 +57,8 @@ export default function SideBar() {
   //   noDuplicateHistoryPush(`/projects/${project.id}`)
   // }
   function selectWorkspace(workspace) {
+    console.log("SETTING WORKSPACE in Sidebar/selectWorkspace", workspace)
+
     gotWorkspace(workspace)
     noDuplicateHistoryPush(`/workspaces/${workspace.id}`)
   }
@@ -66,6 +71,7 @@ export default function SideBar() {
   if (!appWorkspace)  {
     if (!userWorkspaceIds.length)  return <h1>No appUserWorkspaceIds</h1>;
     if (!workspaces.length)  return <h1>No workspaces</h1>;
+    console.log("SETTING WORKSPACE in Sidebar", userWorkspaces[0] )
     dispatch(gotWorkspace(userWorkspaces[0]))
     displayWorkspace = userWorkspaces[0]
   } displayWorkspace = appWorkspace
@@ -80,31 +86,48 @@ export default function SideBar() {
 
   if (!displayWorkspace) return null
 
+{/* <i className={`"${simpleProjectIcon(p)}"`} /> */}
+
 
   return (
     <div className="sidebar-container">
       <br/><br/>
-      <div className='sidebar-title' onClick={home} > Home</div><br/>
-      <div className='sidebar-title' onClick={myTasks} > My Tasks   </div><br/>
+      <div className="sidebar-homeMyTasks">
+      <div className='sidebar-title' onClick={home} ><i className="fas fa-house" /> Home</div><br/>
+      <div className='sidebar-title' onClick={myTasks} ><i className="far fa-clock" /> My Tasks   </div><br/>
+      </div>
+      <div className="sidebar-projects">
       <h3 className='sidebar-title'  > Projects</h3>
+      <div className='projectColorIcon' >
+        <i className="fas fa-people-group" style={{backgroundColor:0x0000,zIndex:1}} />
+      </div><br/>
       <br/>
-      {appProject ? <h4>appProject.name</h4>: ''}
       {wsProjects ?
       <ul>
-        {wsProjects.map(p => (<li key={p.id} ><Link to={`/projects/${p.id}`}>{`-----   ${p.name}`}</Link></li>))}
+        {wsProjects.map(p =>
+          (<li key={p.id} >
+              <div
+                className="projectColorIcon"
+                style={{backgroundColor:p.color}}
+              >
+                  {/* <i style={{color:p.color}}
+                  className={projectIcon(p)} /> */}
+              </div> {` ${p.name}`}
+            <Link to={`/projects/${p.id}`}>Click here
+            </Link></li>))}
       </ul>
       : ''}
-      <div className="team-list">
-      <br/><br/>
-      <h3>Team</h3>
-      <br/>
-      <h4>{displayWorkspace.name}</h4>
-      <br/><br/>
+      </div>
+      <div className="sidebar-teams">
+      <div className="team-list"><br/><br/>
+      <h3>Team</h3><br/>
+      <h4>{displayWorkspace.name}</h4><br/><br/>
       <ul>
-        {userWorkspaces.map(w => (<li key={w.id} ><Link style={{color:0xffffff}} to={`/workspaces/${w.id}`}>{`-----   ${w.name}`}</Link></li>))}
+        {userWorkspaces.map(w => (<li key={w.id} ><Link style={{color:0xffffff}} to={`/workspaces/${w.id}`}>{`<i className="fas fa-people-group" />   ${w.name}`}</Link></li>))}
         <br /><br /><br /><br />
-        {userWorkspaces.map(w => (<li key={w.id+w.id+w.id+w.id} onClick={e=>selectWorkspace(e, w)} >{`-----   ${w.name}`}</li>))}
+        {userWorkspaces.map(w => (<li key={w.id+w.id+w.id+w.id} onClick={e=>selectWorkspace(e, w)} >{`<i className="fas fa-people-group" />    ${w.name}`}</li>))}
       </ul>
+    </div>
     </div>
     </div>
   )

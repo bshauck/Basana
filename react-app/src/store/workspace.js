@@ -58,9 +58,13 @@ export const thunkGetUserWorkspaces = userId => async dispatch => {
 
 
 export const thunkGetWorkspace = id => async dispatch => {
+    console.log("GETTING workspace", id)
     const url = `/api/workspaces/${id}`
     const answer = await fetchData(url)
-    if (!answer.errors) dispatch(gotWorkspace(answer))
+    if (!answer.errors) {
+      console.log("GOT workspace", answer)
+      dispatch(gotWorkspace(answer))
+    }
     return answer
 }
 

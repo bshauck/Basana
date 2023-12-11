@@ -22,13 +22,13 @@ function SignupFormModal() {
 		e.preventDefault();
 
 		if (password === confirmPassword) {
-			const formData = new FormData();
-			formData.append("email", email)
-			formData.append("username", username)
+			// const formData = new FormData();
+			// formData.append("email", email)
+			// formData.append("username", username)
 			// formData.append("profilePicture", profilePicture)
-			formData.append("password", password)
-
-			const data = await dispatch(signUp(formData))
+			// formData.append("password", password)
+			// const data = await dispatch(signUp(formData))
+			const data = await dispatch(signUp({email, username, password}))
 			if (data.errors) setErrors(simplify(data))
 			else closeModal()
 		} else setErrors(["Confirm Password field must be the same as the Password field" ])

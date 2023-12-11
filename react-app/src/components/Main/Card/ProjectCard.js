@@ -30,10 +30,10 @@ export default function ProjectCard() {
 
                     <div className="MainCardItem ProjectCardItem">
                 <OpenModalButton
-              buttonText="Create Project"
+                   buttonText="Create Project"
             //   onItemClick={closeMenu}
               modalComponent={<CreateProjectFormModal />}
-              />
+              ><i className="fas fa-plus"></i></OpenModalButton>
               </div>
                     <div className="MainCardItem ProjectCardItem">
                     <h3>Project 1</h3>

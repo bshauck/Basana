@@ -22,9 +22,9 @@ class Project(db.Model):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         db.session.add(self)
+        self.colorId = choice(range(1, Color.maxIndex+1))
+        self.iconId = choice(range(1, ProjectIcon.maxIndex+1))
         self.createInternalSection()
-        self.color = choice(range(1, Color.maxIndex+1))
-        self.icon = choice(range(1, ProjectIcon.maxIndex+1))
         self.checkSeedDemo()
 
 
@@ -35,15 +35,19 @@ class Project(db.Model):
     ownerId = db.Column(db.Integer, db.ForeignKey(prodify('userb.id')), nullable=False)
     workspaceId = db.Column(db.Integer, db.ForeignKey(prodify('workspace.id'), ondelete='CASCADE'),nullable=False)
     name = db.Column(db.String(50), nullable=False)
-    color = db.Column(db.Integer, db.ForeignKey(prodify('color.id')), default=1)
+    colorId = db.Column(db.Integer, db.ForeignKey(prodify('color.id')), default=1)
     status = db.Column(db.Integer, db.ForeignKey(prodify('status.id')), default=5)
-    icon = db.Column(db.Integer, db.ForeignKey(prodify('project_icon.id')), default=1)
+    iconId = db.Column(db.Integer, db.ForeignKey(prodify('project_icon.id')), default=1)
     view = db.Column(db.Integer, db.ForeignKey(prodify('view_type.id')), default=1)
     description = db.Column(db.Text, nullable=True)
     public = db.Column(db.Boolean, default=False)
     start = db.Column(db.Date, nullable=True)
     due = db.Column(db.Date, nullable=True)
     completed = db.Column(db.Boolean, default=False)
+    icon_subquery = db.select([ProjectIcon.icon]).where(ProjectIcon.id == iconId)
+    icon = db.column_property(icon_subquery.as_scalar())
+    color_subquery = db.select([Color.name]).where(Color.id == colorId)
+    color = db.column_property(color_subquery.as_scalar())
 
     collaborators = db.relationship(
         "User",
@@ -99,8 +103,10 @@ class Project(db.Model):
             'ownerId': self.ownerId,
             'workspaceId': self.workspaceId,
             'name': self.name,
-            'color': self.color,
             'status': self.status,
+            'iconId': self.iconId,
+            'colorId': self.colorId,
+            'color': self.color,
             'icon': self.icon,
             'view': self.view,
             'description': self.description,

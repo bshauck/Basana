@@ -41,20 +41,20 @@ def seed_tasks():
         description='it is a very nice task; once you get to know it')
     createTaskInUnsorted(
         title='This is the second task',
-        description='it is a very cranky')
+        description='It is a very cranky tasl.')
     createTaskInUnsorted(
         title='This is the third task',
         description="I could tell you about it, but then I'd have to kill you1")
     db.session.commit()
     createTaskInToday(
-        title='This is the 5th task',
-        description='it is a very hairy task; you can follow a path for it')
-    createTaskInToday(
-        title='This is the 6th task',
-        description='it is a very cranky!')
-    createTaskInToday(
         title='This is the 4th task',
         description="I could tell you about it, but then I'd have to kill you1!")
+    createTaskInToday(
+        title='This is the 5th task',
+        description='It is a very hairy task; you can follow a path for it')
+    createTaskInToday(
+        title='This is the 6th task',
+        description='Also very cranky!')
     db.session.commit()
 
 
