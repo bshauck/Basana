@@ -32,18 +32,20 @@ export function simplify3(fetchResult) {
     return result
 }
 
-// export function projectIcon(project) {
-//     let color = project?.color || 'blue'
-//     return (
-//         <div style={{backgroundColor:color}} className="projectColorIcon" >
-//            <i className={projectIconString(project)} style={{backgroundColor:color}} />{color}
-//         </div>
-//     )
-// }
-
-
-
 export function projectIcon(project) {
+    let color = 'DarkGreen'
+    return (
+        <div style={{backgroundColor: color }} className="projectColorIcon" >
+           <i className={projectIconString(project)} />
+        </div>
+    )
+}
+
+function projectIconString(project) {
+    // If the value begins with 'far ' it is already in usable format; if it
+    // doesn't, then it is the short name of a 'solid' FA icon and we need to
+    // prepend 'fas fa-' to it.
+
     let result = project?.icon;
     if (!result) result = "fas fa-project-diagram";
     else if (!result.startsWith("far ")) result = "fas fa-" + result;

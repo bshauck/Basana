@@ -100,17 +100,17 @@ export default function SideBar() {
       <h3 className='sidebar-title'  > Projects</h3>
 
       <br/>
-      {wsProjects ?
+      {wsProjects &&
       <ul>
         {wsProjects.map(p =>
           (<li key={p.id} ><span><div className="sidebar-project-listing">
           <Link to={`/projects/${p.id}`}>
-          <div className="projectColorIcon" ><i className={projectIcon(p)} /> </div>
+          {projectIcon(p)}
               {` ${p.name}`}
           </Link></div></span>
           </li>))}
       </ul>
-      : ''}
+      }
       </div>
       <div className="sidebar-teams">
       <div className="team-list"><br/><br/>

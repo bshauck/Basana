@@ -2,7 +2,7 @@ from app.models import db, Color, ProjectIcon, Status, ViewType, environment, SC
 from sqlalchemy.sql import text, insert
 
 def seed_colors():
-    colors = ['dark-pink', 'dark-green', 'dark-blue', 'dark-red', 'dark-teal', 'dark-brown', 'dark-orange', 'dark-purple', 'dark-warm-gray', 'light-pink', 'light-green', 'light-blue', 'light-red', 'light-teal', 'light-brown', 'light-orange', 'light-purple', 'light-warm-gray', 'none']
+    colors = ['DeepPink', 'DarkGreen', 'Blue', 'DarkRed', 'LightSeaGeen', 'Chocolate', 'OrangeRed', 'Indigo', 'DarkGray', 'LightPink', 'DarkSeaGreen', 'DeepSkyBlue', 'IndianRed', 'MediumTurquoise', 'Bisque', 'Orange', 'DarkViolet', 'Beige', 'transparent']
     dicts = [{'name': color } for color in colors]
     db.session.execute(insert(Color), dicts)
     # commit in seed_enums()
