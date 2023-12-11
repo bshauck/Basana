@@ -70,6 +70,7 @@ export const signUp = body => async dispatch => {
 	// console.log("signup formData json", formData)
 	// console.log("signup TYPEOF formData", typeof formData)
 	// else console.log("profile picture type", typeof formData.get("profilePicture"), formData.get("profilePicture"))
+	body = JSON.stringify(body)
 	const answer = await fetchData("/api/auth/signup", {
 		method: "POST",
 		body })
