@@ -26,10 +26,11 @@ def seed_project_icons():
     # commit in seed_enums()
 
 def seed_enums():
-    seed_colors()
-    seed_status()
-    seed_view_types()
-    seed_project_icons()
+    with db.session.no_autoflush:
+        seed_colors()
+        seed_status()
+        seed_view_types()
+        seed_project_icons()
     db.session.commit()
 
 # Uses a raw SQL query to TRUNCATE or DELETE the users table. SQLAlchemy doesn't

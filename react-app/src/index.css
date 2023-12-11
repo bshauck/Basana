@@ -695,7 +695,6 @@ table {
     /* CARDS */
 
 .MainCardContainer {
-    cursor: pointer;
     border-radius: var(--cardBorderRadius);
     background-color: var(--backgroundAccent);
     height: 350px;
@@ -731,4 +730,35 @@ table {
     justify-content: center;
     color: black;
     background-color: yellow;
+}
+
+.sidebar-link {
+    cursor: pointer;
+}
+
+.sidebar-project-listing a {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    /* padding: 5px;
+    border-radius: 5px;
+    margin: 5px; */
+}
+
+.sidebar-project-listing .projectColorIcon {
+    min-height: 30px ;
+    min-width: 30px ;
+    height: 30px ;
+    width: 30px ;
+    margin: 10px ;
+}
+
+.MainCardSectionBody {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+    height: 100%;
 }

@@ -93,24 +93,22 @@ export default function SideBar() {
     <div className="sidebar-container">
       <br/><br/>
       <div className="sidebar-homeMyTasks">
-      <div className='sidebar-title' onClick={home} ><i className="fas fa-house" /> Home</div><br/>
-      <div className='sidebar-title' onClick={myTasks} ><i className="far fa-clock" /> My Tasks   </div><br/>
+      <div className='sidebar-title sidebar-link' onClick={home} ><i className="fas fa-house" /> Home</div><br/>
+      <div className='sidebar-title sidebar-link' onClick={myTasks} ><i className="far fa-clock" /> My Tasks   </div><br/>
       </div>
       <div className="sidebar-projects">
       <h3 className='sidebar-title'  > Projects</h3>
-      {projectIcon(wsProjects?.[0] || ({color:'yellow', icon:'project-diagram'}))}
-      {/* <div className='projectColorIcon' >
-      <i className="fas fa-people-group projectColorIcon"/>
-      </div><br/> */}
+
       <br/>
       {wsProjects ?
       <ul>
         {wsProjects.map(p =>
-          (<li key={p.id} >
-              {projectIcon(p)}
+          (<li key={p.id} ><span><div className="sidebar-project-listing">
+          <Link to={`/projects/${p.id}`}>
+          <div className="projectColorIcon" ><i className={projectIcon(p)} /> </div>
               {` ${p.name}`}
-            <Link to={`/projects/${p.id}`}>Click here
-            </Link></li>))}
+          </Link></div></span>
+          </li>))}
       </ul>
       : ''}
       </div>
@@ -119,9 +117,8 @@ export default function SideBar() {
       <h3>Team</h3><br/>
       <h4>{displayWorkspace.name}</h4><br/><br/>
       <ul>
-        {userWorkspaces.map(w => (<li key={w.id} ><Link style={{color:0xffffff}} to={`/workspaces/${w.id}`}>{`<i className="fas fa-people-group" />   ${w.name}`}</Link></li>))}
+        {userWorkspaces.map(w => (<li key={w.id} ><Link style={{color:0xffffff}} to={`/workspaces/${w.id}`}><i className="fas fa-people-group" />   {w.name}</Link></li>))}
         <br /><br /><br /><br />
-        {userWorkspaces.map(w => (<li key={w.id+w.id+w.id+w.id} onClick={e=>selectWorkspace(e, w)} >{`<i className="fas fa-people-group" />    ${w.name}`}</li>))}
       </ul>
     </div>
     </div>
