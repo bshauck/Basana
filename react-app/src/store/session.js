@@ -62,7 +62,7 @@ export const logout = () => async dispatch => {
 	if (!answer.errors) dispatch(removeUser())
 }
 
-export const signUp = formData => async dispatch => {
+export const signUp = body => async dispatch => {
 	// formData is FormData; pass along with no headers
 	// formData = Object.fromEntries(formData.entries())
 	// console.log("signup formData out of form", formData)
@@ -70,51 +70,50 @@ export const signUp = formData => async dispatch => {
 	// console.log("signup formData json", formData)
 	// console.log("signup TYPEOF formData", typeof formData)
 	// else console.log("profile picture type", typeof formData.get("profilePicture"), formData.get("profilePicture"))
-	// const answer = await fetchData("/api/auth/signup", {
-	// 	method: "POST",
-	// 	isEvilFormData: true,
-	// 	body: formData })
-	// console.log("signup answer", answer)
-	// console.log("signup answer.errors", answer.errors)
-	// if (!answer.errors) dispatch(setUserWithWorkspace(answer))
-	// return answer
+	const answer = await fetchData("/api/auth/signup", {
+		method: "POST",
+		body })
+	console.log("signup answer", answer)
+	console.log("signup answer.errors", answer.errors)
+	if (!answer.errors) dispatch(setUser(answer))
+	return answer
 
 
-	const headers = {};
-	const body = formData;
-	let res;
+	// const headers = {};
+	// const body = formData;
+	// let res;
 	// if (formData.profilePicture)
 	// 	headers["Content-Type"] = "multipart/form-data"
-	const bodyClasses = document.body.classList;
-	bodyClasses.add("waiting");
-	try {
-	const res = await fetch("/api/auth/signup", {
-		method: "POST",
-		headers,
-		body
-	});
+// 	const bodyClasses = document.body.classList;
+// 	bodyClasses.add("waiting");
+// 	try {
+// 	const res = await fetch("/api/auth/signup", {
+// 		method: "POST",
+// 		headers,
+// 		body
+// 	});
 
-	if (res.ok) {
-		const data = await res.json();
-		dispatch(setUser(data));
-		return data;
-	} else if (res.status < 600) {
-		const data = await res.json();
-		if (data.errors) {
-			return data;
-		} else return {errors: {system: data}}
-	}
-} catch (error) {
-    console.error(error);
-    error.status = error.status || 500;
-    if (error.errors) error.errors.fetch = "Failed to Fetch"
-    else error.errors = {"fetch": "Failed to Fetch"}
-    res = error;
-  }
-  finally {
-    bodyClasses.remove("waiting");
-  }
-  return res;
+// 	if (res.ok) {
+// 		const data = await res.json();
+// 		dispatch(setUser(data));
+// 		return data;
+// 	} else if (res.status < 600) {
+// 		const data = await res.json();
+// 		if (data.errors) {
+// 			return data;
+// 		} else return {errors: {system: data}}
+// 	}
+// } catch (error) {
+//     console.error(error);
+//     error.status = error.status || 500;
+//     if (error.errors) error.errors.fetch = "Failed to Fetch"
+//     else error.errors = {"fetch": "Failed to Fetch"}
+//     res = error;
+//   }
+//   finally {
+//     bodyClasses.remove("waiting");
+//   }
+//   return res;
 }
 
 const initialState = { user: null, workspace: null, project: null}
@@ -122,13 +121,13 @@ export default function reducer(state = initialState, action) {
 	switch (action.type) {
 	case GOT_CURRENT_WORKSPACE:
 		console.log("SETTING got WS", action.workspace)
-		if (!action.workspace || action.workspace === state.workspace) return state
+		if (state.workspace && (!action.workspace || action.workspace.id === state.workspace.id)) return state
 		// if (!action.workspace || action.workspace?.id === state.workspace?.id) return state
 		return { ...state, workspace: action.workspace, project: null }
 	case REMOVE_CURRENT_WORKSPACE:
-		return { ...state, workspace: null }
+		return { ...state, workspace: null, project: null }
 	case GOT_CURRENT_PROJECT:
-		if (!action.project || action.project === state.project) return state
+		if (!action.project || action.project.id === state.project.id) return state
 		return { ...state, project: action.project }
 	case REMOVE_CURRENT_PROJECT:
 		return { ...state, project: null }
@@ -157,7 +156,7 @@ export default function reducer(state = initialState, action) {
 	}
 	case CREATED_PROJECT:
 		console.log("Session created PR: pr/userId", action.project, action.project.ownerId)
-		if (!state.user || state.user.id !== action.project.ownerId) return state
+		if (!state.user || !state.user?.id || state.user.id !== action.project.ownerId) return state
 		return { ...state,
 		  user: {...state.user,
 				projects: [...state.user.projects, action.project.id]} }

@@ -8,10 +8,10 @@ export async function csrfFetch(url, options = {}) {
   bodyClasses.add("waiting");
 
   // If body is FormData leave it alone, browsers will handle it automatically
-  console.log("csrf TYPEOF body", typeof options?.body)
+  // console.log("csrf TYPEOF body", typeof options?.body)
 
   // if (!(options?.isEvilFormData)) {
-    console.log("csrfFetch: not form data");
+    // console.log("csrfFetch: not form data");
 
     // set options.method to 'GET' if no method
     options.method = options.method || 'GET';
@@ -30,8 +30,8 @@ export async function csrfFetch(url, options = {}) {
       // options.headers['XSRF-Token'] = Cookies.get('XSRF-TOKEN');
     }
   // } else {
-    delete options.isEvilFormData;
-    console.log("csrfFetch: is form data");
+    // delete options.isEvilFormData;
+    // console.log("csrfFetch: is form data");
   // }
   // call the default fetch with the url and the options passed in
   let res;

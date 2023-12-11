@@ -5,6 +5,8 @@
     --headingSize: 24pt ;
     --subheadingSize: 16pt ;
     --subheadingWeight: 550 ;
+    --sidebarHeadingSize: 12pt ;
+    --sidebarHeadingWeight: 550 ;
     --buttonBorderRadius: 10px ;
     --imgBorderRadius: 14px ;
     --modalBorderRadius: 15px ;
@@ -163,6 +165,11 @@ h2 {
     font-weight: var(--subheadingWeight) ;
 }
 
+h3 {
+    font-size: var(--sidebarHeadingSize) ;
+    font-weight: var(--sidebarHeadingWeight) ;
+}
+
 .hidden {
     display: none ;
 }
@@ -199,6 +206,7 @@ h2 {
 .MainContainer{
     grid-area: main;
     color: var(--textColor);
+    margin: 24px;
 }
 
 .background-text {
@@ -359,23 +367,38 @@ input[type=file] {
     align-items: center;
 }
 
-.landingMainContainer{
-    display: grid;
-    grid-template-columns: repeat(4, 220px);
-    column-gap: 2.5%;
-    height: 100%;
-    margin-bottom: 25px;
-}
+
 
 .landing-container {
-    margin: var(--mainPaddingY) var(--mainPaddingX);
+    display: flex;
+    flex-direction: column;
 }
 
 .landing-header {
-    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: space-between; */
+    align-items: center;
+}
+.landing-header>h2 {
+    font-weight: bold;
+    align-self: flex-start
+}
+.landing-header-bottom {
+    margin: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-items: center;
+}
+.landing-body {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    /* width: 100%; */
 }
 
 .landing-header>a {
@@ -387,9 +410,6 @@ input[type=file] {
     color: var(--textColor)
 }
 
-.landing-header>h2 {
-    font-weight: bold;
-}
 
 /*************** ABOUT ************************/
 .aboutContainer>* {
@@ -502,24 +522,18 @@ input[type=file] {
     padding: 0 var(--mainPaddingX);
 }
 
-.fa-solid.fa-house, .fa-solid.fa-eye {
+.sidebar-title {
+    color: var(--backgroundTextColor);
+    font-weight: bold;
+    font-size: var(--sidebarHeadingSize);
+    margin-bottom: 10px;
+}
+
+.fas.fa-house, .far.fa-clock {
     color: var(--backgroundTextColor);
     text-align: left;
-    font-size: var(--fontSize);
-}
-
-.fa-solid.fa-house, .fa-solid.fa-eye {
-    margin-right: 15px;
-}
-
-.sidebar-library {
-    padding: 7px;
-}
-
-.fa-solid.fa-book, .library-text {
-    color: var(--backgroundTextColor);
-    margin-right: 15px;
-    margin-bottom: 7px;
+    font-size: var(--sidebarFontSize);
+    margin-right: 5px;
 }
 
 .custom-modal-button, .sidebar-card-container>button {
@@ -537,10 +551,6 @@ input[type=file] {
 .Active{
     background-color: var(--backgroundAccent);
     font-weight: bold;
-}
-
-.sideBarContainer {
-    margin-top: 7px;
 }
 
 
@@ -685,12 +695,11 @@ table {
     /* CARDS */
 
 .MainCardContainer {
-    cursor: pointer;
     border-radius: var(--cardBorderRadius);
     background-color: var(--backgroundAccent);
     height: 350px;
     display: flex;
-    width: 550px;
+    width: 460px;
     justify-content: center;
     align-items: flex-start;
     padding: 15px;
@@ -708,37 +717,48 @@ table {
 }
 
 
-
-.landing-container {
-    display: flex;
-    flex-direction: column;
-}
-
-.landing-header {
-    display: flex;
-    flex-direction: column;
-    /* justify-content: space-between; */
+.projectColorIcon {
+    border-radius: 12px;
+    height: 48px;
+    width: 48px;
+    box-shadow: inset 0 -2px rgba(0,0,0,.05);
     align-items: center;
-}
-.landing-header>h2 {
-    font-weight: bold;
-    align-self: flex-start
-}
-.landing-header-bottom {
     display: flex;
+    fill: #fff;
+    flex: 0 0 auto;
     flex-direction: column;
+    justify-content: center;
+    color: black;
+    background-color: yellow;
+}
+
+.sidebar-link {
+    cursor: pointer;
+}
+
+.sidebar-project-listing a {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
     align-items: center;
+    /* padding: 5px;
+    border-radius: 5px;
+    margin: 5px; */
+}
+
+.sidebar-project-listing .projectColorIcon {
+    min-height: 30px ;
+    min-width: 30px ;
+    height: 30px ;
+    width: 30px ;
+    margin: 10px ;
+}
+
+.MainCardSectionBody {
+    display: flex;
     flex-direction: row;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     width: 100%;
-}
-.landing-body {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    /* width: 100%; */
+    height: 100%;
 }

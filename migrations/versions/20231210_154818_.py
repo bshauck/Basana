@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 27d3ec892523
+Revision ID: a4e161c91d1b
 Revises:
-Create Date: 2023-12-08 14:18:57.178284
+Create Date: 2023-12-10 15:48:18.866891
 
 """
 from alembic import op
@@ -11,9 +11,8 @@ import os
 environment = os.getenv("FLASK_ENV")
 SCHEMA = os.environ.get("SCHEMA")
 
-
 # revision identifiers, used by Alembic.
-revision = '27d3ec892523'
+revision = 'a4e161c91d1b'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -75,17 +74,17 @@ def upgrade():
     sa.Column('ownerId', sa.Integer(), nullable=False),
     sa.Column('workspaceId', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=50), nullable=False),
-    sa.Column('color', sa.Integer(), nullable=True),
+    sa.Column('colorId', sa.Integer(), nullable=True),
     sa.Column('status', sa.Integer(), nullable=True),
-    sa.Column('icon', sa.Integer(), nullable=True),
+    sa.Column('iconId', sa.Integer(), nullable=True),
     sa.Column('view', sa.Integer(), nullable=True),
     sa.Column('description', sa.Text(), nullable=True),
     sa.Column('public', sa.Boolean(), nullable=True),
     sa.Column('start', sa.Date(), nullable=True),
     sa.Column('due', sa.Date(), nullable=True),
     sa.Column('completed', sa.Boolean(), nullable=True),
-    sa.ForeignKeyConstraint(['color'], ['color.id'], ),
-    sa.ForeignKeyConstraint(['icon'], ['project_icon.id'], ),
+    sa.ForeignKeyConstraint(['colorId'], ['color.id'], ),
+    sa.ForeignKeyConstraint(['iconId'], ['project_icon.id'], ),
     sa.ForeignKeyConstraint(['ownerId'], ['userb.id'], ),
     sa.ForeignKeyConstraint(['status'], ['status.id'], ),
     sa.ForeignKeyConstraint(['view'], ['view_type.id'], ),
@@ -152,7 +151,6 @@ def upgrade():
         op.execute(f"ALTER TABLE section SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE task SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE user_member_project SET SCHEMA {SCHEMA};")
-
     # ### end Alembic commands ###
 
 
