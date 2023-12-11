@@ -700,7 +700,7 @@ table {
     background-color: var(--backgroundAccent);
     height: 350px;
     display: flex;
-    width: 550px;
+    width: 460px;
     justify-content: center;
     align-items: flex-start;
     padding: 15px;
@@ -724,11 +724,11 @@ table {
     width: 48px;
     box-shadow: inset 0 -2px rgba(0,0,0,.05);
     align-items: center;
-    background: transparent;
-    /* background: yellow; */
     display: flex;
     fill: #fff;
     flex: 0 0 auto;
     flex-direction: column;
     justify-content: center;
+    color: black;
+    background-color: yellow;
 }

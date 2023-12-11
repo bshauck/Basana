@@ -98,21 +98,17 @@ export default function SideBar() {
       </div>
       <div className="sidebar-projects">
       <h3 className='sidebar-title'  > Projects</h3>
-      <div className='projectColorIcon' >
-        <i className="fas fa-people-group" style={{backgroundColor:0x0000,zIndex:1}} />
-      </div><br/>
+      {projectIcon(wsProjects?.[0] || ({color:'yellow', icon:'project-diagram'}))}
+      {/* <div className='projectColorIcon' >
+      <i className="fas fa-people-group projectColorIcon"/>
+      </div><br/> */}
       <br/>
       {wsProjects ?
       <ul>
         {wsProjects.map(p =>
           (<li key={p.id} >
-              <div
-                className="projectColorIcon"
-                style={{backgroundColor:p.color}}
-              >
-                  {/* <i style={{color:p.color}}
-                  className={projectIcon(p)} /> */}
-              </div> {` ${p.name}`}
+              {projectIcon(p)}
+              {` ${p.name}`}
             <Link to={`/projects/${p.id}`}>Click here
             </Link></li>))}
       </ul>
