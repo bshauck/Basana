@@ -36,6 +36,7 @@ s3transfer = "==0.8.2"
 urllib3 = "==1.26.18"
 zipp = "==3.17.0"
 psycopg2-binary = "==2.9.9"
+pylint = "*"
 
 [dev-packages]
 

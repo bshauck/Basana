@@ -1,5 +1,5 @@
+# app/models/workspace.py
 from .db import db, environment, SCHEMA, SEED, prodify
-from .project import Project
 from .internalProject import InternalProject
 
 user_member_workspace = db.Table(

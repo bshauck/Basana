@@ -1,3 +1,4 @@
+# app/models/project.py
 from .db import db, environment, SCHEMA, prodify, SEED
 from datetime import datetime
 from .section import Section

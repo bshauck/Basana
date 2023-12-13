@@ -780,3 +780,36 @@ MainCardItem button {
 MainCardItem h3 {
     text-align: center;
 }
+
+.menu-divider {
+    height: 1px;
+    background-color: #ccc;
+    margin: 10px 0;
+  }
+
+
+.team-dropdown {
+    z-index: 2 ;
+    /* position: relative ; */
+    /* top: 55px ;
+    right: 50px ; */
+    /* background: rgba(255, 255, 255, 1) ; */
+    /* list-style-type: none ; */
+    /* border: 1px solid black ; */
+    /* width: fit-content ; */
+    /* min-width: 160px; */
+}
+
+.team-active-listing {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.team-active-listing>i {
+    align-self: flex-end;
+}
+
+
+.fas.fa-people-group {
+    z-index: 1;
+}

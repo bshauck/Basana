@@ -1,13 +1,13 @@
 import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import OpenModalButton from "../OpenModalButton";
+import OpenModalMenuItem from "../OpenModalMenuItem";
 import CreateWorkspaceFormModal from "./CreateWorkspaceFormModal";
 import WorkspaceDeleteFormModal from "./WorkspaceDeleteFormModal";
 import UpdateWorkspaceFormModal from "./UpdateWorkspaceFormModal";
 import { gotWorkspace } from "../../store/session";
 import { useHistory } from "react-router-dom";
 
-function WorkspaceMenu({ workspace, otherWorkspaces}) {
+function TeamDropDownMenu({ workspace, otherWorkspaces}) {
   const [showMenu, setShowMenu] = useState(false);
   const ulRef = useRef();
   const user = useSelector(state => state.session.user);
@@ -46,39 +46,47 @@ function WorkspaceMenu({ workspace, otherWorkspaces}) {
   if (!workspace) return null;
 
   return (
-      <div className="team-dropdown" >
-      <i className="fas fa-chevron-right" onClick={openMenu} />
-      {/* <i className="fas fa-down-chevron" onClick={openMenu} /> */}
+    <>
+      <button onClick={openMenu}>
+        <i className="fas fa-down-chevron" />
+      </button>
       <ul className={ulClassName} ref={ulRef}>
-        {workspace !== true && (
-          <>
-            <li>Workspace Menu</li>
-            <OpenModalButton
-              buttonText="Create Workspace"
-              onItemClick={closeMenu}
-              modalComponent={<CreateWorkspaceFormModal /> }
-            />
-            <OpenModalButton
-              buttonText="Edit Workspace"
-              onItemClick={closeMenu}
-              modalComponent={<UpdateWorkspaceFormModal workspace={workspace} />}
-            />
-        </>)} {user !== false && (
-            <OpenModalButton
-              buttonText="Delete Workspace"
-              onItemClick={closeMenu}
-              modalComponent={<WorkspaceDeleteFormModal id={workspace.id} /> } />)}
-        {otherWorkspaces && otherWorkspaces.length &&
-        <li className="menu-divider"></li>}
+        {workspace && (
+        <li key={workspace.id} onClick={() => selectWorkspace(workspace)}>
+           <i className="fas fa-check" /> {ws.name}
+          </li>
+           ) }
         {otherWorkspaces && otherWorkspaces.map(ws => (
           <li key={ws.id} onClick={() => selectWorkspace(ws)}>
             {ws.name}
           </li>
         ))}
+        <li className="menu-divider"></li>
+        {workspace && (
+          <>
+            <li>Workspace Menu</li>
+            <OpenModalMenuItem
+              id="create-workspace"
+              itemText="Create Workspace"
+              onItemClick={closeMenu}
+              modalComponent={<CreateWorkspaceFormModal /> }
+            />
+            <OpenModalMenuItem
+              id="edit-workspace"
+              itemText="Edit Workspace"
+              onItemClick={closeMenu}
+              modalComponent={<UpdateWorkspaceFormModal workspace={workspace} />}
+            />
+        </>)} {user !== false && (
+            <OpenModalMenuItem
+              id="delete-workspace"
+              itemText="Delete Workspace"
+              onItemClick={closeMenu}
+              modalComponent={<WorkspaceDeleteFormModal id={workspace.id} /> } />)}
 
       </ul>
-      </div>
+    </>
   )
 }
 
-export default WorkspaceMenu;
+export default TeamDropDownMenu;

@@ -7,6 +7,7 @@ import { thunkGetAllProjects, thunkGetWorkspaceProjects } from '../../store/proj
 import { thunkGetUserWorkspaces } from '../../store/workspace'
 import { gotProject, gotWorkspace } from '../../store/session'
 import { projectIcon } from '../../utils/helpers'
+import WorkspaceMenu from '../Main/WorkspaceMenu'
 
 export default function SideBar() {
   const dispatch = useDispatch();
@@ -17,13 +18,13 @@ export default function SideBar() {
   const userProjectIds = useSelector(state => state.session.user?.projects);
   const wsProjectIds = appWorkspace?.projects;
 
-  const workspaces = Object.values(useSelector(state => state.workspaces));
+  let workspaces = Object.values(useSelector(state => state.workspaces));
   const projectIds = useSelector(state => state.projects);
   const projects = Object.values(useSelector(state => state.projects));
 
   const history = useHistory();
   let displayWorkspace
-
+  workspaces = workspaces.filter(w => appUser?.id === w.ownerId);
 
   useEffect(() => {
     if (appUser && !userWorkspaceIds) {
@@ -63,7 +64,7 @@ export default function SideBar() {
     noDuplicateHistoryPush(`/workspaces/${workspace.id}`)
   }
 
-  if (!appUser) return <h1>Please login</h1>;
+  if (!appUser) return null;
   if (!userWorkspaceIds)  return <h1>No appUserWorkspaceIds</h1>;
 
   const userWorkspaces = workspaces.filter(w => userWorkspaceIds.includes(w.id));
@@ -85,6 +86,7 @@ export default function SideBar() {
   const wsProjects = ids ? projects.filter(p => ids.includes(p.id)) : []
 
   if (!displayWorkspace) return null
+  const otherWorkspaces = workspaces.filter(w => w.id !== appWorkspace.id);
 
 {/* <i className={`"${simpleProjectIcon(p)}"`} /> */}
 
@@ -113,15 +115,9 @@ export default function SideBar() {
       }
       </div>
       <div className="sidebar-teams">
-      <div className="team-list"><br/><br/>
-      <h3>Team</h3><br/>
-      <h4>{displayWorkspace.name}</h4><br/><br/>
-      <ul>
-        {userWorkspaces.map(w => (<li key={w.id} ><Link style={{color:0xffffff}} to={`/workspaces/${w.id}`}><i className="fas fa-people-group" />   {w.name}</Link></li>))}
-        <br /><br /><br /><br />
-      </ul>
-    </div>
-    </div>
+      <div className="team-list-header"></div>  <h3>Team</h3> </div>
+      <div className="team-active-listing">
+      <i className="fas fa-people-group" /><h4 onClick={()=>selectWorkspace(appWorkspace)} >{appWorkspace.name}</h4><WorkspaceMenu workspace={appWorkspace} otherWorkspaces={otherWorkspaces}  /> </div>
     </div>
   )
 }
