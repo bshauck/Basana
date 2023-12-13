@@ -1,4 +1,5 @@
-from .db import db, environment, SCHEMA, prodify, SEED
+# app/models/internalProject.py
+from .db import db, environment, SCHEMA, prodify
 from .section import Section
 from datetime import datetime
 
@@ -16,7 +17,7 @@ class InternalProject(db.Model):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    ownerId = db.Column(db.Integer, db.ForeignKey(prodify('userb.id')), nullable=False)
+    ownerId = db.Column(db.Integer, db.ForeignKey(prodify('userb.id'), ondelete='CASCADE'), nullable=False)
     workspaceId = db.Column(db.Integer, db.ForeignKey(prodify('workspace.id'), ondelete='CASCADE'),nullable=False)
     name = db.Column(db.String(50), nullable=False)
 
@@ -55,9 +56,6 @@ class InternalProject(db.Model):
 
     def createSectionsForMyTask(self):
         self.addSectionsNamed(( "Untitled section", "Recently assigned", "Do today", "Do next week", "Do later" ))
-
-    def name(self):
-        return self.myTaskProjectName
 
     def to_dict(self):
         return {

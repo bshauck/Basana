@@ -1,7 +1,7 @@
-from .db import db, environment, SCHEMA, prodify
+# app/models/user.py
+from .db import db, environment, SCHEMA
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
-from datetime import datetime
 from .workspace import Workspace, user_member_workspace
 from .project import user_member_project
 

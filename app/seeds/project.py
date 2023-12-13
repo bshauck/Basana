@@ -1,5 +1,6 @@
-from app.models import db, environment, SCHEMA, Project
-from sqlalchemy.sql import text
+# app/seeds/project.py
+from app.models import db, Project
+from .createSeeds import getIds
 
 def seed_projects():
     one = Project(name='Project 1', ownerId=1, workspaceId=1)
@@ -16,15 +17,9 @@ def seed_projects():
     # projects = [one, two, three, four, five, six, seven, eight, nine]
     db.session.add_all(projects)
     db.session.commit()
-# Uses a raw SQL query to TRUNCATE or DELETE the users table. SQLAlchemy doesn't
-# have a built in function to do this. With postgres in production TRUNCATE
-# removes all the data from the table, and RESET IDENTITY resets the auto
-# incrementing primary key, CASCADE deletes any dependent entities.  With
-# sqlite3 in development you need to instead use DELETE to remove all data and
-# it will reset the primary keys for you as well.
+
 def undo_projects():
-    if environment == "production":
-        db.session.execute(f"TRUNCATE table {SCHEMA}.project RESTART IDENTITY CASCADE;")
-    else:
-        db.session.execute(text("DELETE FROM project"))
+    projects = Project.query.filter(Project.ownerId.in_(getIds())).all()
+    for project in projects:
+        db.session.delete(project)
     db.session.commit()

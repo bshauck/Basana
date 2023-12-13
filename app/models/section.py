@@ -1,6 +1,6 @@
+# app/models/section.py
 from .db import db, environment, SCHEMA, prodify, SEED
 from datetime import datetime
-from .task import Task
 
 class Section(db.Model):
     __tablename__ = 'section'

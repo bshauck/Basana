@@ -1,5 +1,5 @@
+# app/models/task.py
 from .db import db, environment, SCHEMA, prodify
-from datetime import datetime
 
 
 class Task(db.Model):
