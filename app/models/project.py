@@ -23,7 +23,7 @@ class Project(db.Model):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         db.session.add(self)
-        self.colorId = choice(range(1, Color.maxIndex+1))
+        self.colorId = choice(range(1, Color.maxIndex))
         self.iconId = choice(range(1, ProjectIcon.maxIndex+1))
         self.createInternalSection()
         self.checkSeedDemo()
@@ -37,9 +37,9 @@ class Project(db.Model):
     workspaceId = db.Column(db.Integer, db.ForeignKey(prodify('workspace.id'), ondelete='CASCADE'),nullable=False)
     name = db.Column(db.String(50), nullable=False)
     colorId = db.Column(db.Integer, db.ForeignKey(prodify('color.id')), default=1)
-    status = db.Column(db.Integer, db.ForeignKey(prodify('status.id')), default=5)
+    statusId = db.Column(db.Integer, db.ForeignKey(prodify('status.id')), default=5)
     iconId = db.Column(db.Integer, db.ForeignKey(prodify('project_icon.id')), default=1)
-    view = db.Column(db.Integer, db.ForeignKey(prodify('view_type.id')), default=1)
+    viewId = db.Column(db.Integer, db.ForeignKey(prodify('view_type.id')), default=1)
     description = db.Column(db.Text, nullable=True)
     public = db.Column(db.Boolean, default=False)
     start = db.Column(db.Date, nullable=True)
@@ -50,10 +50,10 @@ class Project(db.Model):
     color_subquery = db.select([Color.name]).where(Color.id == colorId)
     color = db.column_property(color_subquery.as_scalar())
 
-    collaborators = db.relationship(
+    members = db.relationship(
         "User",
         secondary=user_member_project,
-        back_populates="collaborations",
+        back_populates="memberships",
     )
 
     owner = db.relationship(
@@ -104,18 +104,18 @@ class Project(db.Model):
             'ownerId': self.ownerId,
             'workspaceId': self.workspaceId,
             'name': self.name,
-            'status': self.status,
+            'statusId': self.statusId,
             'iconId': self.iconId,
             'colorId': self.colorId,
             'color': self.color,
             'icon': self.icon,
-            'view': self.view,
+            'viewId': self.viewId,
             'description': self.description,
             'public': self.public,
             'start': self.start,
             'due': self.due,
             'completed': self.completed,
-            'collaborators': [member.id for member in self.collaborators],
+            'members': [member.id for member in self.members],
             'sections': [section.id for section in self.sections],
             'tasks': [task.id for task in self.tasks]
         }

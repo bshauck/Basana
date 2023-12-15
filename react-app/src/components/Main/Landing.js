@@ -31,9 +31,9 @@ export default function Landing() {
 
 
 
-  if (!user) return null;
+  if (!user) return <h1>Please log in or sign up</h1>;
 
-  if (!Array.isArray(users) || !users.length) {
+  if (!Array.isArray(users) || users.length < 3) {
     if (!ref['users']) ref['users'] = dispatch(thunkGetAllUsers());
     return null;
   } else if (ref['users']) delete ref['users']

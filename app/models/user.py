@@ -4,6 +4,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from .workspace import Workspace, user_member_workspace
 from .project import user_member_project
+from .task import user_member_task, Task
 
 class User(db.Model, UserMixin):
     __tablename__ = 'userb'
@@ -36,7 +37,8 @@ class User(db.Model, UserMixin):
         "Task",
         back_populates="owner",
         cascade="all, delete",
-        passive_deletes=True
+        passive_deletes=True,
+        foreign_keys=[Task.ownerId]
     )
 
     internalProjects = db.relationship(
@@ -46,11 +48,20 @@ class User(db.Model, UserMixin):
         passive_deletes=True
     )
 
-    collaborations = db.relationship(
+    memberships = db.relationship(
         "Project",
         secondary=user_member_project,
-        back_populates="collaborators",
+        back_populates="members",
         cascade="all, delete",
+        passive_deletes=True
+    )
+
+    collaborations = db.relationship(
+        "Task",
+        secondary=user_member_task,
+        back_populates="collaborators",
+        primaryjoin=(user_member_task.c.userId == id),
+        secondaryjoin=(user_member_task.c.taskId == Task.id),        cascade="all, delete",
         passive_deletes=True
     )
 
@@ -83,9 +94,10 @@ class User(db.Model, UserMixin):
             'id': self.id,
             'username': self.username,
             'email': self.email,
-            'teams': [team.id for team in self.teams],
             'projects': [project.id for project in self.projects],
-            'colloborations': [project.id for project in self.collaborations],
+            'teams': [team.id for team in self.teams],
+            'memberships': [project.id for project in self.memberships],
+            'collaborations': [task.id for task in self.collaborations],
             'workspaces': [workspace.id for workspace in self.workspaces],
             'internalProjects': [internalProject.id for internalProject in self.internalProjects],
             'tasks': [task.id for task in self.tasks],
