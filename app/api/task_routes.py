@@ -44,8 +44,7 @@ def create_task():
             "title": form.data['title'],
             "description": form.data['description'],
             # "due": form.data['due'],
-            "complete": form.data['complete'],
-            "public": form.data['public']
+            "completed": form.data['completed'],
         }
 
         task = task(**new_task)

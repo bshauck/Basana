@@ -24,6 +24,7 @@ class Workspace(db.Model):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+        self.teammates.append(self.owner)
         db.session.add(self)
         db.session.commit()
         self.internalProjects.append(self.createMyTaskProject())

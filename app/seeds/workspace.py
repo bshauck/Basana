@@ -1,15 +1,25 @@
 # app/seeds/workspace.py
 from app.models import  db, Workspace
-from .createSeeds import getIds
+from .createSeeds import getUsers, getIds, nextTeamName
+import random
 
 def seed_workspaces():
-    one = Workspace(name='Tiger Team 1', ownerId=1)
-    two = Workspace(name='Disgruntled Employees', ownerId=1)
-    three = Workspace(name='Gruntled Employees', ownerId=1)
+    users = getUsers()
+    for user in users:
+        if random.choice([True, False]):  # whether to create a new team
+            team_size = random.randint(2, 5)
+            team_members = random.sample(users, team_size)
+            if user not in team_members:
+                team_members.append(user)
 
-    workspaces = [one, two, three]
-    db.session.add_all(workspaces)
-    db.session.commit()
+            # Create new Workspace
+            new_workspace = Workspace(name=nextTeamName(), owner=user)
+
+            # Add users to the Workspace
+            new_workspace.teammates.extend(team_members)
+            db.session.add(new_workspace)
+            db.session.commit()
+
 
 def undo_workspaces():
     teams = Workspace.query.filter(Workspace.ownerId.in_(getIds())).all()

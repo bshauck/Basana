@@ -8,5 +8,4 @@ class TaskForm(FlaskForm):
     description = TextAreaField('description')
     # start = DateField('start')
     # due = DateField('due')
-    complete = BooleanField('complete')
-    public = BooleanField('public')
+    completed = BooleanField('complete')

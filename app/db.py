@@ -9,7 +9,7 @@ db = SQLAlchemy()
 
 # helper function for adding prefix to foreign key column references in production
 def prodify(attr):
-    if environment == "production":
-        return f"{SCHEMA}.{attr}"
-    else:
-        return attr
+    return f"{SCHEMA}.{attr}" if environment == "production" else attr
+
+def qprodify(attr):
+    return f'"${prodify(attr)}"' if environment == "production" else attr
