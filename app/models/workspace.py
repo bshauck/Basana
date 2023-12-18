@@ -1,5 +1,5 @@
 # app/models/workspace.py
-from .db import db, environment, SCHEMA, SEED, prodify
+from .db import db, environment, SCHEMA, prodify
 from .internalProject import InternalProject
 
 user_member_workspace = db.Table(
@@ -71,9 +71,6 @@ class Workspace(db.Model):
         back_populates="teams",
     )
 
-    def checkSeed(self):
-        if SEED:
-            db.session.commit()
 
     def to_dict(self):
         return {

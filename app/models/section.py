@@ -1,5 +1,5 @@
 # app/models/section.py
-from .db import db, environment, SCHEMA, prodify, SEED
+from .db import db, environment, SCHEMA, prodify
 from datetime import datetime
 
 class Section(db.Model):
@@ -14,7 +14,6 @@ class Section(db.Model):
         db.session.add(self)
         self.createdAt = datetime.now()
         self.index = self.currentMaxIndex() + self.initialIndexStep
-        self.checkSeedDemo()
 
     id = db.Column(db.Integer, primary_key=True)
     projectId = db.Column(db.Integer, db.ForeignKey(prodify('project.id'), ondelete='CASCADE'), nullable=True)
@@ -39,14 +38,6 @@ class Section(db.Model):
         'InternalProject',
         back_populates='sections'
     )
-
-    def checkSeedDemo(self):
-        if SEED:
-            # self.tasks.append(Task(section=self, projectId=self.projectId, internalProjectId=self.internalProjectId, title="Demo task 1",))
-            # self.tasks.append(Task(section=self, projectId=self.projectId, internalProjectId=self.internalProjectId, title="Demo task 2",))
-            # self.tasks.append(Task(section=self, projectId=self.projectId, internalProjectId=self.internalProjectId, title="Demo task 3",))
-            # db.session.add_all(self.tasks)
-            pass
 
     def currentMaxIndex(self):
         """

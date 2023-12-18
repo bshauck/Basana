@@ -1,5 +1,5 @@
 # app/models/project.py
-from .db import db, environment, SCHEMA, prodify, SEED
+from .db import db, environment, SCHEMA, prodify
 from datetime import datetime
 from .section import Section
 from .enum import Color, ProjectIcon
@@ -26,7 +26,6 @@ class Project(db.Model):
         self.colorId = choice(range(1, Color.maxIndex))
         self.iconId = choice(range(1, ProjectIcon.maxIndex+1))
         self.createInternalSection()
-        self.checkSeedDemo()
 
 
     if environment == "production":
@@ -83,11 +82,6 @@ class Project(db.Model):
     def addToSectionsSession(self, section):
         self.sections.append(section)
         db.session.add(section)
-
-    def checkSeedDemo(self):
-        if SEED:
-            # self.addToSectionsSession(Section(project=self, projectId=self.id, name="Demo", index=1000, createdAt=datetime.now()))
-            pass
 
     def createInternalSection(self):
         self.addToSectionsSession(Section(project=self, projectId=self.id, name="Untitled section", index=1, createdAt=datetime.now()))
