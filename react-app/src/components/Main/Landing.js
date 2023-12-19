@@ -59,7 +59,7 @@ export default function Landing() {
         <h2>Home</h2>
         <div className="landing-header-bottom">
         <h3>{new Date().toLocaleDateString(undefined, {weekday: 'long',month: 'long',day: 'numeric'})}</h3>
-        <h1>{`Good ${hours < 12 ? "morning" : (hours < 17 ? "afternoon" : "evening")}, ${user ? user.username : "!"}`}</h1>
+        <h1>{`Good ${hours < 12 ? "morning" : (hours < 17 ? "afternoon" : "evening")}, ${user ? (user.username.split(' ')[0]) : "!"}`}</h1>
         </div>
 
       </div>
