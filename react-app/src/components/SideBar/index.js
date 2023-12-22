@@ -98,7 +98,7 @@ export default function SideBar() {
       <br/><br/>
       <div className="sidebar-homeMyTasks">
       <div className='sidebar-title sidebar-link' onClick={home} ><i className="fas fa-house" /> Home</div><br/>
-      <div className='sidebar-title sidebar-link' onClick={myTasks} ><i className="far fa-clock" /> My Tasks   </div><br/>
+      <div className='sidebar-title sidebar-link' onClick={myTasks} ><i className="far fa-clock" /> My tasks   </div><br/>
       </div>
       <div className="sidebar-projects">
       <h3 className='sidebar-title'  > Projects</h3>

@@ -46,9 +46,9 @@ export default function WorkspaceMyTasksList() {
         <h2>My tasks: {`(${appWorkspace ? appWorkspace.name : 'XXXXX'})`} </h2>
       </div>
       <div className="task-body">
-        <h1>Task List for Workspace internal Project with Sections</h1>
+        <h1>|</h1>
         <ul>
-          <li><SectionTableListHeader project={appWorkspace.internalProjects[0]} /></li>
+          <li><SectionTableListHeader team={appWorkspace} /></li>
 
           <li><AddSectionLine project={project} /></li>
 
