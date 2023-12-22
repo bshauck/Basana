@@ -20,7 +20,7 @@ class Section(db.Model):
     internalProjectId = db.Column(db.Integer, db.ForeignKey(prodify('internal_project.id'), ondelete='CASCADE'), nullable=True)
     name = db.Column(db.String(50), nullable=False)
     index = db.Column(db.Integer, nullable=False)
-    createdAt = db.Column(db.Date, nullable=False)
+    createdAt = db.Column(db.TIMESTAMP(timezone=True), nullable=False)
 
     project = db.relationship(
         'Project',

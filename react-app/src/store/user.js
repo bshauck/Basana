@@ -122,7 +122,7 @@ const userReducer = (state = initialState, action) => {
         !user.projects.includes(action.id)) return state
       return { ...state,
         user: {...state.user,
-        projects: user.projects.filter(wId => wId !== action.id)} }
+          projects: user.projects.filter(pId => pId !== action.id)} }
     }
     default:
       return state

@@ -1,4 +1,5 @@
 import os
+
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -12,3 +13,5 @@ class Config:
     SQLALCHEMY_DATABASE_URI = os.environ.get(
         'DATABASE_URL').replace('postgres://', 'postgresql://')
     SQLALCHEMY_ECHO = True
+    if os.environ.get('FLASK_ENV') == 'production':
+        SQLALCHEMY_ENGINE_OPTIONS = {"connect_args": {"options": "-c timezone=utc"}}

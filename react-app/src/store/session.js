@@ -129,12 +129,12 @@ export default function reducer(state = initialState, action) {
 		if (state.workspace && (!action.workspace || action.workspace.id === state.workspace.id)) return state
 		console.log("SETTING got WS", action.workspace)
 		return { ...state, workspace: action.workspace, project: null }
-		case REMOVE_CURRENT_WORKSPACE:
-			return { ...state, workspace: null, project: null }
-		case GOT_CURRENT_PROJECT:
-			console.log("CONSIDERING got PROJECT", action.project)
-			if (state.project && (!action.project || action.project.id === state.project.id)) return state
-			console.log("SETTING got PROJECT", action.project)
+	case REMOVE_CURRENT_WORKSPACE:
+		return { ...state, workspace: null, project: null }
+	case GOT_CURRENT_PROJECT:
+		console.log("CONSIDERING got PROJECT", action.project)
+		if (state.project && (!action.project || action.project.id === state.project.id)) return state
+		console.log("SETTING got PROJECT", action.project)
 		return { ...state, project: action.project }
 	case REMOVE_CURRENT_PROJECT:
 		return { ...state, project: null }
@@ -173,7 +173,7 @@ export default function reducer(state = initialState, action) {
 			!user.projects.includes(action.id)) return state
 		return { ...state,
 			user: {...state.user,
-			projects: user.projects.filter(wId => wId !== action.id)} }
+			projects: user.projects.filter(pId => pId !== action.id)} }
 	}
 	default:
 		return state

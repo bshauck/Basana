@@ -24,13 +24,13 @@ class Task(db.Model):
     projectId = db.Column(db.Integer, db.ForeignKey(prodify('project.id'), ondelete='CASCADE'), nullable=True)
     internalProjectId = db.Column(db.Integer, db.ForeignKey(prodify('internal_project.id'), ondelete='CASCADE'), nullable=True)
     sectionId = db.Column(db.Integer, db.ForeignKey(prodify('section.id'), ondelete='CASCADE'), nullable=False)
-    assignee = db.Column(db.Integer, db.ForeignKey(prodify('userb.id'), ondelete='CASCADE'), nullable=True)
+    assignee = db.Column(db.Integer, db.ForeignKey(prodify('userb.id')), nullable=True)
     title = db.Column(db.String(50), nullable=False)
     description = db.Column(db.Text, nullable=True)
     statusId = db.Column(db.Integer, db.ForeignKey(prodify('status.id')), nullable=True, default=1)
     completed = db.Column(db.Boolean, default=False)
-    start = db.Column(db.Date, nullable=True)
-    due = db.Column(db.Date, nullable=True)
+    start = db.Column(db.TIMESTAMP(timezone=True), nullable=True)
+    due = db.Column(db.TIMESTAMP(timezone=True), nullable=True)
 
     section = db.relationship(
         'Section',

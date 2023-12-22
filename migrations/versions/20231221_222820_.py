@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 5d14c74376ba
+Revision ID: acbbee069edb
 Revises:
-Create Date: 2023-12-14 23:09:27.191738
+Create Date: 2023-12-21 22:28:20.491702
 
 """
 from alembic import op
@@ -11,9 +11,8 @@ import os
 environment = os.getenv("FLASK_ENV")
 SCHEMA = os.environ.get("SCHEMA")
 
-
 # revision identifiers, used by Alembic.
-revision = '5d14c74376ba'
+revision = 'acbbee069edb'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -82,8 +81,8 @@ def upgrade():
     sa.Column('viewId', sa.Integer(), nullable=True),
     sa.Column('description', sa.Text(), nullable=True),
     sa.Column('public', sa.Boolean(), nullable=True),
-    sa.Column('start', sa.Date(), nullable=True),
-    sa.Column('due', sa.Date(), nullable=True),
+    sa.Column('start', sa.TIMESTAMP(timezone=True), nullable=True),
+    sa.Column('due', sa.TIMESTAMP(timezone=True), nullable=True),
     sa.Column('completed', sa.Boolean(), nullable=True),
     sa.ForeignKeyConstraint(['colorId'], ['color.id'], ),
     sa.ForeignKeyConstraint(['iconId'], ['project_icon.id'], ),
@@ -106,7 +105,7 @@ def upgrade():
     sa.Column('internalProjectId', sa.Integer(), nullable=True),
     sa.Column('name', sa.String(length=50), nullable=False),
     sa.Column('index', sa.Integer(), nullable=False),
-    sa.Column('createdAt', sa.Date(), nullable=False),
+    sa.Column('createdAt', sa.TIMESTAMP(timezone=True), nullable=False),
     sa.ForeignKeyConstraint(['internalProjectId'], ['internal_project.id'], ondelete='CASCADE'),
     sa.ForeignKeyConstraint(['projectId'], ['project.id'], ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('id')
@@ -130,9 +129,9 @@ def upgrade():
     sa.Column('description', sa.Text(), nullable=True),
     sa.Column('statusId', sa.Integer(), nullable=True),
     sa.Column('completed', sa.Boolean(), nullable=True),
-    sa.Column('start', sa.Date(), nullable=True),
-    sa.Column('due', sa.Date(), nullable=True),
-    sa.ForeignKeyConstraint(['assignee'], ['userb.id'], ondelete='CASCADE'),
+    sa.Column('start', sa.TIMESTAMP(timezone=True), nullable=True),
+    sa.Column('due', sa.TIMESTAMP(timezone=True), nullable=True),
+    sa.ForeignKeyConstraint(['assignee'], ['userb.id'], ),
     sa.ForeignKeyConstraint(['internalProjectId'], ['internal_project.id'], ondelete='CASCADE'),
     sa.ForeignKeyConstraint(['ownerId'], ['userb.id'], ondelete='CASCADE'),
     sa.ForeignKeyConstraint(['projectId'], ['project.id'], ondelete='CASCADE'),
@@ -149,20 +148,21 @@ def upgrade():
     sa.PrimaryKeyConstraint('userId', 'taskId')
     )
     if environment == "production":
-        op.execute(f"ALTER TABLE color SET SCHEMA {SCHEMA};")
-        op.execute(f"ALTER TABLE project_icon SET SCHEMA {SCHEMA};")
-        op.execute(f"ALTER TABLE status SET SCHEMA {SCHEMA};")
-        op.execute(f"ALTER TABLE userb SET SCHEMA {SCHEMA};")
-        op.execute(f"ALTER TABLE view_type SET SCHEMA {SCHEMA};")
-        op.execute(f"ALTER TABLE workspace SET SCHEMA {SCHEMA};")
-        op.execute(f"ALTER TABLE internal_project SET SCHEMA {SCHEMA};")
-        op.execute(f"ALTER TABLE project SET SCHEMA {SCHEMA};")
-        op.execute(f"ALTER TABLE user_member_workspace SET SCHEMA {SCHEMA};")
-        op.execute(f"ALTER TABLE section SET SCHEMA {SCHEMA};")
-        op.execute(f"ALTER TABLE task SET SCHEMA {SCHEMA};")
-        op.execute(f"ALTER TABLE user_member_project SET SCHEMA {SCHEMA};")
-        op.execute(f"ALTER TABLE user_member_task SET SCHEMA {SCHEMA};")
-
+        def execSchema(s):
+            op.execute(f"ALTER TABLE {s} SET SCHEMA {SCHEMA};")
+        execSchema('color')
+        execSchema('project_icon')
+        execSchema('status')
+        execSchema('userb')
+        execSchema('view_type')
+        execSchema('workspace')
+        execSchema('internal_project')
+        execSchema('project')
+        execSchema('user_member_workspace')
+        execSchema('section')
+        execSchema('task')
+        execSchema('user_member_project')
+        execSchema('user_member_task')
     # ### end Alembic commands ###
 
 
