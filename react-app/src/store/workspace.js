@@ -37,6 +37,30 @@ const deletedWorkspace = (id, userId) => ({
     userId
 });
 
+
+// SELECTORS
+export const getWSInternalSections = team => state => {
+  let iProjectId = team.internalProjects[0]
+  console.log("iProjectId ", iProjectId)
+  let iSections = Object.values(state.sections).filter(s => !s.projectId)
+  console.log("iSections ", iSections)
+  let sections = iSections.filter(s => s.internalProjectId === iProjectId)
+  sections.sort((a,b) => b.id - a.id)
+  console.log("sections ", sections)
+  return sections
+}
+
+export const getWSAssignedTasks = team => state => {
+  console.log("getWSAssignedTasks", team, state)
+  let taskIds = team.tasks
+  console.log("taskIds", taskIds)
+  let wsTasks = taskIds.map(id => state.tasks[id])
+  console.log("wsTasks", wsTasks)
+  let tasks = wsTasks.filter(t => t.assignee === state.session.user.id)
+  console.log("tasks", tasks)
+  return tasks
+}
+
 // THUNKS
 export const thunkGetAllWorkspaces = () => async dispatch => {
     const url = `/api/workspaces`

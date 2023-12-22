@@ -49,6 +49,7 @@ class Section(db.Model):
         return {
             'id': self.id,
             'projectId': self.projectId,
+            'internalProjectId': self.internalProjectId,
             'name': self.name,
             'index': self.index,
             'createdAt': self.createdAt,
