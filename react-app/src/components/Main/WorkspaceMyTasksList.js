@@ -48,7 +48,7 @@ export default function WorkspaceMyTasksList() {
       <div className="task-body">
         <h1>Task List for Workspace internal Project with Sections</h1>
         <ul>
-          <li><SectionTableListHeader /></li>
+          <li><SectionTableListHeader project={appWorkspace.internalProjects[0]} /></li>
 
           <li><AddSectionLine project={project} /></li>
 

@@ -13,7 +13,7 @@ class Section(db.Model):
         super().__init__(**kwargs)
         db.session.add(self)
         self.createdAt = datetime.now()
-        self.index = self.currentMaxIndex() + self.initialIndexStep
+        self.index = self.index if self.index else self.currentMaxIndex() + self.initialIndexStep
 
     id = db.Column(db.Integer, primary_key=True)
     projectId = db.Column(db.Integer, db.ForeignKey(prodify('project.id'), ondelete='CASCADE'), nullable=True)

@@ -17,10 +17,14 @@ export const removeWorkspace = () => ({
 	type: REMOVE_CURRENT_WORKSPACE
 })
 
-export const gotProject = project => ({
-	type: GOT_CURRENT_PROJECT,
-	project
-})
+export const gotProject = project => {
+	let retVal = {
+		type: GOT_CURRENT_PROJECT,
+		project
+	}
+	console.log("in gotProject: ", retVal)
+	return retVal
+}
 
 export const removeProject = () => ({
 	type: REMOVE_CURRENT_PROJECT
@@ -119,16 +123,18 @@ export const signUp = body => async dispatch => {
 
 const initialState = { user: null, workspace: null, project: null}
 export default function reducer(state = initialState, action) {
+	console.log("SESSION reducer: ", action.type, action)
 	switch (action.type) {
 	case GOT_CURRENT_WORKSPACE:
-		console.log("SETTING got WS", action.workspace)
 		if (state.workspace && (!action.workspace || action.workspace.id === state.workspace.id)) return state
-		// if (!action.workspace || action.workspace?.id === state.workspace?.id) return state
+		console.log("SETTING got WS", action.workspace)
 		return { ...state, workspace: action.workspace, project: null }
-	case REMOVE_CURRENT_WORKSPACE:
-		return { ...state, workspace: null, project: null }
-	case GOT_CURRENT_PROJECT:
-		if (!action.project || action.project.id === state.project.id) return state
+		case REMOVE_CURRENT_WORKSPACE:
+			return { ...state, workspace: null, project: null }
+		case GOT_CURRENT_PROJECT:
+			console.log("CONSIDERING got PROJECT", action.project)
+			if (state.project && (!action.project || action.project.id === state.project.id)) return state
+			console.log("SETTING got PROJECT", action.project)
 		return { ...state, project: action.project }
 	case REMOVE_CURRENT_PROJECT:
 		return { ...state, project: null }

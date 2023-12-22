@@ -6,6 +6,7 @@ from .internal_project import seed_internal_projects, undo_internal_projects
 from .section import seed_sections, undo_sections
 from .task import seed_tasks, undo_tasks
 
+
 def setup_seed_commands(app):
     from flask.cli import AppGroup
     seed_commands = AppGroup('seed')

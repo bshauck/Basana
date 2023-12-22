@@ -1,12 +1,11 @@
 # app/seeds/createSeeds.py
-# from app.app_factory import create_app
-# from flask import current_app
-from app.models import db, User
-# from copy import copy
+
+from app.models import User
+from random import randint, choice
 
 seedNames = \
 [
-# Adds a demo user, you can add other users here if you want
+# Adds a demo user, you can add other users here
 'Demo Lition',
 'Alex Thoo',
 'Andrei Vorobev',
@@ -32,25 +31,27 @@ seedNames = \
 'Zohaib Rajan',
 ]
 seedEmails = [n.split(' ')[0].lower() + '@aa.io' for n in seedNames]
-seedUserIds = []
-
-def getIds():
-    global seedUserIds
-    if len(seedUserIds) == 0:
-        with db.session.no_autoflush:
-            tuples = db.session.query(User.id).filter(User.email.in_(seedEmails)).all()
-            seedUserIds = [t[0] for t in tuples]
-            print("emails:", seedEmails)
-            print("Seed ids", seedUserIds)
-    return seedUserIds
 
 users = []
 
+# Although we query, no explicit commit();
+# we assume seeding will handle that for us
 def getUsers():
     global users
     if len(users) == 0:
         users = User.query.filter(User.email.in_(seedEmails)).all()
     return users
+
+seedUserIds = []
+
+def getIds():
+    global seedUserIds
+    if len(seedUserIds) == 0:
+        users = getUsers()
+        seedUserIds = [u.id for u in users]
+        print("emails:", seedEmails)
+        print("Seed ids", seedUserIds)
+    return seedUserIds
 
 teamNames = [
     "Agile Developers",
@@ -142,21 +143,19 @@ teamNames = [
     "Zero Gravity"
 ]
 
-import random
-
 adjectives = ["Dynamic", "Agile", "Innovative", "Strategic", "Synergistic", "Powerful", "Determined", "Fearless", "Creative", "Relentless"]
 
 nouns = ["Eagles", "Pioneers", "Wizards", "Navigators", "Titans", "Lions", "Warriors", "Knights", "Gladiators", "Vikings"]
 
-team_name = random.choice(adjectives) + " " + random.choice(nouns)
+team_name = choice(adjectives) + " " + choice(nouns)
 
 
 def nextTeamName():
     global teamNames
-    if len(teamNames) > 0:
-        return teamNames.pop(random.randint(0, len(teamNames) - 1))
+    if len(teamNames):
+        return teamNames.pop(randint(0, len(teamNames) - 1))
     else:
-        return random.choice(adjectives) + " " + random.choice(nouns)
+        return choice(adjectives) + " " + choice(nouns)
 
 
 project_names_descriptions = [
@@ -222,10 +221,10 @@ project_names_descriptions = [
 
 def nextProjectNameDescription():
     global project_names_descriptions
-    if len(project_names_descriptions) > 0:
-        return project_names_descriptions.pop(random.randint(0, len(project_names_descriptions) - 1))
+    if len(project_names_descriptions):
+        return project_names_descriptions.pop(randint(0, len(project_names_descriptions) - 1))
     else:
-        return ("Project " + str(random.randint(100, 999)), "Description " + str(random.randint(100, 999)))
+        return ("Project " + str(randint(100, 999)), "Description " + str(randint(100, 999)))
 
 section_names = [
     "Initial Planning",
@@ -258,10 +257,11 @@ section_names = [
 
 def nextSectionName():
     global section_names
-    if len(section_names) > 0:
-        return section_names[random.randint(0, len(section_names) - 1)]
+    if len(section_names):
+        return section_names.pop(randint(0, len(section_names) - 1))
     else:
-        return "Section " + str(random.randint(100, 999))
+        return "Section " + str(randint(100, 999))
+
 
 
 task_names_descriptions = [
@@ -581,13 +581,13 @@ itask_names_descriptions = task_names_descriptions.copy()
 def nextTaskNameDescription():
     global task_names_descriptions
     if len(task_names_descriptions) > 0:
-        return task_names_descriptions.pop(random.randint(0, len(task_names_descriptions) - 1))
+        return task_names_descriptions.pop(randint(0, len(task_names_descriptions) - 1))
     else:
-        return ("Task " + str(random.randint(100, 999)), "Description " + str(random.randint(100, 999)))
+        return ("Task " + str(randint(100, 999)), "Description " + str(randint(100, 999)))
 
 def nextITaskNameDescription():
     global itask_names_descriptions
     if len(itask_names_descriptions) > 0:
-        return itask_names_descriptions.pop(random.randint(0, len(itask_names_descriptions) - 1))
+        return itask_names_descriptions.pop(randint(0, len(itask_names_descriptions) - 1))
     else:
-        return ("Task " + str(random.randint(100, 999)), "Description " + str(random.randint(100, 999)))
+        return ("Task " + str(randint(100, 999)), "Description " + str(randint(100, 999)))

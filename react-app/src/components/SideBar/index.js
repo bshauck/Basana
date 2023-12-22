@@ -1,6 +1,6 @@
 // src/components/SideBar/index.js
 import { useEffect } from 'react'
-import { Link, useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { thunkGetAllProjects, thunkGetWorkspaceProjects } from '../../store/project'
@@ -53,14 +53,16 @@ export default function SideBar() {
   function myTasks() {
     history.push(`/workspaces/${appWorkspace.id}/list`)
   }
-  // function selectProject(project) {
-  //   gotProject(project)
-  //   noDuplicateHistoryPush(`/projects/${project.id}`)
-  // }
+  function selectProject(project) {
+    console.log('in selectProject()')
+    // if (appProject && appProject.id !== project.id)
+      dispatch(gotProject(project))
+    noDuplicateHistoryPush(`/projects/${project.id}`)
+  }
   function selectWorkspace(workspace) {
     console.log("SETTING WORKSPACE in Sidebar/selectWorkspace", workspace)
 
-    gotWorkspace(workspace)
+    dispatch(gotWorkspace(workspace))
     noDuplicateHistoryPush(`/workspaces/${workspace.id}`)
   }
 
@@ -71,7 +73,7 @@ export default function SideBar() {
 
   if (!appWorkspace)  {
     if (!userWorkspaceIds.length)  return <h1>No appUserWorkspaceIds</h1>;
-    if (!workspaces.length)  return <h1>No workspaces</h1>;
+    if (!workspaces.length)  return <h1>Loading workspaces... please wait</h1>;
     console.log("SETTING WORKSPACE in Sidebar", userWorkspaces[0] )
     dispatch(gotWorkspace(userWorkspaces[0]))
     displayWorkspace = userWorkspaces[0]
@@ -105,12 +107,20 @@ export default function SideBar() {
       {wsProjects &&
       <ul>
         {wsProjects.map(p =>
-          (<li key={p.id} ><span><div className="sidebar-project-listing">
-          <Link to={`/projects/${p.id}`}>
+          (
+          <li key={p.id} ><div className="sidebar-project-listing"
+           onClick={e=>selectProject(p)}><span>
           {projectIcon(p)}
               {` ${p.name}`}
-          </Link></div></span>
-          </li>))}
+              </span></div>
+          </li>
+          // <li key={p.id} ><span><div className="sidebar-project-listing">
+          // <Link to={`/projects/${p.id}`}>
+          // {projectIcon(p)}
+          //     {` ${p.name}`}
+          // </Link></div></span>
+          // </li>
+          ))}
       </ul>
       }
       </div>

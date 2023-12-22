@@ -50,7 +50,7 @@ export default function Landing() {
 
   const hours = new Date().getHours();
 
-  console.log(`USERS: ${users} WORKSPACES: ${workspaces} PROJECTS: ${projects}`)
+  // console.log(`USERS: ${users} WORKSPACES: ${workspaces} PROJECTS: ${projects}`)
 
 
   return (
