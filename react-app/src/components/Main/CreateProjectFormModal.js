@@ -1,8 +1,12 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
+
+import { gotProject } from "../../store/session";
 import { useModal } from "../../context/Modal";
-import { thunkCreateProject } from "../../store/project";
 import { simplify } from "../../utils/helpers";
+import { thunkCreateProject } from "../../store/project";
+
 
 function CreateProjectFormModal({ project}) {  /* for edit, pass in project */
   const dispatch = useDispatch();
@@ -11,6 +15,7 @@ function CreateProjectFormModal({ project}) {  /* for edit, pass in project */
   const [errors, setErrors] = useState([]);
   const { closeModal } = useModal();
   const appWorkspace = useSelector(state => state.session.workspace);
+  const history = useHistory();
 
   // const appUser = useSelector(state => state.session.user);
   // console.log('CreateProjectFormModal: appUser', appUser, 'appWorkspace', appWorkspace)
@@ -19,7 +24,11 @@ function CreateProjectFormModal({ project}) {  /* for edit, pass in project */
     e.preventDefault();
     const data = await dispatch(thunkCreateProject(appWorkspace.id, { name, public: isPublic }));
     if (data.errors) setErrors(simplify(data));
-    else closeModal()
+    else {
+      dispatch(gotProject(data))
+      closeModal()
+      history.push(`/projects/${data.id}`)
+    }
   }
 
   useEffect(() => {

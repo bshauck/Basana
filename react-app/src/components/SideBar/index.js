@@ -39,7 +39,7 @@ export default function SideBar() {
           dispatch(gotWorkspace(workspaces[userWorkspaceIds[0]]))
         }
     }
-  }, [dispatch, appUser, appWorkspace, userWorkspaceIds, wsProjectIds, userProjectIds, projectIds, workspaces]);
+  }, [dispatch, appUser, appProject, appWorkspace, userWorkspaceIds, wsProjectIds, userProjectIds, projectIds, workspaces]);
 
   const noDuplicateHistoryPush = (newUrl) => {
     if (history.location.pathname !== newUrl) {

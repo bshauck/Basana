@@ -107,7 +107,10 @@ export const thunkDeleteProject = id => async (dispatch, getState) => {
     const url = `/api/projects/${id}`
     const answer = await fetchData(url, { method: 'DELETE' });
     console.log("AFTER DELETING project: errors?", answer.errors)
-    if (!answer.errors) dispatch(deletedProject(id, getState().session.user.id))
+    if (!answer.errors) {
+      const delProj=getState().projects[id]
+      dispatch(deletedProject(id, delProj.ownerId, delProj.workspaceId))
+    }
     return answer
 }
 
