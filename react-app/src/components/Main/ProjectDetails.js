@@ -3,22 +3,21 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
 import { thunkGetUserProjects } from "../../store/project";
-import ProjectMenu from "./ProjectMenu";
+// import ProjectMenu from "./ProjectMenu";
+import ProjectSectionTableList from "../ProjectTaskList/ProjectSectionTaskList";
 
 export default function ProjectDetails() {
   const dispatch = useDispatch();
   const appUser = useSelector(state => state.session.user);
   const { projectId } = useParams();
-  const displayProject = useSelector(state => state.projects[projectId]);
+  const appProject = useSelector(state => state.session.project);
 
   const projectIds = useSelector(state => state.session.user?.projects);
   const [ref] = useState({});
   const rKey = 'projects';
 
 
-  console.log('PDetails projectIds', projectIds, 'displayProject', displayProject)
-
-  if (projectId !== ref) return (<h1>{`Project: ${projectId}`} <ProjectMenu project={displayProject} /></h1>)
+  console.log('PDetails projectIds', projectIds, 'appProject', appProject)
 
   if (!appUser) return null;
 
@@ -28,21 +27,25 @@ export default function ProjectDetails() {
     return null;
   } else if (ref[rKey]) delete ref[rKey]
 
-  if (!displayProject) return null;
+  if (!appProject) return null;
 
-  console.log('PDetails rendering ', projectId, displayProject)
+  console.log('PDetails rendering ', projectId, appProject)
 
 /* <span className="prMenu"><i className="fas fa-down-chevron"></i></span> */
 
   return (
     <div className="project-main">
       <div className="project-header">
-        <h2>Project: {`${displayProject ? 'XXXXX' : displayProject.name}`}</h2>
-        {/* <ProjectMenu project={displayProject} /> */}
+        <h2>Project: {appProject.name}</h2>
+        {/* <ProjectMenu project={appProject} /> */}
       </div>
       <div className="project-body">
-        <h1>Task List for Project with SEctions</h1>
+        <h1>|</h1>
+        <ul>
+          <li><ProjectSectionTableList project={appProject} /></li>
 
+          {/* <li><AddSectionLine project={project} /></li> */}
+         </ul>
       </div>
     </div>
   );

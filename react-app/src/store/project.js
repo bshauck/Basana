@@ -46,6 +46,20 @@ const deletedProject = (id, userId) => ({
     userId
 });
 
+
+
+// SELECTORS
+export const getProjectSectionTasks = project => state => {
+  let sectionIds = project.sections
+  let sections = sectionIds.map(id => state.sections[id])
+  sections.sort((a,b) => b.index - a.index)
+  console.log("getProjectSectionTasks: sections", sections)
+  // for (const section of sections)
+  //   section.tasks = section.tasks.map(tId => state.tasks[tId])
+  return sections
+}
+
+
 // THUNKS
 export const thunkGetAllProjects = () => async dispatch => {
     const url = `/api/projects`
