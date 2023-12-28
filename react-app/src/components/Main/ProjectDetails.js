@@ -31,7 +31,6 @@ export default function ProjectDetails() {
 
   console.log('PDetails rendering ', projectId, appProject)
 
-/* <span className="prMenu"><i className="fas fa-down-chevron"></i></span> */
 
   return (
     <div className="project-main">
