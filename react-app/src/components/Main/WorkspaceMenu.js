@@ -63,7 +63,7 @@ function WorkspaceMenu({ workspace, otherWorkspaces}) {
               onItemClick={closeMenu}
               modalComponent={<UpdateWorkspaceFormModal workspace={workspace} />}
             />
-        </>)} {user !== false && (
+        </>)} {user !== false && user.workspaces.length > 1 && (
             <OpenModalButton
               buttonText="Delete Workspace"
               onItemClick={closeMenu}

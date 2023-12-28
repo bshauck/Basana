@@ -127,7 +127,10 @@ export default function SideBar() {
       <div className="sidebar-teams">
       <div className="team-list-header"></div>  <h3>Team</h3> </div>
       <div className="team-active-listing">
-      <i className="fas fa-people-group" /><h4 onClick={()=>selectWorkspace(appWorkspace)} >{appWorkspace.name}</h4><WorkspaceMenu workspace={appWorkspace} otherWorkspaces={otherWorkspaces}  /> </div>
+        <i className="fas fa-people-group" />
+        <h4 onClick={()=>selectWorkspace(appWorkspace)} >{appWorkspace.name}</h4>
+        <WorkspaceMenu workspace={appWorkspace} otherWorkspaces={otherWorkspaces}  />
+      </div>
     </div>
   )
 }
