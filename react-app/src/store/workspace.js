@@ -121,7 +121,7 @@ export const thunkDeleteWorkspace = id => async (dispatch,getState) => {
     const url = `/api/workspaces/${id}`
     const answer = await fetchData(url, { method: 'DELETE' });
     console.log("AFTER DELETING workspace: errors?", answer.errors)
-    if (!answer.errors) dispatch(deletedWorkspace(id, getState.workspaces[id].ownerId))
+    if (!answer.errors) dispatch(deletedWorkspace(id, getState().workspaces[id].ownerId))
     return answer
 }
 
