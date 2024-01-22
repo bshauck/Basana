@@ -53,7 +53,6 @@ export const getProjectSectionTasks = project => state => {
   let sectionIds = project.sections
   let sections = sectionIds.map(id => state.sections[id])
   sections.sort((a,b) => b.index - a.index)
-  console.log("getProjectSectionTasks: sections", sections)
   // for (const section of sections)
   //   section.tasks = section.tasks.map(tId => state.tasks[tId])
   return sections
@@ -94,15 +93,12 @@ export const thunkGetProject = id => async dispatch => {
 }
 
 export const thunkCreateProject = (id, project) => async dispatch => {
-    console.log("CREATING project; wsId/project", id, project)
     const url = `/api/workspaces/${id}/projects/new`
     const answer = await fetchData(url, {
       method: 'POST',
       body: JSON.stringify(project)
     });
-    console.log("CREATING project; errprs?", answer.errors)
     if (!answer.errors) dispatch(createdProject(answer));
-    console.log("CREATING project; answer", answer)
     return answer;
 };
 
@@ -117,10 +113,8 @@ export const thunkUpdateProject = (id, data) => async dispatch => {
 }
 
 export const thunkDeleteProject = id => async (dispatch, getState) => {
-    console.log("DELETING project", id)
     const url = `/api/projects/${id}`
     const answer = await fetchData(url, { method: 'DELETE' });
-    console.log("AFTER DELETING project: errors?", answer.errors)
     if (!answer.errors) {
       const delProj=getState().projects[id]
       dispatch(deletedProject(id, delProj.ownerId, delProj.workspaceId))
@@ -146,7 +140,6 @@ const projectReducer = (state = initialState, action) => {
     case GOT_PROJECT: // eslint-disable-next-line no-fallthrough
     case CREATED_PROJECT: // eslint-disable-next-line no-fallthrough
     case UPDATED_PROJECT:
-      console.log("PR created PR: ws/userId", action.project, action.project.ownerId)
       return { ...state, [action.project.id]: {...action.project} };
     case DELETED_PROJECT:
       const newState = { ...state };

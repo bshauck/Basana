@@ -41,23 +41,16 @@ const deletedWorkspace = (id, userId) => ({
 // SELECTORS
 export const getWSInternalSections = team => state => {
   let iProjectId = team.internalProjects[0]
-  console.log("iProjectId ", iProjectId)
   let iSections = Object.values(state.sections).filter(s => !s.projectId)
-  console.log("iSections ", iSections)
   let sections = iSections.filter(s => s.internalProjectId === iProjectId)
   sections.sort((a,b) => b.id - a.id)
-  console.log("sections ", sections)
   return sections
 }
 
 export const getWSAssignedTasks = team => state => {
-  console.log("getWSAssignedTasks", team, state)
   let taskIds = team.tasks
-  console.log("taskIds", taskIds)
   let wsTasks = taskIds.map(id => state.tasks[id])
-  console.log("wsTasks", wsTasks)
   let tasks = wsTasks.filter(t => t.assignee === state.session.user.id)
-  console.log("tasks", tasks)
   return tasks
 }
 
@@ -82,27 +75,22 @@ export const thunkGetUserWorkspaces = userId => async dispatch => {
 
 
 export const thunkGetWorkspace = id => async dispatch => {
-    console.log("GETTING workspace", id)
     const url = `/api/workspaces/${id}`
     const answer = await fetchData(url)
     if (!answer.errors) {
-      console.log("GOT workspace", answer)
       dispatch(gotWorkspace(answer))
     }
     return answer
 }
 
 export const thunkCreateWorkspace = workspace => async dispatch => {
-    console.log("CREATING workspace", workspace)
     const url = `/api/workspaces/new`
     const answer = await fetchData(url, {
       method: 'POST',
       body: JSON.stringify(workspace),
     });
-    console.log("AFTER CREATING workspace: errors?", answer.errors)
 
     if (!answer.errors) dispatch(createdWorkspace(answer));
-    console.log("AFTER CREATING workspace: answer", answer)
   return answer;
 };
 
@@ -117,10 +105,8 @@ export const thunkUpdateWorkspace = (id, data) => async dispatch => {
 }
 
 export const thunkDeleteWorkspace = id => async (dispatch,getState) => {
-    console.log("DELETING workspace", id)
     const url = `/api/workspaces/${id}`
     const answer = await fetchData(url, { method: 'DELETE' });
-    console.log("AFTER DELETING workspace: errors?", answer.errors)
     if (!answer.errors) dispatch(deletedWorkspace(id, getState().workspaces[id].ownerId))
     return answer
 }

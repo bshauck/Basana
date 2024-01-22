@@ -21,9 +21,6 @@ export default function SectionTableListHeader({team}) {
       const sections = useSelector(getWSInternalSections(team))
       const tasks = useSelector(getWSAssignedTasks(team))
 
-      console.log("sections", sections)
-      console.log("tasks", tasks)
-
       if (!sections || !sections.length) {
         return []
       }
@@ -41,24 +38,18 @@ export default function SectionTableListHeader({team}) {
       const oneDay = 24 * 60 * 60 * 1000
       const oneWeek = 8 * oneDay
       const twoWeeks = 15 * oneDay
-      console.log("today", today)
-      console.log("oneDay", today + oneDay)
-      console.log("oneWeek", today + oneWeek)
-      console.log("twoWeeks", today + twoWeeks)
 
       const copyTasks = [...tasks]
       while (copyTasks.length) {
         const next = copyTasks.pop()
         next.id = next.id.toString()
         const date = Date.parse(next.due)
-        console.log("date", date, typeof date)
         let index = 1
         if (date < today) index = 0 // "Untitled section" over due (red)
         else if (date < today + oneDay) index = 2 // "Do today" due today (green)
         else if (date < today + oneWeek) index = 3 // "Do next week" due < today + 8 days (blue)
         else if (date < today + twoWeeks) index = 4 // "Do later" due < today + 8 days (blue)
         result[index].tasks.push(next)
-        console.log("index", index, sections[index].tasks)
       }
       for (const section of result)
         section.tasks.sort((a,b) => Date.parse(a.due) - Date.parse(b.due))

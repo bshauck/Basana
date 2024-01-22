@@ -30,8 +30,6 @@ export default function WorkspaceDetails() {
   // }
 
 
-  console.log('WSDetails: Id', workspaceId, 'displayWorkspace', displayWorkspace, 'appWorkspace', appWorkspace)
-
   useEffect(() => {
   }, [appWorkspace, displayWorkspace, workspaceId])
 
@@ -50,7 +48,6 @@ export default function WorkspaceDetails() {
       mappedWorkspace = allWorkspaces.find(w => w.id === workspaceId)
 
 
-  console.log('WDetails rendering id worksp', workspaceId, displayWorkspace)
 
 
   return (

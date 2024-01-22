@@ -17,7 +17,6 @@ export default function ProjectDetails() {
   const rKey = 'projects';
 
 
-  console.log('PDetails projectIds', projectIds, 'appProject', appProject)
 
   if (!appUser) return null;
 
@@ -29,7 +28,6 @@ export default function ProjectDetails() {
 
   if (!appProject) return null;
 
-  console.log('PDetails rendering ', projectId, appProject)
 
 
   return (

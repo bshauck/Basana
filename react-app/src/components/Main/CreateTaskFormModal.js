@@ -20,7 +20,6 @@ function CreateTaskFormModal({ task, project, section }) {
   const user = useSelector(state => state.session.user);
   const appWorkspace = useSelector(state => state.session.workspace);
 
-  console.log('CreateTaskFormModal: user', user, 'appWorkspace', appWorkspace)
 
   const handleSubmit = async e => {
     e.preventDefault();

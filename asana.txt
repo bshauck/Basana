@@ -1,0 +1,2 @@
+- it takes some time to load the workspace, understandable at some point i would either replace that text with a loading buffer or a skeleton of the workspace elements.
+- the sidebar is fine i just recoment aligning the icons with its text on the same line.
