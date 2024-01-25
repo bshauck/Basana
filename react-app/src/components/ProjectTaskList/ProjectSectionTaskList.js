@@ -22,8 +22,6 @@ export default function ProjectSectionTableList() {
     function useDataList(project) {
       const sections = useSelector(getProjectSectionTasks(project))
 
-      console.log("sections", sections)
-
       if (!sections || !sections.length) {
         return []
       }

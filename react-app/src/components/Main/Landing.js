@@ -23,7 +23,6 @@ export default function Landing() {
     if (user) {
     dispatch(thunkGetAllI_Projects)
     dispatch(thunkGetAllSections());
-    console.log('Landing: thunkGetAllTasks')
     dispatch(thunkGetAllProjects());
     dispatch(thunkGetAllTasks());
   }

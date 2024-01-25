@@ -22,7 +22,6 @@ export const gotProject = project => {
 		type: GOT_CURRENT_PROJECT,
 		project
 	}
-	console.log("in gotProject: ", retVal)
 	return retVal
 }
 
@@ -49,8 +48,7 @@ export const authenticate = () => async (dispatch) => {
 }
 
 export const login = (email, password) => async (dispatch) => {
-	console.log("login", email, password)
-	console.log("jsony: ", JSON.stringify({email, password}))
+
 
 	const answer = await fetchData("/api/auth/login", {
 		method: "POST",
@@ -78,8 +76,7 @@ export const signUp = body => async dispatch => {
 	const answer = await fetchData("/api/auth/signup", {
 		method: "POST",
 		body })
-	console.log("signup answer", answer)
-	console.log("signup answer.errors", answer.errors)
+
 	if (!answer.errors) dispatch(setUser(answer))
 	return answer
 
@@ -123,23 +120,18 @@ export const signUp = body => async dispatch => {
 
 const initialState = { user: null, workspace: null, project: null}
 export default function reducer(state = initialState, action) {
-	console.log("SESSION reducer: ", action.type, action)
 	switch (action.type) {
 	case GOT_CURRENT_WORKSPACE:
 		if (state.workspace && (!action.workspace || action.workspace.id === state.workspace.id)) return state
-		console.log("SETTING got WS", action.workspace)
 		return { ...state, workspace: action.workspace, project: null }
 	case REMOVE_CURRENT_WORKSPACE:
 		return { ...state, workspace: null, project: null }
 	case GOT_CURRENT_PROJECT:
-		console.log("CONSIDERING got PROJECT", action.project)
 		if (state.project && (!action.project || action.project.id === state.project.id)) return state
-		console.log("SETTING got PROJECT", action.project)
 		return { ...state, project: action.project }
 	case REMOVE_CURRENT_PROJECT:
 		return { ...state, project: null }
 	case SET_USER: {
-		console.log("Session SET_USER user ws:", action.user, action.workspace	)
 		if (!action.user) return initialState
 		if (state.user?.id === action.user.id) return state
 		const workspace = action.workspace || state.workspace
@@ -148,7 +140,6 @@ export default function reducer(state = initialState, action) {
 	case REMOVE_USER:
 		return initialState
 	case CREATED_WORKSPACE:
-		console.log("Session created WS ws/userId", action.workspace, action.workspace.ownerId)
 		if (!state.user || state.user.id !== action.workspace.ownerId) return state
 		return { ...state,
 		  user: {...state.user,
@@ -162,7 +153,6 @@ export default function reducer(state = initialState, action) {
 			workspaces: user.workspaces.filter(wId => wId !== action.id)} }
 	}
 	case CREATED_PROJECT:
-		console.log("Session created PR: pr/userId", action.project, action.project.ownerId)
 		if (!state.user || !state.user?.id || state.user.id !== action.project.ownerId) return state
 		return { ...state,
 		  user: {...state.user,

@@ -94,9 +94,7 @@ const userReducer = (state = initialState, action) => {
       delete newState[action.id]
       return newState
     case CREATED_WORKSPACE:
-      console.log("USER created WS ws/userId", action.workspace, action.workspace.ownerId)
       const user = state[action.workspace.ownerId]
-      console.log("USER lookup gives: ", user)
       if (!user) return state
       return { ...state,
         [action.workspace.ownerId]:
@@ -111,7 +109,6 @@ const userReducer = (state = initialState, action) => {
             workspaces: user.workspaces.filter(wId => wId !== action.id)} }
     }
     case CREATED_PROJECT:
-      console.log("Session created PR: pr/userId", action.project, action.project.ownerId)
       if (!state.user || state.user.id !== action.project.ownerId) return state
       return { ...state,
         user: {...state.user,

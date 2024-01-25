@@ -34,7 +34,6 @@ export default function SideBar() {
     if (!appWorkspace && userWorkspaceIds) {
         if (workspaces[userWorkspaceIds[0]]) {
           dispatch(thunkGetWorkspaceProjects(userWorkspaceIds[0]))
-          console.log("SETTING WORKSPACE in Sidebar/userEffect", workspaces[userWorkspaceIds[0]] )
 
           dispatch(gotWorkspace(workspaces[userWorkspaceIds[0]]))
         }
@@ -54,13 +53,11 @@ export default function SideBar() {
     history.push(`/workspaces/${appWorkspace.id}/list`)
   }
   function selectProject(project) {
-    console.log('in selectProject()')
     // if (appProject && appProject.id !== project.id)
       dispatch(gotProject(project))
     noDuplicateHistoryPush(`/projects/${project.id}`)
   }
   function selectWorkspace(workspace) {
-    console.log("SETTING WORKSPACE in Sidebar/selectWorkspace", workspace)
 
     dispatch(gotWorkspace(workspace))
     noDuplicateHistoryPush(`/workspaces/${workspace.id}`)
@@ -74,7 +71,6 @@ export default function SideBar() {
   if (!appWorkspace)  {
     if (!userWorkspaceIds.length)  return <h1>No appUserWorkspaceIds</h1>;
     if (!workspaces.length)  return <h1>Loading workspaces... please wait</h1>;
-    console.log("SETTING WORKSPACE in Sidebar", userWorkspaces[0] )
     dispatch(gotWorkspace(userWorkspaces[0]))
     displayWorkspace = userWorkspaces[0]
   } displayWorkspace = appWorkspace

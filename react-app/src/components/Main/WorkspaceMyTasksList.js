@@ -35,7 +35,6 @@ export default function WorkspaceMyTasksList() {
   }
 
 
-  console.log('Task Details rendering ')
 
 /* <span className="prMenu"><i className="fas fa-down-chevron"></i></span> */
 /* Get the right */

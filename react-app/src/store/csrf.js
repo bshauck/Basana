@@ -2,7 +2,6 @@
 // import Cookies from 'js-cookie';
 
 export async function csrfFetch(url, options = {}) {
-  console.log("csrfFetch", url, options);
   /* set progress cursor */
   const bodyClasses = document.body.classList;
   bodyClasses.add("waiting");
@@ -36,7 +35,6 @@ export async function csrfFetch(url, options = {}) {
   // call the default fetch with the url and the options passed in
   let res;
   try {
-    console.log("fetching", url, options);
     // console.trace();
     res = await fetch(url, options);
   } catch (error) {
@@ -62,7 +60,6 @@ export async function csrfFetch(url, options = {}) {
 
 export const fetchData = (url, options) => {
   /* Returns Promise which resolves to either data or errors */
-  console.log("fetchData", url, options);
   return csrfFetch(url, options)
     .then(response => response.ok
         ? response.json()

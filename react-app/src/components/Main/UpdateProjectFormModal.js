@@ -17,7 +17,6 @@ function UpdateProjectFormModal({ project }) {
   const user = useSelector(state => state.session.user);
   const appWorkspace = useSelector(state => state.session.workspace);
 
-  console.log('UpdateProjectFormModal: user', user, 'appWorkspace', appWorkspace)
 
   const handleSubmit = async e => {
     e.preventDefault();

@@ -3,7 +3,6 @@
  * is the value of the errors key, so a dicationary of error keys with arrays of
  * error messages. We want to convert this to an array of error messages. */
 export function simplify(fetchResult) {
-    console.log("SIMPLIFY", fetchResult)
     if (!fetchResult.errors) return []
     return Object.values(fetchResult.errors).flat()
 }
