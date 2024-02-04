@@ -1,2 +1,176 @@
 - it takes some time to load the workspace, understandable at some point i would either replace that text with a loading buffer or a skeleton of the workspace elements.
 - the sidebar is fine i just recoment aligning the icons with its text on the same line.
+
+
+
+● https://www.keybr.com/
+● https://monkeytype.com/
+● https://ranelpadon.github.io/ngram-type/
+● https://type-fu.com/
+
+
+
+1. Fix your face
+  Rested, clear skin, teeth
+2. Health: gym, trainer; sauna 4x week: cardiovascular events decline by 50%
+3. Bed: mattress, pillow (IKEA Bergven), linens
+4. Food (up quality, down quantity)
+5. Schedule (outsource everything, keep clear schedule, but be too busy to have coffee with someone that isn't worth it)
+6. Location
+7. Convenience
+8. Housecleaning, Autopay, Essential subscriptions, (autoinvest in index)
+9. Family time
+11. Stories and adventures
+12. Charity work
+13. Wardrobe
+14. Subscriptions (activities to meet new people)
+15. Taxes
+
+=============
+     1st Wk EZAPPLY [default: Senior Software Engineer]
+Affirm*
+Cinch Marketing*
+Cutover* [2?] Sr. Cloud Engineer
+CyberCoders* [middleman-redo]
+Elastic*
+Ganymede* 
+Generac Power Systems* Sr. DevOps Engineer
+Insight Global* Linux System Engineer
+Robles Pack*
+Spire*
+Wowza Media Systems* [2?] Sr. Software Developer
+
+    2nd Wk EZAPPLY
+Contentful
+Earnest
+HubSpot
+Knock
+ONE
+Pinterest
+Squarespace
+Veritone
+WellSky
+
+    3rd Wk EZAPPLY
+Big Cloud EZ
+BlueWater EZ
+DataFielder EZ
+DoorDash EZ
+DSA EZ
+Hydrogen Group EZ
+Insight Global EZ
+Oasys International EZ
+Sunrun
+Upstart EZ
+
+EZ
+FareHarbor
+HealthEdge
+Imply
+Invisible AI
+Lark
+Muck Rack
+Savvas Learning Company
+
+    QUALITY 1st Week
+*Array
+*AvantSearch
+*Cloudflare Sr Systems Engineer
+*Custodia Bank; Senior Backend Software Engineer (Remote US)
+*DataDog
+Fanatics
+*HIRECLOUT Sr Data Engineer, Python 
+ID.me
+John Deere
+*Motion Sr/Staff Software Engineer
+*NXT LEVEL Sr Software Engineer
+Peraton Labs [Fred Douglis]
+Pinterest
+Reddit
+Sofi EZ
+StubHub
+The College Board
+TikTok
+
+
+    QUALITY 2nd Week
+Atlassian
+CesiumAstro
+
+GitHub
+Grammarly
+
+
+    ENDGAME
+Airbnb
+Amazon
+Google
+LinkedIn EZ
+Microsoft
+Netflix
+
+    PREVIOUS BAD/LAID OFF
+Adobe
+Oracle
+
+OUTREACH 2nd week
+https://www.linkedin.com/in/james-done-1693066/
+
+
+
+DESK 6' x 3'
+Deskhaus Apex Pro (legs)
+Desk Haus: Apex Pro, Apex Pro Max, and Vertex Pro, and Vertex Pro Diamond: https://desk.haus/products/apex-pro-2?variant=39436448399509
+Flexispot Odin E7Q (60x30) $1019
+Flexispot E7Q: https://www.flexispot.com/flexispot-odin-4-leg-standing-desk
+    autodetect collision
+    hammock cable management
+    memory controller
+Uplift Commercial V2 
+Uplift V2 4 leg: https://www.upliftdesk.com/uplift-4-leg-standing-desk-v2-v2-commercial/?gclid=Cj0KCQiA37KbBhDgARIsAIzce16L_OYmFpcXoZFivtel3H9WAhe0jC7PDV5YNqeXE2KeGh9oXKer618aAoJNEALw_wcB
+
+
+=======================
+When changing resume
+Copies on local machine in Download
+Full resume on Google Drive in AA and AA/backup
+    https://docs.google.com/document/d/15lQP7kI7CrNeOWhz1UFktDsTNjr0wT4SRBXYDttgG0I/edit
+    https://docs.google.com/document/d/1u4ysDHu-xHM0WpHaU8Y7IITWUsmxYO8v5bSZwc1TXVE/edit
+Quick resume on Google Drive in AA and AA/backup
+    https://docs.google.com/document/d/1n3Yn0Rav43AyCr0qaATlfAfF-S12DZIgOWIvJtQxBCE/edit
+    https://docs.google.com/document/d/1mw3DWKO2XqDYOzXJidVYXqasWcHAHgyPjtCa_SyEBqw/edit
+
+    Copies on Huntr, LinkedIn, Simplify
+https://huntr.co/track/profile/builder/experience
+https://simplify.jobs/profile/99c9daba-1d19-462a-b3a7-d275f7995d3f
+
+
+
+    Pairboard
+    https://leetcode.com/problems/add-two-numbers/description/
+    https://leetcode.com/problems/climbing-stairs/description/
+
+
+
+Goals
+What is hard outside of Huntr goals (rent, etc)
+
+
+
+3 Outreach
+7 EZ
+15 quality
+3 coding
+
+
+
+
+communication skills 
+Perl
+version control
+continuous deployment
+cross-functional
+data models
+REST/
+Typescript
+Next.js
