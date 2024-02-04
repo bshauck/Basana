@@ -9,7 +9,7 @@ task_routes = Blueprint('tasks', __name__)
 @login_required
 def get_all_tasks():
     """
-    Query for all Tasks and returns them in a list of dictionaries
+    Query for all Tasks and return them in a list of dictionaries
     """
     print("DB: about to get all tasks")
     tasks = Task.query.all()
@@ -21,7 +21,7 @@ def get_all_tasks():
 @login_required
 def get_task(id):
     """
-    Query for a task by id and returns that task in a dictionary
+    Query for a task by id and return that task in a dictionary
     """
     task = Task.query.get(id)
     return task.to_dict()
@@ -31,7 +31,7 @@ def get_task(id):
 @login_required
 def create_task():
     """
-    Creates a new task and returns the new task in a dictionary
+    Creates a new task and return the new task in a dictionary
     """
 
     form = TaskForm()
@@ -59,7 +59,7 @@ def create_task():
 @login_required
 def update_task(id):
     """
-    Updates a task and rturns the updated task in a ictionary
+    Updates a task and return the updated task in a ictionary
     """
 
     task = Task.query.get(id)
@@ -80,7 +80,7 @@ def update_task(id):
 @login_required
 def delete_task(id):
     """
-    Deletes an task and returns a message if successfully deleted
+    Deletes an task and return a message if successfully deleted
     """
     task = Task.query.get(id)
 
