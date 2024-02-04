@@ -78,6 +78,7 @@ export const signUp = body => async dispatch => {
 		body })
 
 	if (!answer.errors) dispatch(setUser(answer))
+	if (answer.errors) return answer
 	return answer
 
 
@@ -95,27 +96,8 @@ export const signUp = body => async dispatch => {
 // 		body
 // 	});
 
-// 	if (res.ok) {
-// 		const data = await res.json();
-// 		dispatch(setUser(data));
-// 		return data;
-// 	} else if (res.status < 600) {
-// 		const data = await res.json();
-// 		if (data.errors) {
-// 			return data;
-// 		} else return {errors: {system: data}}
-// 	}
-// } catch (error) {
-//     console.error(error);
-//     error.status = error.status || 500;
-//     if (error.errors) error.errors.fetch = "Failed to Fetch"
-//     else error.errors = {"fetch": "Failed to Fetch"}
-//     res = error;
-//   }
-//   finally {
-//     bodyClasses.remove("waiting");
-//   }
-//   return res;
+
+
 }
 
 const initialState = { user: null, workspace: null, project: null}
