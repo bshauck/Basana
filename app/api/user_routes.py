@@ -8,7 +8,7 @@ user_routes = Blueprint('users', __name__)
 @login_required
 def users():
     """
-    Query for all users and returns them in a list of user dictionaries
+    Query for all users and return them in a list of user dictionaries
     """
     users = User.query.all()
     return {'users': [user.to_dict() for user in users]}
@@ -17,7 +17,7 @@ def users():
 @login_required
 def user(id):
     """
-    Query for a user by id and returns that user in a dictionary
+    Query for a user by id and return that user in a dictionary
     """
     user = User.query.get(id)
     return user.to_dict()
@@ -26,7 +26,7 @@ def user(id):
 @login_required
 def user_projects(id):
     """
-    Query for a user's projects and returns a project collection
+    Query for a user's projects and return a project collection
     """
     print ("DB: about to get user's projects")
     if current_user.id != id:
@@ -39,7 +39,7 @@ def user_projects(id):
 @login_required
 def user_workspaces(id):
     """
-    Query for a user's workspaces and returns a workspaces collection
+    Query for a user's workspaces and return a collection of them
     """
     print ("DB: about to get user's workspaces")
     if current_user.id != id:
