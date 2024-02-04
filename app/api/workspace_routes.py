@@ -10,7 +10,7 @@ workspace_routes = Blueprint('workspaces', __name__)
 @login_required
 def get_all_workspaces():
     """
-    Query for all Workspaces and returns them in a list of dictionaries
+    Query for all workspaces and return them in a list of dictionaries
     """
     print("DB: about to get all workspaces")
     workspaces = Workspace.query.all()
@@ -22,7 +22,7 @@ def get_all_workspaces():
 @login_required
 def get_workspace(id):
     """
-    Query for a workspace by id and returns that workspace in a dictionary
+    Query for a workspace by id and return that workspace in a dictionary
     """
     workspace = Workspace.query.get(id)
     return workspace.to_dict()
@@ -32,7 +32,7 @@ def get_workspace(id):
 @login_required
 def create_workspace():
     """
-    Creates a new workspace and returns the new workspace in a dictionary
+    Creates a new workspace and return the new workspace in a dictionary
     """
 
     print("DB: about to create a new workspace")
@@ -67,7 +67,7 @@ def create_workspace():
 @login_required
 def update_workspace(id):
     """
-    Updates a workspace and rturns the updated workspace in a ictionary
+    Updates a workspace and return the updated workspace in a dictionary
     """
 
     workspace = Workspace.query.get(id)
@@ -90,7 +90,7 @@ def update_workspace(id):
 @login_required
 def delete_workspace(id):
     """
-    Deletes an workspace and returns a message if successfully deleted
+    Deletes a workspace and return a message if successfully deleted
     """
     print("DB: about to delete a workspace")
     workspace = Workspace.query.get(id)
@@ -108,7 +108,7 @@ def delete_workspace(id):
 @login_required
 def get_all_workspace_projects():
     """
-    Query for all Projects in a Workspace and returns them in a list of dictionaries
+    Query for all Projects in a Workspace and return them in a list of dictionaries
     """
     print("DB: about to get all projects")
     projects = Project.query.filter_by(Project.workspaceId == id).all()
@@ -157,7 +157,7 @@ def create_project_for_workspace(id):
 @login_required
 def user_workspace_tasks(workspaceId):
     """
-    Query for a user's tasks in a workspace and returns a task collection
+    Query for a user's tasks in a workspace and return a task collection
     """
     print ("DB: about to get user's tasks in a workspace")
 
