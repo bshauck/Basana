@@ -78,26 +78,7 @@ export const signUp = body => async dispatch => {
 		body })
 
 	if (!answer.errors) dispatch(setUser(answer))
-	if (answer.errors) return answer
 	return answer
-
-
-	// const headers = {};
-	// const body = formData;
-	// let res;
-	// if (formData.profilePicture)
-	// 	headers["Content-Type"] = "multipart/form-data"
-// 	const bodyClasses = document.body.classList;
-// 	bodyClasses.add("waiting");
-// 	try {
-// 	const res = await fetch("/api/auth/signup", {
-// 		method: "POST",
-// 		headers,
-// 		body
-// 	});
-
-
-
 }
 
 const initialState = { user: null, workspace: null, project: null}
