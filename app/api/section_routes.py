@@ -9,7 +9,7 @@ section_routes = Blueprint('sections', __name__)
 @login_required
 def get_all_sections():
     """
-    Query for all Sections and returns them in a list of dictionaries
+    Query for all Sections and return them in a list of dictionaries
     """
     print("DB: about to get all sections")
     sections = Section.query.all()
@@ -21,7 +21,7 @@ def get_all_sections():
 @login_required
 def get_section(id):
     """
-    Query for a section by id and returns that section in a dictionary
+    Query for a section by id and return that section in a dictionary
     """
     section = Section.query.get(id)
     return section.to_dict()
@@ -31,7 +31,7 @@ def get_section(id):
 @login_required
 def create_section():
     """
-    Creates a new section and returns the new section in a dictionary
+    Creates a new section and return the new section in a dictionary
     """
 
     form = SectionForm()
@@ -55,7 +55,7 @@ def create_section():
 @login_required
 def update_section(id):
     """
-    Updates a section and rturns the updated section in a ictionary
+    Updates a section and return the updated section in a dictionary
     """
 
     section = Section.query.get(id)
@@ -76,7 +76,7 @@ def update_section(id):
 @login_required
 def delete_section(id):
     """
-    Deletes an section and returns a message if successfully deleted
+    Deletes an section and return a message if successfully deleted
     """
     section = Section.query.get(id)
 
