@@ -9,7 +9,7 @@ project_routes = Blueprint('projects', __name__)
 @login_required
 def get_all_projects():
     """
-    Query for all Projects and returns them in a list of dictionaries
+    Query for all Projects and return them in a list of dictionaries
     """
     print("DB: about to get all projects")
     projects = Project.query.all()
@@ -21,7 +21,7 @@ def get_all_projects():
 @login_required
 def get_project(id):
     """
-    Query for a project by id and returns that project in a dictionary
+    Query for a project by id and return that project in a dictionary
     """
     project = Project.query.get(id)
     return project.to_dict()
@@ -31,7 +31,7 @@ def get_project(id):
 @login_required
 def create_project():
     """
-    Creates a new project and returns the new project in a dictionary
+    Creates a new project and return the new project in a dictionary
     """
 
     form = ProjectForm()
@@ -55,7 +55,7 @@ def create_project():
 @login_required
 def update_project(id):
     """
-    Updates a project and rturns the updated project in a ictionary
+    Update a project and return the updated project in a ictionary
     """
 
     project = Project.query.get(id)
@@ -81,7 +81,7 @@ def update_project(id):
 @login_required
 def delete_project(id):
     """
-    Deletes an project and returns a message if successfully deleted
+    Delete a project and return a message if successfully deleted
     """
     print("DB: about to delete a project")
     project = Project.query.get(id)
@@ -99,7 +99,7 @@ def delete_project(id):
 @login_required
 def get_all_project_tasks(id):
     """
-    Query for all Tasks within the given Project and returns them in a list of dictionaries
+    Query for all Tasks within the given Project and return them in a list of dictionaries
     """
     print("DB: about to get all project tasks")
     tasks = Task.query.filter_by(Task.projectId == id).all()
