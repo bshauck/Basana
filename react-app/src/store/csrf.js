@@ -58,8 +58,8 @@ export async function csrfFetch(url, options = {}) {
     return res;
   }
 
+/* Returns Promise which resolves to either data or errors */
 export const fetchData = (url, options) => {
-  /* Returns Promise which resolves to either data or errors */
   return csrfFetch(url, options)
     .then(response => response.ok
         ? response.json()
