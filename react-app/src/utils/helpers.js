@@ -51,17 +51,3 @@ function projectIconString(project) {
 }
 
 
-
-// function typeCheck(date) {
-//     return (typeof date === 'string' || typeof date === 'number')
-//         ? new Date(date) : date
-// }
-// export function ymd(date) { // return a string of YYYY-MM-DD of the date
-//     date = typeCheck(date);
-//     return date.toISOString().split('T')[0]
-// }
-
-// export function ymdt(date) { // return string YYYY-MM-DD 00:00:00 of the date
-//     // date = typeCheck(date); // not required; within dayDate
-//     return new Date(ymd(date)).toISOString().replace('T', ' ').split('.')[0]
-// }
