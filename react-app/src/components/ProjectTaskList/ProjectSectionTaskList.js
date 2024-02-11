@@ -1,4 +1,3 @@
-/* FA equivalengt of drag handle grip-vertical */
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector} from 'react-redux';
 
