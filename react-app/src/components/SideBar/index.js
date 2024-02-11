@@ -86,8 +86,6 @@ export default function SideBar() {
   if (!displayWorkspace) return null
   const otherWorkspaces = workspaces.filter(w => w.id !== appWorkspace.id);
 
-{/* <i className={`"${simpleProjectIcon(p)}"`} /> */}
-
 
   return (
     <div className="sidebar-container">

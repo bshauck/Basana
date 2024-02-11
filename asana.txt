@@ -41,15 +41,16 @@ Spire*
 Wowza Media Systems* [2?] Sr. Software Developer
 
     2nd Wk EZAPPLY
-Contentful
-Earnest
-HubSpot
-Knock
-ONE
-Pinterest
-Squarespace
-Veritone
-WellSky
+*Big Cloud Sr. S/w Eng.
+*Calix Staff S/w Eng.
+*Compass Staff S/w Eng.
+*DoorDash Staff S/w Eng.
+*Enigma Technologies Staff S/w Eng.
+*Funnel Sr. S/w Eng.
+*Headway Data Infrastructure Engineer
+*Knockaround Lead S/w Eng.
+*Sprout Social Staff S/w Eng.
+*Upstart Sr. S/w Eng.
 
     3rd Wk EZAPPLY
 Big Cloud EZ
@@ -64,47 +65,68 @@ Sunrun
 Upstart EZ
 
 EZ
+Contentful
+Earnest
 FareHarbor
 HealthEdge
+HubSpot
 Imply
 Invisible AI
+Knock
 Lark
 Muck Rack
+ONE
+Pinterest
 Savvas Learning Company
+Squarespace
+Veritone
+WellSky
 
     QUALITY 1st Week
-*Array
+*Array Principal S/w Eng.
 *AvantSearch
-*Cloudflare Sr Systems Engineer
-*Custodia Bank; Senior Backend Software Engineer (Remote US)
-*DataDog
-Fanatics
+*BRGeeks Application Sent!
+*Cloudflare Sr Systems Eng.
+*Custodia Bank; Senior Backend S/w Eng. (Remote US)
+*DataDog Sr. Backend Systems
+*Grafana Sr. S/w Eng.
 *HIRECLOUT Sr Data Engineer, Python 
-ID.me
-John Deere
-*Motion Sr/Staff Software Engineer
+*Motion Array Sr/Staff Software Engineer
 *NXT LEVEL Sr Software Engineer
-Peraton Labs [Fred Douglis]
-Pinterest
-Reddit
-Sofi EZ
-StubHub
-The College Board
-TikTok
+*Popmenu Sr. S/w Eng.
+*Recast S/w Sr. S/w Eng.
+
 
 
     QUALITY 2nd Week
-Atlassian
-CesiumAstro
+*Berkeley Research Group S/w Eng. 340B
+*Cribl Principal S/w Eng.
+*DataDog Staf S/w Eng.
+*Fathom Events Sr. S/w Eng.
+*ID.me S/w Dev. Eng.
+*Intelletec Sr. S/w Eng.
+*Mezmo Sr. S/w Eng.
+*Motion Array Sr. S/w Eng.
+*Pinterest Sr. Staff S/w Eng.
+*Signify Events Sr. S/w Eng.
+*The Trade Desk Staff S/w Eng.
+*United Product Eng.
+*Veewa Systems Sr. S/w Eng.
+*Wizard AI Staff S/w Eng.
+*Zeta Sr. S/w Eng.
 
-GitHub
-Grammarly
+CesiumAstro
+Peraton Labs [Fred Douglis]
+
 
 
     ENDGAME
 Airbnb
 Amazon
+Atlassian
+GitHub
 Google
+Grammarly
 LinkedIn EZ
 Microsoft
 Netflix
@@ -145,32 +167,8 @@ https://huntr.co/track/profile/builder/experience
 https://simplify.jobs/profile/99c9daba-1d19-462a-b3a7-d275f7995d3f
 
 
-
     Pairboard
     https://leetcode.com/problems/add-two-numbers/description/
     https://leetcode.com/problems/climbing-stairs/description/
 
 
-
-Goals
-What is hard outside of Huntr goals (rent, etc)
-
-
-
-3 Outreach
-7 EZ
-15 quality
-3 coding
-
-
-
-
-communication skills 
-Perl
-version control
-continuous deployment
-cross-functional
-data models
-REST/
-Typescript
-Next.js
