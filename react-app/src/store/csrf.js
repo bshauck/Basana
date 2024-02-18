@@ -6,8 +6,6 @@ export async function csrfFetch(url, options = {}) {
   const bodyClasses = document.body.classList;
   bodyClasses.add("waiting");
 
-  // If body is FormData leave it alone, browsers will handle it automatically
-
   // if (!(options?.isEvilFormData)) {
     // console.log("csrfFetch: not form data");
 
