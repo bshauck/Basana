@@ -19,7 +19,7 @@ export default function WorkspaceMyTasksList() {
 
   /* The My tasks list is that of an internal project of the combination of the workspace and the user. */
   /* We have the workspace (appWorkspace), and we know the current user. We look through the internal_projects of the user, looking for the one that has the workspaceId. */
-  /* then, we get the set of sections for that project, and pass iterate over that, putting up a small talbe for each section. */
+  /* then, we get the set of sections for that project, and pass iterate over that, putting up a small table for each section. */
 
 
   if (!appWorkspace) return null;
