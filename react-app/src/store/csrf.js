@@ -18,7 +18,6 @@ export async function csrfFetch(url, options = {}) {
     // if the options.method is not 'GET', then set the "Content-Type" header to
       // "application/json", and set the "XSRF-TOKEN" header to the value of the
       // "XSRF-TOKEN" cookie
-      // handled differently in flask
 
     if (options.method.toUpperCase() !== 'GET') {
       if (!options.headers['Content-Type'])
@@ -32,7 +31,6 @@ export async function csrfFetch(url, options = {}) {
   // call the default fetch with the url and the options passed in
   let res;
   try {
-    // console.trace();
     res = await fetch(url, options);
   } catch (error) {
     console.error(error);
