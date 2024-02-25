@@ -32,7 +32,6 @@ export async function csrfFetch(url, options = {}) {
   // call the default fetch with the url and the options passed in
   let res;
   try {
-    // console.trace();
     res = await fetch(url, options);
   } catch (error) {
     console.error(error);
