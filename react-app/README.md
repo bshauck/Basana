@@ -7,3 +7,5 @@ No environment variables are needed to run this application in development, but 
 This app will be automatically built when you push to your main branch on Github.
 
 We will transform this README to something which describes the project and gives directions on what to do to successfully fork it and get it up and running.
+
+One of the first steps is to create appropriate .env, .env.d, and .env.p files. (You'll copy .env.d/.p onto .env based on whether you are doing development or production testing.)
