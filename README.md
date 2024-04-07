@@ -11,4 +11,4 @@ https://github.com/bshauck/Basana/wiki
 
 ## Fork
 
-Add detailed steps for new deployment and
+Add detailed steps for new deployment and then add additional sections and descriptions to readme
