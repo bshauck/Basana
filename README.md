@@ -13,4 +13,4 @@ https://github.com/bshauck/Basana/wiki
 
 ## Fork
 
-Flesh out detailed steps
+Add detailed steps for new deployment and
