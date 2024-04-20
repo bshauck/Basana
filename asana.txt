@@ -24,9 +24,3 @@ Quick resume on Google Drive in AA and AA/backup
 https://huntr.co/track/profile/builder/experience
 https://simplify.jobs/profile/99c9daba-1d19-462a-b3a7-d275f7995d3f
 
-
-    Pairboard
-    https://leetcode.com/problems/add-two-numbers/description/
-    https://leetcode.com/problems/climbing-stairs/description/
-
-
