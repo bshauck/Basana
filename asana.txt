@@ -12,7 +12,7 @@
 =============
 
 When changing resume
-Copies on local machine in Download
+Copies on local machine in Download and ~/job/resume
 Full resume on Google Drive in AA and AA/backup
     https://docs.google.com/document/d/15lQP7kI7CrNeOWhz1UFktDsTNjr0wT4SRBXYDttgG0I/edit
     https://docs.google.com/document/d/1u4ysDHu-xHM0WpHaU8Y7IITWUsmxYO8v5bSZwc1TXVE/edit
@@ -24,3 +24,4 @@ Quick resume on Google Drive in AA and AA/backup
 https://huntr.co/track/profile/builder/experience
 https://simplify.jobs/profile/99c9daba-1d19-462a-b3a7-d275f7995d3f
 
+Add LinkedIn steps / URL here
