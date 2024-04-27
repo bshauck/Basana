@@ -35,4 +35,4 @@ C#
 Go
 Rust 
 
-Do I have my wallet?
+Do I have my wallet? And the other things necessary?
