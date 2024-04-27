@@ -1,14 +1,17 @@
 - it takes some time to load the workspace, understandable at some point i would either replace that text with a loading buffer or a skeleton of the workspace elements.
 - the sidebar is fine i just recoment aligning the icons with its text on the same line.
 
-
-For upcoming week, Mark wants us to have a link to a project which will be reviewed in the following week. So, upcoming week needs to have a project in decent shape for reviewal, which probably means either forking the group project, doing huge improvements to capstone, or going back to HeirErrBnb (which would mean adding all of that to all resume listings and electronic profiles).
+For upcoming week, Mark Rodriguez wants us to have a link to a project which will be reviewed in the following week. So, upcoming week needs to have a project in decent shape for reviewal, which probably means either forking the group project, doing huge improvements to capstone, or going back to HeirErrBnb (which would mean adding all of that to all resume listings and electronic profiles).
+Add BCMT & BCSM to full resume, and create a "healthQuick" resume which includes those. Use this for Notable. Create cover letter emphasizing past travel work as consultant.
 
 Skills we need to be adding:
 
-Vite 
 TypeScript 
 BootStrap / TailWind / SASS 
+
+Next.js 
+
+Vite (instead of CRA)
 
 Kubernetes
 (use) Docker
@@ -31,3 +34,5 @@ Java
 C#
 Go
 Rust 
+
+Do I have my wallet?
